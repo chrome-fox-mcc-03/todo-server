@@ -2,6 +2,8 @@ const { Todo } = require('../models/index')
 
 class todoController {
     static create(req, res) {
+        console.log(`1`);
+        
         Todo.create({
             title: req.body.title,
             description: req.body.description,
@@ -12,7 +14,7 @@ class todoController {
             res.status(200).json(result);
         })
         .catch(error => {
-            res.status(400);
+            res.status(400).json(error);
         })
     }
 
