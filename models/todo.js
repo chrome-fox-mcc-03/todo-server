@@ -11,11 +11,25 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     description: DataTypes.STRING,
-    status: DataTypes.BOOLEAN,
-    due_date: DataTypes.DATE
+    status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    due_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      validate: {
+        isDate: true,
+        isAfter: Date.now().toString()
+      }
+    }
   }, {
+    hooks: {
+      beforeCreate() {
+        if(this.description == null) this.description = 'No description added.'
+      }
+    },
     sequelize
-    
   });
   ToDo.associate = function(models) {
     // associations can be defined here

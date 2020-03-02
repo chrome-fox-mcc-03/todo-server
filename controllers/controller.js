@@ -17,7 +17,7 @@ class Controller {
         ToDo.create(newItem)
             .then(todo => res.status(201).json(todo))
             .catch(err => {
-                if(err.name === 'SequelizeValidationError') return res.status(400).json(err.errors[0].message)
+                if(err.name === 'SequelizeValidationError') return res.status(400).json(err)
                 else return res.status(500).json(err)
             })
         // res.status(200).json(newItem)
@@ -50,7 +50,7 @@ class Controller {
                 return res.status(201).json(todo)
             })
             .catch(err => {
-                if(err.name === 'SequelizeValidationError') return res.status(400).json(err.errors[0].message)
+                if(err.name === 'SequelizeValidationError') return res.status(400).json(err)
                 else return res.status(500).json(err)
             })
     }
