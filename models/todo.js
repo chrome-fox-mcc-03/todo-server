@@ -6,8 +6,26 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     description: DataTypes.STRING,
     status: DataTypes.BOOLEAN,
-    due_date: DataTypes.DATE
+    due_date: {
+      type: DataTypes.DATE,
+      validate:{
+        dueDateIsYesterday(value){
+          let dueDate = new Date(value).toLocaleDateString()
+          let nowDate = new Date().toLocaleDateString()
+          if(dueDate < nowDate){
+            throw new Error('Due date cannot be yesterday!')
+          }
+        }
+      },
+    }
   },{
+    hooks:{
+      beforeCreate: (todo) => {
+        if(!todo.description){
+          todo.description = todo.title
+        }
+      }
+    }, 
     sequelize
   })
   

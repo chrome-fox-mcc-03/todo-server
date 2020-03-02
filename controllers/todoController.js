@@ -2,7 +2,7 @@ const { Todo } = require('../models')
 
 
 class TodoController{
-    static showData(req, res){
+    static showAllTodo(req, res){
         Todo.findAll()
             .then(results => {
                 res.status(200).json(
@@ -14,7 +14,7 @@ class TodoController{
             })
     }
 
-    static createData(req, res){
+    static createTodo(req, res){
         Todo.create({
             title: req.body.title,
             description: req.body.description,
@@ -22,11 +22,14 @@ class TodoController{
             due_date: req.body.due_date
         })
         .then(result => {
+            // console.log(req.body.due_date);
+            
             res.status(201).json({
                 data: result
             })
         })
         .catch(err => {
+            // let errorMessage = err.error
             res.status(500).json({err})
         })
     }
