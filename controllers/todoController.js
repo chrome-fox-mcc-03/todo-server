@@ -4,7 +4,11 @@ const { Todo } = require('../models/index')
 
 class Controller {
     static findAll(req, res){
-        Todo.findAll()
+        Todo.findAll({
+            attributes:{
+                exclude: ['createdAt', 'updatedAt']
+            }
+        })
         .then(todos => res.status(200).json(todos))
         .catch(err => res.status(500).json(err))
     }
@@ -23,6 +27,9 @@ class Controller {
         Todo.findAll({
             where:{
                 id:req.params.id
+            },
+            attributes:{
+                exclude: ['createdAt', 'updatedAt']
             }
         })
         .then(todo => res.status(200).json(todo))
@@ -44,6 +51,9 @@ class Controller {
             return Todo.findAll({
                 where:{
                     id:req.params.id
+                },
+                attributes:{
+                    exclude: ['createdAt', 'updatedAt']
                 }
             })
         })
@@ -55,6 +65,9 @@ class Controller {
         Todo.findAll({
             where: {
                 id: req.params.id
+            },
+            attributes:{
+                exclude: ['createdAt', 'updatedAt']
             }
         })
         .then(deletedTodo => {
