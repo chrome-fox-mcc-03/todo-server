@@ -20,13 +20,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         isDate: true,
-        isAfter: Date.now().toString()
+        isAfter: new Date().toString()
       }
     }
   }, {
     hooks: {
-      beforeCreate() {
-        if(this.description == null) this.description = 'No description added.'
+      beforeCreate(todo, options) {
+        if(!todo.description) todo.description = 'No description added.'
       }
     },
     sequelize
