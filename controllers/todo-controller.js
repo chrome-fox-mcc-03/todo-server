@@ -11,8 +11,8 @@ class TodoController {
             .then((todo) => {
                 res.status(201).json(todo)
             })
-            .catch(() => {
-                res.status(500)
+            .catch((err) => {
+                res.status(500).json(err)
             })
     }
 
@@ -56,8 +56,8 @@ class TodoController {
             .then((updatedTodo) => {
                 res.status(200).json(updatedTodo[1])
             })
-            .catch(() => {
-                res.status(500)
+            .catch((err) => {
+                res.status(500).json(err)
             })
     }
 

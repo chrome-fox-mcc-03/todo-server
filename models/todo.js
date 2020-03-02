@@ -14,7 +14,13 @@ module.exports = (sequelize, DataTypes) => {
     },
     description: DataTypes.STRING,
     status: DataTypes.BOOLEAN,
-    due_date: DataTypes.DATE
+    due_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      validate: {
+        isAfter: `${new Date().toLocaleDateString()}`
+      }
+    }
   }, {});
   Todo.associate = function(models) {
     // associations can be defined here

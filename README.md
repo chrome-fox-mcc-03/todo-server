@@ -25,7 +25,7 @@
 * **Success Response:**
 
   * **Code:** 201 <br />
-    **Content:** `{ id : 12, title : By Coffee, description: I'm thirsty, status:false, due_date: 2020-03-15T00:00:00.000Z, updatedAt: 2020-03-02T09:01:21.377Z, createdAt: 2020-03-02T09:01:21.377Z }`
+    **Content:** `{ id : 12, title : Buy Coffee, description: I'm thirsty, status:false, due_date: 2020-03-15T00:00:00.000Z, updatedAt: 2020-03-02T09:01:21.377Z, createdAt: 2020-03-02T09:01:21.377Z }`
  
 * **Error Response:**
 
@@ -100,7 +100,7 @@
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** `{ id: 2, title: By Coffee, description: I'm thirsty, status: false, due_date: 2020-03-15T00:00:00.000Z, createdAt: 2020-03-02T09:01:21.377Z, updatedAt: 2020-03-02T09:01:21.377Z }`
+    **Content:** `{ id: 2, title: Buy Coffee, description: I'm thirsty, status: false, due_date: 2020-03-15T00:00:00.000Z, createdAt: 2020-03-02T09:01:21.377Z, updatedAt: 2020-03-02T09:01:21.377Z }`
  
 * **Error Response:**
 
