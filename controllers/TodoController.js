@@ -1,5 +1,5 @@
 const {Todo} = require("../models")
-
+let id
 class TodoController {
 
     static create(req, res) {
@@ -15,7 +15,7 @@ class TodoController {
             res.status(201).json(todo)
         })
         .catch(err => {
-            res.status(500).json({err:err, message: "SERVER ERROR"})
+            res.status(500).json({error:err})
         })
     }
 
@@ -27,7 +27,7 @@ class TodoController {
                 res.status(200).json({todos:todos, message: "Here are the complete list"})
             })
             .catch(err => {
-                res.status(500).json({err:err, message: "SERVER ERROR"})
+                res.status(500).json({error:err})
             })
 
     }
@@ -44,45 +44,59 @@ class TodoController {
             if(todo) {
                 res.status(200).json({todo:todo, message: "Entry found"})
             } else {
-                throw new Error()
+                throw ("Index not Found")
             }
         })
         .catch(err => {
             // console.log(err);
-            res.status(500).json({err:err, message: "ENTRY NOT FOUND"})
+            res.status(500).json({error:err})
         })
     }
 
     static update(req, res) {
+        // console.log(req.body);
         Todo.update({
-            title: req.body.id,
+            title: req.body.title,
             description: req.body.description,
             status: req.body.status,
             due_date: req.body.due_date
         }, {
             where: {
                 id: +req.params.id
-            }
+            },
+            returning: true
         })
         .then(updated => {
-            res.status(200).json({todo:updated, message: "Entry updated"})
+            if(updated[1].length !== 0) {
+                console.log(`updating`)
+                console.log(updated);;
+                res.status(200).json({todo:updated[1], message: "Entry updated"})
+            } else {
+                throw("Index not found")
+            }
         })
         .catch(err => {
-            res.status(500).json({err:err, message: "UPDATE FAILED"})
+            res.status(500).json({error:err})
         })
     }
 
     static delete(req, res) {
+        id = +req.params.id
         Todo.destroy({
             where: {
                 id: +req.params.id
             }
         })
         .then(deleted => {
-            res.status(200).json({todo:deleted, message: "Delete Success"})
+            if(deleted === 1) {
+                res.status(200).json({todo:deleted, message: `Delete success for ID ${id}`})
+            } else {
+                throw("Index not Found")
+            }
+            
         })
         .catch(err => {
-            res.status(500).json({err:err, message: "DELETE FAILED"})
+            res.status(500).json({error:err})
         })
     }
 
