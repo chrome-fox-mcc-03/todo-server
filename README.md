@@ -102,6 +102,10 @@
 
   * **Code:** 500 Internal Server Error <br />
 
+  OR
+
+  * **Code:** 400 UNAUTHORIZED <br />
+    **Content:** `{ error : "ERROR 400: Data is not valid!" }`
 ------
   
 **Show Todo by "id"**
@@ -146,6 +150,10 @@
 
   * **Code:** 500 Internal Server Error <br />
 
+  OR
+
+  * **Code:** 404 UNAUTHORIZED <br />
+    **Content:** `{ error : "ERROR 404: Data not found" }`
 ------
 
 **Update Todo by "id"**
@@ -193,6 +201,15 @@
 
   * **Code:** 500 Internal Server Error <br />
 
+  OR
+
+  * **Code:** 400 UNAUTHORIZED <br />
+    **Content:** `{ error : "ERROR 400: Data is not valid!" }`
+
+  OR
+
+  * **Code:** 404 UNAUTHORIZED <br />
+    **Content:** `{ error : "ERROR 404: Data not found" }`
 ------
 
 **Delete Todo by "id"**
@@ -237,3 +254,7 @@
 
   * **Code:** 500 Internal Server Error <br />
 
+  OR
+
+  * **Code:** 404 UNAUTHORIZED <br />
+    **Content:** `{ error : "ERROR 404: Data not found" }`
