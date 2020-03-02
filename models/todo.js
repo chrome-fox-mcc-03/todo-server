@@ -6,7 +6,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true
+        notEmpty: {
+          msg: 'Please enter title'
+        }
       }
     },
     description: DataTypes.STRING,
@@ -14,14 +16,18 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true
+        notEmpty: {
+          msg: 'Please enter status'
+        }
       }
     },
     due_date: {
       type: DataTypes.DATE,
       allowNull: false,
       validate: {
-        notEmpty: true
+        notEmpty: {
+          msg: 'Please enter due_date'
+        }
       }
     }
   }, {
