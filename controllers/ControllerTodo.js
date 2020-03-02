@@ -9,7 +9,17 @@ class ControllerTodo {
             due_date: req.body.due_date
         })
             .then(todo => res.status(201).json(todo))
-            .catch(err => res.status(500).json(err))
+            .catch(err => {
+                if (err.errors) {
+                    let errors = []
+                    err.errors.forEach(element => {
+                        errors.push(element.message)
+                    });
+                    res.status(500).json(errors)
+                } else {
+                    res.status(500).json(err)
+                }
+            })
     }
 
     static findAll(req, res) {
