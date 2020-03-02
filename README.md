@@ -49,7 +49,7 @@ Show all todo items from database.
 
 **Show One Todo Item**
 ----
-Show one todo item from database, according to id.
+Show one todo item from database, according to item's ID.
 * **URL**
 
     /todos/:id

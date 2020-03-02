@@ -50,6 +50,10 @@ module.exports = (sequelize, DataTypes) => {
         isDate: {
           args: true,
           msg: "Unable to parse date from input"
+        },
+        isAfter: {
+          args: new Date().toDateString(),
+          msg: "Cannot set past time as due date"
         }
       }
     }
