@@ -1,0 +1,14 @@
+[
+    {
+        "title": "wake up",
+        "description": "wake up, wash face, shower",
+        "status": false,
+        "due_date": "2020-03-01"
+    },
+    {
+        "title": "breakfast",
+        "description": "buy bread for breakfast in the nearest minimarket",
+        "status": false,
+        "due_date": "2020-03-01"
+    }
+]
