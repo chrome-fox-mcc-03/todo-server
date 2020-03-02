@@ -3,27 +3,27 @@
 const { Todo } = require('../models/index')
 
 class Controller {
-    static findAll(req, res){
+    static findAll(req, res, next){
         Todo.findAll({
             attributes:{
                 exclude: ['createdAt', 'updatedAt']
             }
         })
         .then(todos => res.status(200).json(todos))
-        .catch(err => res.status(500).json(err))
+        .catch(err => next(err))
     }
 
-    static create(req, res){
+    static create(req, res, next){
         Todo.create({
             title: req.body.title,
             description: req.body.description,
             due_date: req.body.due_date
         })
         .then(newTodo => res.status(201).json(newTodo))
-        .catch(err => res.status(500).json(err))
+        .catch(err => next(err))
     }
 
-    static findId(req, res){
+    static findId(req, res, next){
         Todo.findAll({
             where:{
                 id:req.params.id
@@ -33,10 +33,10 @@ class Controller {
             }
         })
         .then(todo => res.status(200).json(todo))
-        .catch(err => res.status(500).json(err))
+        .catch(err => next(err))
     }
 
-    static update(req, res){
+    static update(req, res, next){
         Todo.update({
             title: req.body.title,
             description: req.body.description,
@@ -58,14 +58,11 @@ class Controller {
             })
         })
         .then(updatedTodo => res.status(200).json(updatedTodo))
-        .catch(err => res.status(500).json(err))
+        .catch(err => next(err))
     }
 
-    static delete(req, res){
-        Todo.findAll({
-            where: {
-                id: req.params.id
-            },
+    static delete(req, res, next){
+        Todo.findByPk(req.params.id, {
             attributes:{
                 exclude: ['createdAt', 'updatedAt']
             }
@@ -79,7 +76,7 @@ class Controller {
             return deletedTodo
         })
         .then(deletedTodo => res.status(200).json(deletedTodo))
-        .catch(err => res.status(500).json(err))
+        .catch(err => next(err))
     }
 }
 

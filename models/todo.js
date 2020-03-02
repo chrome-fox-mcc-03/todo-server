@@ -2,7 +2,10 @@
 module.exports = (sequelize, DataTypes) => {
   class Todo extends sequelize.Sequelize.Model{}
   Todo.init({
-    title: DataTypes.STRING,
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     description: DataTypes.STRING,
     status:{
       type: DataTypes.BOOLEAN,
