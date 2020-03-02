@@ -20,7 +20,8 @@
     title : string,
     description: string,
     StatusId: integer,
-    due_Date: date
+    due_Date: date,
+    UserId: integer
   }
   ```
 
@@ -35,6 +36,7 @@
       description:'To easy your code while working a project',
       StatusId: 1,
       due_date: '2020-03-02',
+      UserId: 1,
       createdAt: "2020-03-02T07:45:05.993Z",
       updatedAt: "2020-03-02T07:45:05.993Z",
     }
@@ -56,6 +58,39 @@
       ]
     }
     ```
+  OR
+
+  * **Code:** 401 NOT AUTHENTICATED <br />
+    **Content:** 
+    ```
+    {
+      message : 'NOT AUTHENTICATED',
+      errors : ['Please login first']
+    }
+    ```
+
+  OR
+
+  * **Code:** 401 NOT AUTHENTICATED <br />
+    **Content:** 
+    ```
+    {
+      message : 'NOT AUTHENTICATED',
+      errors : ['Invalid Token Errors']
+    }
+    ```
+
+  OR
+
+  * **Code:** 401 NOT AUTHORIZED<br />
+    **Content:** 
+    ```
+    {
+      message : 'NOT AUTHORIZED',
+      errors : ['You are not authorized to view this page.']
+    }
+    ```
+
   OR
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
@@ -100,14 +135,22 @@
           description:'To easy your code while working a project',
           StatusId: 1,
           due_date: '2020-03-02',
+          UserId: 1,
           createdAt: "2020-03-02T07:45:05.993Z",
           updatedAt: "2020-03-02T07:45:05.993Z",
           Status : {
-                "id": 1,
-                "name": "ongoing",
-                "createdAt": "2020-03-02T06:52:07.340Z",
-                "updatedAt": "2020-03-02T06:52:07.340Z"
-              }
+            id: 1,
+            name: "ongoing",
+            createdAt: "2020-03-02T06:52:07.340Z",
+            updatedAt: "2020-03-02T06:52:07.340Z"
+          },
+          User: {
+            id: 1,
+            name: "April",
+            email: "april@gmail.com",
+            createdAt: "2020-03-02T09:49:06.087Z",
+            updatedAt: "2020-03-02T09:49:06.087Z"
+          }
         },
         {
           id: 2,
@@ -115,20 +158,50 @@
           description:'Look at from read.md',
           StatusId: 2,
           due_date: '2020-03-03',
+          UserId: 1,
           createdAt: "2020-03-02T07:45:05.993Z",
           updatedAt: "2020-03-02T07:45:05.993Z",
           Status : {
-                  "id": 2,
-                  "name": "overdue",
-                  "createdAt": "2020-03-02T06:52:07.340Z",
-                  "updatedAt": "2020-03-02T06:52:07.340Z"
-              }
+            "id": 2,
+            "name": "overdue",
+            "createdAt": "2020-03-02T06:52:07.340Z",
+            "updatedAt": "2020-03-02T06:52:07.340Z"
+          },
+          User: {
+            id: 1,
+            name: "April",
+            email: "april@gmail.com",
+            createdAt: "2020-03-02T09:49:06.087Z",
+            updatedAt: "2020-03-02T09:49:06.087Z"
+          }
         }
     ]
  
     ```
  
 * **Error Response:**
+
+  * **Code:** 401 NOT AUTHENTICATED <br />
+    **Content:** 
+    ```
+    {
+      message : 'NOT AUTHENTICATED',
+      errors : ['Please login first']
+    }
+    ```
+
+  OR
+
+  * **Code:** 401 NOT AUTHENTICATED <br />
+    **Content:** 
+    ```
+    {
+      message : 'NOT AUTHENTICATED',
+      errors : ['Invalid Token Errors']
+    }
+    ```
+
+  OR
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** 
@@ -173,14 +246,22 @@
       description:'To easy your code while working a project',
       StatusId: 2,
       due_date: '2020-03-02',
+      UserId: 1,
       createdAt: "2020-03-02T07:45:05.993Z",
       updatedAt: "2020-03-02T07:45:05.993Z",
       Status : {
-            "id": 2,
-            "name": "overdue",
-            "createdAt": "2020-03-02T06:52:07.340Z",
-            "updatedAt": "2020-03-02T06:52:07.340Z"
-        }
+          id: 2,
+          name: "overdue",
+          createdAt: "2020-03-02T06:52:07.340Z",
+          updatedAt: "2020-03-02T06:52:07.340Z"
+      },
+      User: {
+        id: 1,
+        name: "April",
+        email: "april@gmail.com",
+        createdAt: "2020-03-02T09:49:06.087Z",
+        updatedAt: "2020-03-02T09:49:06.087Z"
+      }
     }
     ```
  
@@ -190,10 +271,40 @@
     **Content:** 
     ```
     {
-      message : 'Bad Request',
-      error :  'not found',
+      message : 'Not Found',
+      errors :  'Not Found',
     }
     ```
+
+  * **Code:** 401 NOT AUTHENTICATED <br />
+    **Content:** 
+    ```
+    {
+      message : 'NOT AUTHENTICATED',
+      errors : ['Please login first']
+    }
+    ```
+
+  OR
+
+  * **Code:** 401 NOT AUTHENTICATED <br />
+    **Content:** 
+    ```
+    {
+      message : 'NOT AUTHENTICATED',
+      errors : ['Invalid Token Errors']
+    }
+    ```
+
+  OR
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** 
+    ```
+    {
+      message : 'Internal Server Error,
+    }
+    ```  
 
 ***
 
@@ -238,14 +349,9 @@
       description:'To easy your code while working a project',
       StatusId: 2,
       due_date: '2020-03-02',
+      UserId: 1,
       createdAt: "2020-03-02T07:45:05.993Z",
-      updatedAt: "2020-03-02T07:45:05.993Z",
-      Status : {
-            "id": 2,
-            "name": "overdue",
-            "createdAt": "2020-03-02T06:52:07.340Z",
-            "updatedAt": "2020-03-02T06:52:07.340Z"
-        }
+      updatedAt: "2020-03-02T07:45:05.993Z"
     }
 
     ```
@@ -271,12 +377,45 @@
     **Content:** 
     ```
     {
-      message : 'Bad Request',
-      error :  'not found',
+      message : 'Not Found',
+      errors :  ['Not Found'],
     }
     ```
 
   OR  
+
+  * **Code:** 401 NOT AUTHENTICATED <br />
+    **Content:** 
+    ```
+    {
+      message : 'NOT AUTHENTICATED',
+      errors : ['Please login first']
+    }
+    ```
+
+  OR
+
+  * **Code:** 401 NOT AUTHENTICATED <br />
+    **Content:** 
+    ```
+    {
+      message : 'NOT AUTHENTICATED',
+      errors : ['Invalid Token Errors']
+    }
+    ```
+
+  OR
+
+  * **Code:** 401 NOT AUTHORIZED<br />
+    **Content:** 
+    ```
+    {
+      message : 'NOT AUTHORIZED',
+      errors : ['You are not authorized to view this page.']
+    }
+    ```
+
+  OR
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** 
@@ -287,8 +426,10 @@
     ```
 
 ****
+
+**Delete Todo**
 ----
-  Delete Todo and Returns json data about a array.
+  Delete Todo and Returns json data about a message.
 
 * **URL**
 
@@ -313,9 +454,9 @@
   * **Code:** 200 <br />
     **Content:**
     ```
-    [
-      1
-    ]
+    {
+      message : 'Deleted Todo Seccessfully'
+    }
     ```
  
 * **Error Response:**
@@ -324,12 +465,45 @@
     **Content:** 
     ```
     {
-      message : 'Bad Request',
-      error :  'not found',
+      message : 'Not Found',
+      errors : ['Not Found] 
     }
     ```
 
   OR  
+
+  * **Code:** 401 NOT AUTHENTICATED <br />
+    **Content:** 
+    ```
+    {
+      message : 'NOT AUTHENTICATED',
+      errors : ['Please login first']
+    }
+    ```
+
+  OR
+
+  * **Code:** 401 NOT AUTHENTICATED <br />
+    **Content:** 
+    ```
+    {
+      message : 'NOT AUTHENTICATED',
+      errors : ['Invalid Token Errors']
+    }
+    ```
+
+  OR
+
+  * **Code:** 401 NOT AUTHORIZED<br />
+    **Content:** 
+    ```
+    {
+      message : 'NOT AUTHORIZED',
+      errors : ['You are not authorized to view this page.']
+    }
+    ```
+
+  OR
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** 
@@ -361,7 +535,7 @@
   {
     name : string,
     email: string,
-    password: integer
+    password: string
   }
   ```
 
@@ -408,4 +582,57 @@
     }
     ```
 
-    
+
+****
+
+**Login User**
+----
+  login user and Returns json data about a accessToken.
+
+* **URL**
+
+  /login
+
+* **Method:**
+
+  `POST`
+
+* **Data Params**
+
+  ```
+  {
+    email: string,
+    password: string
+  }
+  ```
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+    ```
+    {
+      accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFwcmlsIiwiZW1haWwiOiJhcHJpbEBnbWFpbC5jb20iLCJpYXQiOjE1ODMxNDQwNTh9.UpLvSulZRmT-CD-xaw8Zk-WvqVsLxC8g-_SEVdUAl4A"
+    }
+
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** 
+    ```
+    {
+      message : 'BAD REQUEST',
+      errors : ['Invalid email/password]
+    }
+    ```
+  OR
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** 
+    ```
+    {
+      message : 'Internal Server Error,
+    }
+    ```

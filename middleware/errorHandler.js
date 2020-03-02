@@ -33,14 +33,26 @@ module.exports = (err, req, res, next) => {
   } else if (err.name === 'Invalid Token Errors') {
     status = 401
     errObj = {
-      message : err.name,
+      message : 'NOT AUTHENTICATED',
       errors : [err.name]
     }
   } else if (err.name === 'Please login first') {
     status = 401
     errObj = {
-      message : err.name,
+      message : 'NOT AUTHENTICATED',
       errors : [err.name]
+    }
+  } else if (err.name === 'Not Authorized') {
+    status = 401
+    errObj = {
+      message : 'NOT AUTHORIZED',
+      errors : ['You are not authorized to view this page.']
+    }
+  } else if (err.name === 'Invalid email/password') {
+    status = 400
+    errObj = {
+      message : 'BAD REQUEST',
+      errors: [err.name]
     }
   }
 

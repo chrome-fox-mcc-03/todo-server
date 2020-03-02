@@ -1,4 +1,4 @@
-const { Todo, Status } = require('../models')
+const { Todo, Status, User } = require('../models')
 
 class TodoController {
   static create (req, res, next) {
@@ -6,26 +6,35 @@ class TodoController {
       title: req.body.title,
       description: req.body.description,
       StatusId: req.body.StatusId,
-      due_date: req.body.due_date
+      due_date: req.body.due_date,
+      UserId: req.currentUserId
     }
-    Todo.create(payload)
+    Todo.create(payload, {
+      include : {
+        model: User
+      }
+    })
       .then(todo => {
-        let dataTodo = {
-          title: todo.title,
-          description: todo.description,
-          StatusId: todo.StatusId,
-          due_date: todo.due_date
-        }
-        res.status(201).json(dataTodo)
+        res.status(201).json(todo)
       })
       .catch(next)
   }
 
   static findAll (req, res, next) {
     Todo.findAll({
-      include : {
-        model : Status
-      }
+      where : {
+        UserId : req.currentUserId
+      },
+      include : [
+        {
+          model : Status
+        }, {
+          model : User,
+          attributes : {
+            exclude : ['password']
+          }
+        }
+      ]
     })
       .then( todos => {
         res.status(200).json(todos)
@@ -37,11 +46,17 @@ class TodoController {
     let id = req.params.id
     Todo.findOne({
       where : {
-        id : id
+        id : id,
+        UserId : req.currentUserId
       },
-      include : {
-        model : Status
-      }
+      include : [{
+        model: Status
+      }, {
+        model: User,
+        attributes: {
+          exclude : ['password']
+        }
+      }]
     })
       .then( todo => {
         if (todo) {
@@ -65,9 +80,14 @@ class TodoController {
       where : {
         id : id
       },
-      include : {
+      include : [{
         model: Status
-      },
+      }, {
+        model : User,
+        attributes : {
+          exclude: ['password']
+        }
+      }],
       returning : true
     })
       .then( todo => {
@@ -84,9 +104,15 @@ class TodoController {
       }
     })
       .then( data => {
-        res.status(200).json({
-          message : 'Deleted Todo successfully'
-        })
+        if (data) {
+          res.status(200).json({
+            message : 'Deleted Todo successfully'
+          })
+        } else {
+          next ({
+            name: 'Not Found'
+          })
+        }
       })
       .catch(next)
   }
