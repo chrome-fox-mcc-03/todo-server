@@ -19,10 +19,9 @@ module.exports = (sequelize, DataTypes) => {
     due_date: {
       type: DataTypes.DATE,
       validate: {
-        isDateValid(value){
-          if(new Date(value) < new Date()) {
-            throw new Error('Date not valid')
-          }
+        isAfter: {
+          args: String(new Date()),
+          msg: 'Date is not valid.'
         }
       }
     }
