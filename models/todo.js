@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         isAfter: {
           args: new Date().toDateString(),
-          msg: 'date must after now date'
+          msg: 'Date must after now date'
         }
       }
     }

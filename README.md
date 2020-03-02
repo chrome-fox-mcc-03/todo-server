@@ -7,8 +7,9 @@
 
 * **URL**
 
+  ```
   /todos
-
+  ```
 * **Method:**
 
   `POST`
@@ -24,10 +25,10 @@
     **Required:**
  
    ```
-   title=[string]
-   description=[string]
-   status=[boolean]
-   due_date=[date]
+    title=[string]
+    description=[string]
+    status=[boolean]
+    due_date=[date]
    ```
    
 
@@ -97,7 +98,7 @@
 * **Error Response:**
 
   * **Code:** 500  <br />
-    **Content:** `{ error : "Todo With Id Not Found" }`
+    **Content:** `{ error : "Todo Not Found" }`
 
 **Update TODO**
 
@@ -124,14 +125,15 @@
    
 * **Data Params**
 
-  **Request Header**<br>
-      ```
-        Content-Type: "application/json"
-      ```
+  **Request Header**
 
-      **Request Body**<br>
-      **Required:**
-  
+    ```
+    Content-Type: "application/json"
+    ```
+
+    **Request Body**<br>
+    **Required:**
+
     ```
     title=[string]
     description=[string]
@@ -147,7 +149,7 @@
 * **Error Response:**
 
   * **Code:** 500  <br />
-    **Content:** `{ error : "Todo With Id Not Found" }`
+    **Content:** `{ error : "Todo Not Found" }`
 
 **Delete TODO**
 
@@ -180,4 +182,4 @@
 * **Error Response:**
 
   * **Code:** 500  <br />
-    **Content:** `{ error : "Todo With Id Not Found" }`
+    **Content:** `{ error : "Todo Not Found" }`
