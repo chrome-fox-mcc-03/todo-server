@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Walk dog to school",
+    "description": "Remember to bring rope",
+    "status": false,
+    "due_date": "2020-03-7"
+  },
+  {
+    "title": "Feed fish",
+    "description": "The fish only eats vegans food",
+    "status": true,
+    "due_date": "2020-03-12"
+  },
+  {
+    "title": "Drink water",
+    "description": "Remember to also remind your hydrobuddy",
+    "status": false,
+    "due_date": "2020-03-17"
+  },
+  {
+    "title": "Create resume",
+    "description": "Anything above one page will be automatically delete",
+    "status": true,
+    "due_date": "2020-03-22"
+  },
+  {
+    "title": "Clean your room",
+    "description": "Before cleaning the world",
+    "status": false,
+    "due_date": "2020-03-27"
+  }
+]
