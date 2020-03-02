@@ -33,6 +33,10 @@ module.exports = (sequelize, DataTypes) => {
           args: true,
           message: 'email must contain email format'
         }
+      },
+      unique: {
+        args: true,
+        message: 'email already in use'
       }
     },
     password: {
@@ -48,6 +52,6 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     }
-  })
+  }, { sequelize })
   return User;
 };

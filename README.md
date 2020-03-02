@@ -81,7 +81,13 @@
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** `{ message: "success login as <username>" }`
+    **Content:** 
+    ```javascript
+    {
+      token: <token>,
+      message: "success login as ${username}"
+    }
+    ```
  
 * **Error Response:**
 
@@ -119,6 +125,12 @@
         due_date: "23 Mei 2020"
     }
   ```
+
+*  **URL headers**
+
+    **Required:**
+
+    `token=[string]`
 
 * **Success Response:**
 
@@ -159,6 +171,12 @@
 *  **URL Params**
 
     None
+
+*  **URL headers**
+
+    **Required:**
+
+    `token=[string]`
 
 * **Data Params**
 
@@ -206,6 +224,12 @@
 
     None
 
+*  **URL headers**
+
+    **Required:**
+
+    `token=[string]`
+
 * **Success Response:**
 
   * **Code:** 201 <br />
@@ -251,6 +275,12 @@
 * **Data Params**
 
     None
+
+*  **URL headers**
+
+    **Required:**
+
+    `token=[string]`
 
 * **Success Response:**
 
