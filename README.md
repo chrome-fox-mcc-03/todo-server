@@ -132,11 +132,11 @@
     **Content:** 
     ```json
     {
-        "id": 6,
-        "title": "service motor",
-        "description": "gajadi isi bensin, serpis duluu",
+        "id": 3,
+        "title": "Olahraga",
+        "description": "Sehat",
         "status": false,
-        "due_date": "2020-03-01T17:00:00.000Z"
+        "due_date": "2020-03-04T00:00:00.000Z"
     }
     ```
  
@@ -177,11 +177,11 @@
     **Content:** 
     ```json
     {
-        "id": 3,
-        "title": "Olahraga",
-        "description": "Sehat",
+        "id": 6,
+        "title": "service motor",
+        "description": "gajadi isi bensin, serpis duluu",
         "status": false,
-        "due_date": "2020-03-04T00:00:00.000Z"
+        "due_date": "2020-03-01T17:00:00.000Z"
     }
     ```
  
