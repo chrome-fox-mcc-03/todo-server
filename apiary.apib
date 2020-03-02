@@ -1,0 +1,271 @@
+FORMAT: 1A
+HOST: http://localhost:3000
+
+# todos app
+
+Todo is a simple API allowing consumers to view his/her todo list and edit in them.
+
+## Todos Collection [/todos]
+
+### Create New Todo [POST]
+
++ Request (application/x-www-form-urlencoded)
+
+        {
+            "title": "belajar api",
+            "description": "belajar bikin doc api",
+            "status": false,
+            "due_date": "2020-03-03T00:00:00.000Z",
+            "updatedAt": "2020-03-02T08:37:36.849Z",
+            "createdAt": "2020-03-02T08:37:36.849Z"
+        }
+
++ Response 201 (application/x-www-form-urlencoded)
+
+        {
+            "id": 10,
+            "title": "belajar api",
+            "description": "belajar bikin doc api",
+            "status": false,
+            "due_date": "2020-03-03T00:00:00.000Z",
+            "updatedAt": "2020-03-02T08:37:36.849Z",
+            "createdAt": "2020-03-02T08:37:36.849Z"
+        }
+
++ Response 400 (application/x-www-form-urlencoded)
+
+        {
+        "name": "SequelizeValidationError",
+        "errors": [
+            {
+                "message": "Validation notEmpty on status failed",
+                "type": "Validation error",
+                "path": "status",
+                "value": "",
+                "origin": "FUNCTION",
+                "instance": {
+                    "id": null,
+                    "title": "belajar api",
+                    "description": "belajar bikin doc api",
+                    "status": "",
+                    "due_date": "2020-03-03T00:00:00.000Z",
+                    "updatedAt": "2020-03-02T09:14:11.761Z",
+                    "createdAt": "2020-03-02T09:14:11.761Z"
+                },
+                "validatorKey": "notEmpty",
+                "validatorName": "notEmpty",
+                "validatorArgs": [
+                    true
+                ],
+                "original": {
+                    "validatorName": "notEmpty",
+                    "validatorArgs": [
+                        true
+                    ]
+                }
+            }
+        ]
+        }
+
+### Find All Todos [GET]
+
++ Response 200 
+
+        [
+            {
+                "id": 2,
+                "title": "wake up",
+                "description": "wake up, wash face, shower",
+                "status": false,
+                "due_date": "2020-03-01T00:00:00.000Z",
+                "createdAt": "2020-03-02T06:25:38.018Z",
+                "updatedAt": "2020-03-02T06:25:38.018Z"
+            },
+            {
+                "id": 3,
+                "title": "breakfast",
+                "description": "buy bread for breakfast in the nearest minimarket",
+                "status": false,
+                "due_date": "2020-03-01T00:00:00.000Z",
+                "createdAt": "2020-03-02T06:25:38.018Z",
+                "updatedAt": "2020-03-02T06:25:38.018Z"
+            },
+            {
+                "id": 4,
+                "title": "cek",
+                "description": "test",
+                "status": false,
+                "due_date": "2020-03-02T00:00:00.000Z",
+                "createdAt": "2020-03-02T07:14:29.814Z",
+                "updatedAt": "2020-03-02T08:28:17.371Z"
+            },
+            {
+                "id": 10,
+                "title": "belajar api",
+                "description": "belajar bikin doc api",
+                "status": false,
+                "due_date": "2020-03-03T00:00:00.000Z",
+                "createdAt": "2020-03-02T08:37:36.849Z",
+                "updatedAt": "2020-03-02T08:37:36.849Z"
+            }
+            ]
+
++ Response 500
+
+## User Collection [/todos/{id}]
++ Parameters
+    + id (number) - ID of the data in the form of an integer
+
+### Find Todo By Id [GET]
+
++ Response 200 
+
+        [
+            {
+                "id": 3,
+                "title": "breakfast",
+                "description": "buy bread for breakfast in the nearest minimarket",
+                "status": false,
+                "due_date": "2020-03-01T00:00:00.000Z",
+                "createdAt": "2020-03-02T06:25:38.018Z",
+                "updatedAt": "2020-03-02T06:25:38.018Z"
+            }
+        ]
+
++ Response 404
+
+        {
+            "error": "error",
+            "message": "Id not found"
+        }
+    
+    
+### Update Todo By Id [PUT]
+
++ Request  (application/x-www-form-urlencoded)
+
++ Response 200 
+
+        [
+            {
+                "id": 3,
+                "title": "breakfast",
+                "description": "buy bread for breakfast in the nearest minimarket",
+                "status": false,
+                "due_date": "2020-03-01T00:00:00.000Z",
+                "createdAt": "2020-03-02T06:25:38.018Z",
+                "updatedAt": "2020-03-02T06:25:38.018Z"
+            }
+        ]
+
++ Response 400
+
+        {
+        "name": "SequelizeValidationError",
+        "errors": [
+            {
+                "message": "Validation notEmpty on title failed",
+                "type": "Validation error",
+                "path": "title",
+                "value": "",
+                "origin": "FUNCTION",
+                "instance": {
+                    "id": null,
+                    "title": "",
+                    "description": "test",
+                    "status": false,
+                    "due_date": "2020-03-02T00:00:00.000Z",
+                    "updatedAt": "2020-03-02T09:36:01.535Z"
+                },
+                "validatorKey": "notEmpty",
+                "validatorName": "notEmpty",
+                "validatorArgs": [
+                    true
+                ],
+                "original": {
+                    "validatorName": "notEmpty",
+                    "validatorArgs": [
+                        true
+                    ]
+                }
+            }
+        ]
+        }
+
++ Response 404
+
+        {
+            "error": "error",
+            "message": "Id not found"
+        }
+
+### Delete Todo By Id [DELETE]
+
++ Request  (application/x-www-form-urlencoded)
+
++ Response 200 
+
+        [
+            {
+                "id": 3,
+                "title": "breakfast",
+                "description": "buy bread for breakfast in the nearest minimarket",
+                "status": false,
+                "due_date": "2020-03-01T00:00:00.000Z",
+                "createdAt": "2020-03-02T06:25:38.018Z",
+                "updatedAt": "2020-03-02T06:25:38.018Z"
+            }
+        ]
+    
++ Response 404
+
+        {
+            "error": "error",
+            "message": "Id not found"
+        }
+
+### Create a New Question [POST]
+
+You may create your own question using this action. It takes a JSON
+object containing a question and a collection of answers in the
+form of choices.
+
++ Request (application/json)
+
+        {
+            "question": "Favourite programming language?",
+            "choices": [
+                "Swift",
+                "Python",
+                "Objective-C",
+                "Ruby"
+            ]
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /questions/2
+
+    + Body
+
+            {
+                "question": "Favourite programming language?",
+                "published_at": "2015-08-05T08:40:51.620Z",
+                "choices": [
+                    {
+                        "choice": "Swift",
+                        "votes": 0
+                    }, {
+                        "choice": "Python",
+                        "votes": 0
+                    }, {
+                        "choice": "Objective-C",
+                        "votes": 0
+                    }, {
+                        "choice": "Ruby",
+                        "votes": 0
+                    }
+                ]
+            }
