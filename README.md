@@ -32,6 +32,18 @@
     "due_date": "2020-05-27T00:00:00.000Z",
     "updatedAt": "2020-03-02T10:10:40.754Z",
     "createdAt": "2020-03-02T10:10:40.754Z"
+}`<br>
+<br>
+   **OR**
+   <BR>
+   `{
+    "id": 12,
+    "title": "nyebat",
+    "description": "nyebat",
+    "status": "pending",
+    "due_date": "2020-08-07T17:00:00.000Z",
+    "updatedAt": "2020-03-02T15:19:24.046Z",
+    "createdAt": "2020-03-02T15:19:24.046Z"
 }`
  
 * **Error Response:**
