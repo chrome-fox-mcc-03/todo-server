@@ -20,7 +20,7 @@
 
 * **Data Params**
 
-  None
+  `title=[string], description=[string], status=[boolean], due_date=[date]`
 
 * **Success Response:**
 
@@ -131,7 +131,7 @@
 
 * **Data Params**
 
-  None
+  `title=[string], description=[string], status=[boolean], due_date=[date]`
 
 * **Success Response:**
 
