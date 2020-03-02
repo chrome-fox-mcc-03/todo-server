@@ -30,7 +30,12 @@ class Controller {
         let todoId = req.params.id;
         Todo.findByPk(todoId)
             .then((result) => {
-                res.status(200).json(result);
+                if (result) {
+                    res.status(200).json(result);
+                } else {
+                    let error = new Error("id not found!");
+                    res.status(404).json(error);
+                }
             }).catch((err) => {
                 res.status(500).json(err);
             });
@@ -46,7 +51,7 @@ class Controller {
         }
         Todo.findByPk(todoId)
             .then((result) => {
-                if(result){
+                if (result) {
                     return Todo.update(data, {
                         where: {
                             id: todoId
@@ -55,6 +60,9 @@ class Controller {
                 } else {
                     throw new Error("id not found!");
                 }
+            })
+            .then((result) => {
+                return Todo.findByPk(todoId)
             })
             .then((result) => {
                 res.status(200).json(result);
@@ -70,12 +78,16 @@ class Controller {
         let deleted;
         Todo.findByPk(todoId)
             .then((result) => {
-                deleted = result
-                return Todo.destroy({
-                    where: {
-                        id: todoId
-                    }
-                })
+                if (result) {
+                    deleted = result
+                    return Todo.destroy({
+                        where: {
+                            id: todoId
+                        }
+                    })
+                } else {
+                    throw new Error("id not found!");
+                }
             })
             .then((result) => {
                 res.status(200).json(deleted);
