@@ -8,12 +8,24 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true
       }
     },
-    description: DataTypes.STRING,
+    description: {
+      type: DataTypes.STRING,
+      defaultValue: 'No description.'
+    },
     status:{
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
-    due_date: DataTypes.DATE
+    due_date: {
+      type: DataTypes.DATE,
+      validate: {
+        isDateValid(value){
+          if(new Date(value) < new Date()) {
+            throw new Error('Date not valid')
+          }
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'Todo'
