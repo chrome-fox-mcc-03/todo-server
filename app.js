@@ -12,8 +12,7 @@ app.use(express.urlencoded({ extended:false }))
 app.use(express.json())
 app.use(router)
 
-app.use(function(err, req, res, next){
-    res.status(500).json(err)
-})
+const errorHandler = require('./middlewares/errorHandler')
+app.use(errorHandler)
 
 app.listen(process.env.PORT, () => console.log('Listening on port ', process.env.PORT))

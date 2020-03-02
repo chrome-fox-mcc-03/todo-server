@@ -4,7 +4,9 @@ module.exports = (sequelize, DataTypes) => {
   Todo.init({
     title: {
       type: DataTypes.STRING,
-      allowNull: false
+      validate: {
+        notEmpty: true
+      }
     },
     description: DataTypes.STRING,
     status:{

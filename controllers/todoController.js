@@ -32,7 +32,10 @@ class Controller {
                 exclude: ['createdAt', 'updatedAt']
             }
         })
-        .then(todo => res.status(200).json(todo))
+        .then(todo => {
+            if(todo[0]) res.status(200).json(todo)
+            else throw new Error('Not found')
+        })
         .catch(err => next(err))
     }
 
@@ -57,7 +60,10 @@ class Controller {
                 }
             })
         })
-        .then(updatedTodo => res.status(200).json(updatedTodo))
+        .then(updatedTodo => {
+            if(updatedTodo[0]) res.status(200).json(updatedTodo)
+            else throw new Error('Not found')
+        })
         .catch(err => next(err))
     }
 
@@ -75,7 +81,10 @@ class Controller {
             })
             return deletedTodo
         })
-        .then(deletedTodo => res.status(200).json(deletedTodo))
+        .then(deletedTodo => {
+            if(deletedTodo) res.status(200).json(deletedTodo)
+            else throw new Error('Not found')
+        })
         .catch(err => next(err))
     }
 }
