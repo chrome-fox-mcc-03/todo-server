@@ -48,7 +48,7 @@ class TodoController {
                     let error = err.errors[0].message
                     res.status(400).json({error})
                 }
-                else if(err.errors[0].message === "Cannot back date, check your date!") {
+                else if(err.errors[0].message === "Cannot backdate, check your input date!") {
                     let error = err.errors[0].message
                     res.status(400).json({error})
                 }
@@ -65,7 +65,7 @@ class TodoController {
             .then(todo => {
                 if(todo) {
                     res.status(200).json({
-                        "message": `Successfully delete todo ${id}`
+                        "message": `Successfully delete todo ID: ${id}`
                     })
                 }
                 else {
@@ -92,7 +92,10 @@ class TodoController {
         Todo.update(input, {where: {id}, returning: true})
             .then(todo => {
                 if(todo[0] !== 0) {
-                    res.status(200).json({todo})
+                    res.status(200).json({
+                        todo,
+                        "message": `Successfully update Todo ID: ${id}`
+                    })
                 }
                 else {
                     res.status(404).json({
@@ -102,6 +105,10 @@ class TodoController {
             })
             .catch(err => {
                 if(err.errors[0].type === "notNull Violation") {
+                    let error = err.errors[0].message
+                    res.status(400).json({error})
+                }
+                else if(err.errors[0].message === "Cannot backdate, check your input date!") {
                     let error = err.errors[0].message
                     res.status(400).json({error})
                 }
