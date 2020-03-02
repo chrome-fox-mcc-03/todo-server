@@ -1,0 +1,31 @@
+{
+  "name": "todo-server",
+  "version": "1.0.0",
+  "description": "yes",
+  "main": "index.js",
+  "scripts": {
+    "test": "yes",
+    "dev": "NODE_ENV=development nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MizushimaShiba/todo-server.git"
+  },
+  "keywords": [
+    "yessss"
+  ],
+  "author": "Shiba",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MizushimaShiba/todo-server/issues"
+  },
+  "homepage": "https://github.com/MizushimaShiba/todo-server#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^7.18.2",
+    "sequelize": "^5.21.5"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  }
+}
