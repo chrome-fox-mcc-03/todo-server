@@ -23,7 +23,8 @@
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** `{
+    **Content:**<br>
+     `{
     "id": 6,
     "title": "halal bihalal",
     "description": "rangka hari raya",
@@ -36,32 +37,33 @@
 * **Error Response:**
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
-    **Content:** `{
-    "err": {
+    **Content:** <br>
+    `{
+    "error": {
         "name": "SequelizeValidationError",
         "errors": [
             {
-                "message": "All entries must be filled",
+                "message": "Title must be filled",
                 "type": "Validation error",
-                "path": "isNotNull",
-                "value": null,
+                "path": "title",
+                "value": "",
                 "origin": "FUNCTION",
                 "instance": {
                     "id": null,
-                    "title": "halal bihalal",
-                    "description": "rangka hari raya",
-                    "due_date": "2020-05-01T17:00:00.000Z",
-                    "updatedAt": "2020-03-02T10:17:41.256Z",
-                    "createdAt": "2020-03-02T10:17:41.256Z"
+                    "title": "",
+                    "description": "",
+                    "status": "pending",
+                    "due_date": "2020-09-09T00:00:00.000Z",
+                    "updatedAt": "2020-03-02T15:07:41.344Z",
+                    "createdAt": "2020-03-02T15:07:41.344Z"
                 },
-                "validatorKey": "isNotNull",
+                "validatorKey": "notNull",
                 "validatorName": null,
                 "validatorArgs": [],
                 "original": {}
             }
         ]
-    },
-    "message": "SERVER ERROR"
+    }
 }`<br><br>
     **OR**
       <br>

@@ -8,11 +8,23 @@ module.exports = (sequelize, DataTypes) => {
 
     }
     Todo.init({
-    title: DataTypes.STRING,
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull() {
+          if(!this.title) {
+            throw new Error("Title must be filled")
+          }
+        }
+      }
+    },
     description: DataTypes.STRING,
     status: DataTypes.STRING,
     due_date: {
       type: DataTypes.DATE,
+      allowNull: false,
+      isEmpty: false,
       validate: {
         beforeToday() {
           if (this.due_date < new Date()) {
@@ -22,11 +34,16 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   }, {
-    validate: {
-      isNotNull() {
-        if(!this.title || !this.description || !this.status || !this.due_date) {
-          throw new Error("All entries must be filled")
-        } 
+    hooks: {
+      beforeValidate: (todo, options) => {
+
+        if(!todo.description) {
+          todo.description = todo.title
+        }
+
+        if(!todo.status) {
+          todo.status = "pending"
+        }
       }
     },
     sequelize,

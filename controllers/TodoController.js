@@ -68,8 +68,10 @@ class TodoController {
         })
         .then(updated => {
             if(updated[1].length !== 0) {
-                console.log(`updating`)
-                console.log(updated);;
+                // console.log(`updating`)
+                // console.log(updated);
+                // console.log(`the previous value`);
+                // console.log(updated._previousDataValues);
                 res.status(200).json({todo:updated[1], message: "Entry updated"})
             } else {
                 throw("Index not found")
