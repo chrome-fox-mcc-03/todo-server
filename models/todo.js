@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     status: DataTypes.BOOLEAN,
     due_date: {
       type: DataTypes.DATE,
+      allowNull: false,
       validate:{
         dueDateIsYesterday(value){
           let dueDate = new Date(value).toLocaleDateString()
@@ -29,6 +30,16 @@ module.exports = (sequelize, DataTypes) => {
       beforeCreate: (todo) => {
         if(!todo.description){
           todo.description = todo.title
+        }
+      },
+      beforeDestroy: (todo) => {
+        if(!todo.id){
+          throw new Error(`Data couldn't found`)
+        }
+      },
+      beforeUpdate: (todo) => {
+        if(!todo.id){
+          throw new Error(`Data couldn't found`)
         }
       }
     }, 

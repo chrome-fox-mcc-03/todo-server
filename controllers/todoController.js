@@ -42,7 +42,7 @@ class TodoController{
             })
         })
         .catch(err => {
-            res.status(404).json({err})
+            res.status(500).json({err})
         })
     }
 
@@ -61,12 +61,16 @@ class TodoController{
             return Todo.findByPk(req.params.id)
         })
         .then(result => {
-            res.status(200).json({
-                data: result
-            })
+            if(result === null){
+                throw new Error(`Data couldn't found`)
+            }else{
+                res.status(200).json({
+                    data: result
+                })
+            }
         })
         .catch(err => {
-            res.status(404).json({err})
+            res.status(500).json({err})
         })
     }
 
@@ -85,11 +89,16 @@ class TodoController{
                 return deletedRecord
             })
             .then(deletedData => {
-                res.status(200).json({
-                    data: deletedData
-                })
+                if(deletedData === null){
+                    throw new Error('data could not found!')
+                }else{
+                    res.status(200).json({
+                        data: deletedData
+                    })
+                }
             })
             .catch(err => {
+                // let dataNotFound = err
                 res.status(500).json({err})
             })
     }
