@@ -18,58 +18,90 @@ Create todo based on client request and insert to database
 
 * **Data Params**
 
-```javascript
-{
-    title: string,
-    description: string,
-    status: boolean,
-    due_date: date
-}
-```
+  ```javascript
+  {
+      title: string,
+      description: string,
+      status: boolean,
+      due_date: date
+  }
+  ```
 
 - **Success Response:**
 
   - **Code:** 201 CREATED <br />
     **Content:**
 
-    <!-- Need to change the content of error based on real code -->
-
-    ```json
-    {
-        "id": 2,
-        "title" : ,
-        "description" : ,
-        "status": ,
-        "due_date": ,
-        "createdAt": ,
-        "updatedAt":
-         }
-    ```
+          {
+            "id": 3,
+            "title": "Learning Auth and OAuth",
+            "description": "Self Exploring Course Material Second Phase",
+            "status": false,
+            "due_date": "2020-03-25T00:00:00.000Z",
+            "updatedAt": "2020-03-02T12:32:56.211Z",
+            "createdAt": "2020-03-02T12:32:56.211Z"
+          }
 
 * **Error Response:**
 
   - **Code:** 400 BAD REQUEST <br />
     **Content:**
 
-    <!-- Error Message will be update after real code -->
-
-    ```javascript
-    ```
+        {
+            "name": "SequelizeValidationError",
+            "errors": [
+                {
+                    "message": "Todo.title cannot be null",
+                    "type": "notNull Violation",
+                    "path": "title",
+                    "value": null,
+                    "origin": "CORE",
+                    "instance": {
+                        "id": null,
+                        "description": "Self Exploring Course Material Second Phase",
+                        "status": false,
+                        "due_date": "2020-03-25T00:00:00.000Z",
+                        "updatedAt": "2020-03-02T14:56:56.648Z",
+                        "createdAt": "2020-03-02T14:56:56.648Z"
+                    },
+                    "validatorKey": "is_null",
+                    "validatorName": null,
+                    "validatorArgs": []
+                }
+            ]
+        }
 
   OR
 
   - **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:**
 
-    <!-- Error Message will be update after real code -->
-
-    ```javascript
-    ```
-
-* **Sample Call:**
-
-  ```javascript
-  ```
+        {
+              "name": "SequelizeDatabaseError",
+              "parent": {
+                  "name": "error",
+                  "length": 167,
+                  "severity": "ERROR",
+                  "code": "42703",
+                  "position": "128",
+                  "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\parser\\parse_relation.c",
+                  "line": "3359",
+                  "routine": "errorMissingColumn",
+                  "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
+              },
+              "original": {
+                  "name": "error",
+                  "length": 167,
+                  "severity": "ERROR",
+                  "code": "42703",
+                  "position": "128",
+                  "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\parser\\parse_relation.c",
+                  "line": "3359",
+                  "routine": "errorMissingColumn",
+                  "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
+              },
+              "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
+        }
 
 ## **Show All Todos**
 
@@ -98,29 +130,58 @@ Return all todos in JSON data based on client request.
   - **Code:** 200 OK <br />
     **Content:**
 
-     <!-- Content will be update after real code -->
-
-    ```json
-    {
-        "id": 2,
-        "title" : "Learning API Documentation",
-        "description" : ,
-        "status": ,
-        "due_date": ,
-        "createdAt": ,
-        "updatedAt":
-         }
-    ```
+        [
+          {
+            "id": 1,
+            "title": "Learning Fundamental Javascript",
+            "description": "Reminder Self-Pace Learning",
+            "status": false,
+            "due_date": "2020-03-25T00:00:00.000Z",
+            "createdAt": "2020-03-02T12:07:21.788Z",
+            "updatedAt": "2020-03-02T12:07:21.788Z"
+          },
+          {
+            "id": 2,
+            "title": "Learning Rest Api",
+            "description": "Course Material for Second Phase",
+            "status": false,
+            "due_date": "2020-03-25T00:00:00.000Z",
+            "createdAt": "2020-03-02T12:07:21.788Z",
+            "updatedAt": "2020-03-02T12:07:21.788Z"
+          }
+        ]
 
 - **Error Response:**
 
   - **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:**
 
-     <!-- Error Message will be update after real code -->
-
-    ```javascript
-    ```
+          {
+              "name": "SequelizeDatabaseError",
+              "parent": {
+                  "name": "error",
+                  "length": 167,
+                  "severity": "ERROR",
+                  "code": "42703",
+                  "position": "128",
+                  "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\parser\\parse_relation.c",
+                  "line": "3359",
+                  "routine": "errorMissingColumn",
+                  "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
+              },
+              "original": {
+                  "name": "error",
+                  "length": 167,
+                  "severity": "ERROR",
+                  "code": "42703",
+                  "position": "128",
+                  "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\parser\\parse_relation.c",
+                  "line": "3359",
+                  "routine": "errorMissingColumn",
+                  "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
+              },
+              "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
+          }
 
 ## **Show Todo by ID**
 
@@ -151,21 +212,24 @@ Return json single todo based on client request
   - **Code:** 200 OK <br />
     **Content:**
 
-     <!-- Content / Error Message will be update after real code -->
+        {
+          "id": 1,
+          "title": "Learning Fundamental Javascript",
+          "description": "Reminder Self-Pace Learning",
+          "status": false,
+          "due_date": "2020-03-25T00:00:00.000Z",
+          "createdAt": "2020-03-02T12:07:21.788Z",
+          "updatedAt": "2020-03-02T12:07:21.788Z"
+        }
 
-    ```json
-
-    ```
-
-- **Error Response:**
+* **Error Response:**
 
   - **Code:** 404 NOT FOUND <br />
     **Content:**
 
-    <!-- Content / Error Message will be update after real code -->
-
-    ```javascript
-    ```
+        {
+          "err": "Todo not found"
+        }
 
 ## **Update Todo**
 
@@ -189,50 +253,99 @@ Update json data based on client request and return to new data
 
 - **Data Params**
 
-  None
+  ```javascript
+  {
+      title: string,
+      description: string,
+      status: boolean,
+      due_date: date
+  }
+  ```
 
 - **Success Response:**
 
   - **Code:** 200 OK <br />
     **Content:**
 
-    <!-- Content / Error Message will be update after real code -->
+        {
+            "id": 1,
+            "title": "Learning Social Login for Fancy Todo",
+            "description": "Self-pace Course Material Second Phase",
+            "status": false,
+            "due_date": "2020-04-01T00:00:00.000Z",
+            "createdAt": "2020-03-02T12:07:21.788Z",
+            "updatedAt": "2020-03-02T14:05:45.116Z"
+        }
 
-    ```json
-
-    ```
-
-- **Error Response:**
+* **Error Response:**
 
   - **Code:** 400 BAD REQUEST <br />
     **Content:**
 
-     <!-- Content / Error Message will be update after real code -->
+          {
+            "name": "SequelizeValidationError",
+            "errors": [
+                {
+                    "message": "Todo.title cannot be null",
+                    "type": "notNull Violation",
+                    "path": "title",
+                    "value": null,
+                    "origin": "CORE",
+                    "instance": {
+                        "id": null,
+                        "description": "Self Exploring Course Material Second Phase",
+                        "status": false,
+                        "due_date": "2020-03-25T00:00:00.000Z",
+                        "updatedAt": "2020-03-02T14:56:56.648Z",
+                        "createdAt": "2020-03-02T14:56:56.648Z"
+                    },
+                    "validatorKey": "is_null",
+                    "validatorName": null,
+                    "validatorArgs": []
+                }
+            ]
+        }
 
-     <!-- Validation Error -->
+OR
 
-    ```javascript
-    ```
+- **Code:** 404 NOT FOUND <br />
+  **Content:**
 
-  OR
+      {
+        "err": "Todo not found"
+      }
 
-  - **Code:** 404 NOT FOUND <br />
-    **Content:**
+OR
 
-     <!-- Content / Error Message will be update after real code -->
+- **Code:** 500 INTERNAL SERVER ERROR <br />
+  **Content:**
 
-    ```javascript
-    ```
-
-  OR
-
-  - **Code:** 500 INTERNAL SERVER ERROR <br />
-    **Content:**
-
-     <!-- Content / Error Message will be update after real code -->
-
-    ```javascript
-    ```
+      {
+              "name": "SequelizeDatabaseError",
+              "parent": {
+                  "name": "error",
+                  "length": 167,
+                  "severity": "ERROR",
+                  "code": "42703",
+                  "position": "128",
+                  "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\parser\\parse_relation.c",
+                  "line": "3359",
+                  "routine": "errorMissingColumn",
+                  "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
+              },
+              "original": {
+                  "name": "error",
+                  "length": 167,
+                  "severity": "ERROR",
+                  "code": "42703",
+                  "position": "128",
+                  "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\parser\\parse_relation.c",
+                  "line": "3359",
+                  "routine": "errorMissingColumn",
+                  "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
+              },
+              "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
+          }
 
 ## **Delete Todo**
 
@@ -263,28 +376,53 @@ Return deleting a single json data
   - **Code:** 200 <br />
     **Content:**
 
-     <!-- Content / Error Message will be update after real code -->
-
-    ```json
-
-    ```
+        {
+          "id": 2,
+          "title": "Learning Rest Api",
+          "description": "Course Material for Second Phase",
+          "status": false,
+          "due_date": "2020-03-25T00:00:00.000Z",
+          "createdAt": "2020-03-02T12:07:21.788Z",
+          "updatedAt": "2020-03-02T12:07:21.788Z"
+        }
 
 - **Error Response:**
 
   - **Code:** 404 NOT FOUND <br />
     **Content:**
 
-       <!-- Content / Error Message will be update after real code -->
-
-    ```javascript
-    ```
+        {
+          "err": "Todo not found"
+        }
 
     OR
 
   - **Code:** 500 INVALID SERVER ERROR <br />
     **Content:**
 
-    <!-- Content / Error Message will be update after real code -->
-
-    ```javascript
-    ```
+        {
+              "name": "SequelizeDatabaseError",
+              "parent": {
+                  "name": "error",
+                  "length": 167,
+                  "severity": "ERROR",
+                  "code": "42703",
+                  "position": "128",
+                  "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\parser\\parse_relation.c",
+                  "line": "3359",
+                  "routine": "errorMissingColumn",
+                  "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
+              },
+              "original": {
+                  "name": "error",
+                  "length": 167,
+                  "severity": "ERROR",
+                  "code": "42703",
+                  "position": "128",
+                  "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\parser\\parse_relation.c",
+                  "line": "3359",
+                  "routine": "errorMissingColumn",
+                  "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
+              },
+              "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
+          }
