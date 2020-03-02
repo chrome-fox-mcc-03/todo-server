@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         beforeToday() {
           if (this.due_date < new Date()) {
-            throw new Error("Due date must be today's date or later")
+            throw new Error("Due date must be today or later")
           }
         }
       }
