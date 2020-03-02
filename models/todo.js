@@ -1,8 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  class Todo extends sequelize.Sequelize.Model {
-    static associate()
-  }
+  class Todo extends sequelize.Sequelize.Model {}
   Todo.init({
     title: DataTypes.STRING,
     description: DataTypes.STRING,
