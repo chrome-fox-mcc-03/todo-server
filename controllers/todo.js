@@ -25,10 +25,11 @@ class TodoController {
 
     static findByPk(req, res) {
         Todo.findByPk(+req.params.id)
-            .then(data => res.status(200).json(data))
-            .catch(err => res.status(500).json({
-                error: `TODO NOT FOUND`
-            }))
+            .then(data => {
+                if(data !== null) res.status(200).json(data)
+                else res.status(400).json({ message: `Todo not found` })
+            })
+            .catch(err => res.status(500).json(err))
     }
 
     static update(req, res) {
@@ -43,21 +44,21 @@ class TodoController {
             },
             returning: true
         })
-            .then(data => res.status(200).json(data))
-            .catch(err => res.status(500).json({
-                error: 'Error not found'
-            }))
+            .then(data => {
+                if(data !== null) res.status(200).json(data)
+                else res.status(404).json({ message: `TODO not found` })
+            })
+            .catch(err => res.status(500).json(err))
     }
 
     static delete(req, res) {
-        Todo.destroy({
-            where: {
-                id: +req.params.id
-            }
-        })
-            .then((data) => res.status(200).json({
-                status: `SUCCESS DELETE TODO`
-            }))
+        Todo.findByPk(+req.params.id)
+            .then(data => {
+                if(data) {
+                    res.status(200).json({message: `SUCCESS DELETE TODO`})
+                } 
+                else res.status(404).json({ message: 'TODO not found' })
+            })
             .catch(err => res.status(500).json(err))
     }
 }

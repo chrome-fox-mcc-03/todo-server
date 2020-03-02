@@ -14,13 +14,21 @@
   `POST`
    
 * **Data Params**
+    **Request Header**<br>
+    ```
+      Content-Type: "application/json"
+    ```
 
+
+    **Request Body**<br>
     **Required:**
  
-   `title=[string]`
-   `description=[string]`
-   `status=[boolean]`
-   `due_date=[date]`
+   ```
+   title=[string]
+   description=[string]
+   status=[boolean]
+   due_date=[date]
+   ```
    
 
 * **Success Response:**
@@ -40,16 +48,15 @@
 
 * **URL**
 
+  ```
   /todos
+  ```
 
 * **Method:**
 
-  `GET`
-
-* **Data Params**
-
-  None
-
+  ```
+  GET
+  ```
 * **Success Response:**
 
   * **Code:** 200 <br />
@@ -66,20 +73,21 @@
 
 * **URL**
 
+  ```
   /todos/:id
-
+  ```
 * **URL Params**
 
     **Required:**
-   `id=[integer]`
+   ```
+   id=[integer]
+   ```
 
 * **Method:**
 
-  `GET`
-   
-* **Data Params**
-
-  None
+  ```
+  GET
+  ```
 
 * **Success Response:**
 
@@ -97,26 +105,39 @@
 
 * **URL**
 
+  ```
   /todos/:id
+  ```
 
 * **URL Params**
 
     **Required:**
-   `id=[integer]`
+   ```
+   id=[integer]
+   ```
 
 * **Method:**
 
-  `PUT`
+  ```
+  PUT
+  ```
    
 * **Data Params**
 
-    **Required:**
- 
-   `title=[string]`
-   `description=[string]`
-   `status=[boolean]`
-   `due_date=[date]`
-   
+  **Request Header**<br>
+      ```
+        Content-Type: "application/json"
+      ```
+
+      **Request Body**<br>
+      **Required:**
+  
+    ```
+    title=[string]
+    description=[string]
+    status=[boolean]
+    due_date=[date]
+    ```
 
 * **Success Response:**
 
@@ -134,20 +155,22 @@
 
 * **URL**
 
+  ```
   /todos/:id
+  ```
 
 * **URL Params**
 
     **Required:**
-   `id=[integer]`
+   ```
+   id=[integer]
+   ```
 
 * **Method:**
 
-  `DELETE`
-   
-* **Data Params**
-
-  None
+  ```
+  DELETE
+  ```
 
 * **Success Response:**
 

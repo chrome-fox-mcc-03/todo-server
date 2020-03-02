@@ -39,6 +39,10 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notNull: {
           msg: 'Field must not null'
+        },
+        isAfter: {
+          args: new Date().toDateString(),
+          msg: 'date must after now date'
         }
       }
     }
