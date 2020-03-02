@@ -4,23 +4,27 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {}
   }
 
-  Todo.init({
-    title: {
-      type: DataTypes.STRING
+  Todo.init(
+    {
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      description: {
+        type: DataTypes.STRING
+      },
+      status: {
+        type: DataTypes.BOOLEAN
+      },
+      due_date: {
+        type: DataTypes.DATE
+      }
     },
-    description: { 
-      type: DataTypes.STRING 
-    },
-    status: { 
-      type: DataTypes.BOOLEAN 
-    },
-    due_date: { 
-      type: DataTypes.DATE 
+    {
+      sequelize,
+      modelName: 'Todo'
     }
-  }, {
-    sequelize, 
-    modelName = 'Todo'
-  });
+  );
 
   return Todo;
 };
