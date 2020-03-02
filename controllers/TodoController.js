@@ -1,7 +1,7 @@
 const { Todo, Sequelize } = require("../models/index");
 
 class TodoController {
-    static getRoot(req, res) {
+    static getRoot(req, res, next) {
         Todo.findAll()
         .then(result => {
             res.status(200).json({
@@ -9,12 +9,10 @@ class TodoController {
             });
         })
         .catch(err => {
-            res.status(500).json({
-                error: err.message
-            })
+            next(err);
         });
     }
-    static getRootId(req, res) {
+    static getRootId(req, res, next) {
         let id = Number(req.params.id);
         Todo.findByPk(id)
         .then(result => {
@@ -27,18 +25,11 @@ class TodoController {
                 });
             }
         })
-        .catch(Sequelize.EmptyResultError, err => {
-            res.status(404).json({
-                error: err.message
-            })
-        })
         .catch(err => {
-            res.status(500).json({
-                error: err.message
-            })
+            next(err)
         });
     }
-    static postRoot(req, res) {
+    static postRoot(req, res, next) {
         let request = {
             title: req.body.title,
             description: req.body.description,
@@ -52,19 +43,11 @@ class TodoController {
                 todo: result
             });
         })
-        .catch(Sequelize.ValidationError, err => {
-            let msg = err.errors.map(item => item.message)
-            res.status(400).json({
-                error: msg
-            });
-        })
         .catch(err => {
-            res.status(500).json({
-                error: err.message
-            })
+            next(err)
         });
     }
-    static deleteRootId(req, res) {
+    static deleteRootId(req, res, next) {
         // console.log(req.params.id);
         let id = Number(req.params.id);
         Todo.findByPk(id)
@@ -94,19 +77,11 @@ class TodoController {
                 deleted: deleted
             })
         })
-        .catch(Sequelize.EmptyResultError, err => {
-            res.status(404).json({
-                error: err.message
-            })
-        })
         .catch(err => {
-            res.status(500).json({
-                error: err.message
-            })
+            next(err)
         });
     }
-    static putRootId(req, res) {
-        // console.log(req.body)
+    static putRootId(req, res, next) {
         let id = Number(req.params.id);
         let body = {
             title: req.body.title,
@@ -114,8 +89,6 @@ class TodoController {
             status: req.body.status,
             due_date: req.body.due_date
         }
-        console.log(id);
-        console.log(body);
         Todo.findByPk(id)
         .then(result => {
             if (result === null) {
@@ -141,21 +114,8 @@ class TodoController {
                 updated: result
             })
         })
-        .catch(Sequelize.EmptyResultError, err => {
-            res.status(404).json({
-                error: err.message
-            })
-        })
-        .catch(Sequelize.ValidationError, err => {
-            let msg = err.errors.map(item => item.message)
-            res.status(400).json({
-                error: msg
-            });
-        })
         .catch(err => {
-            res.status(500).json({
-                error: err.message
-            })
+            next(err);
         });
     }
 };

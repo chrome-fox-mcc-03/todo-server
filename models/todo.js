@@ -32,7 +32,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     status: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
+        notNull: {
+          args: true,
+          msg: "Status cannot be null"
+        },
         isIn: {
           args: [['todo', 'completed']],
           msg: "Status allowed ['todo', 'completed']"
