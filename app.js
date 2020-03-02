@@ -8,6 +8,7 @@ const PORT = process.env.PORT
 const index = require('./routes/index')
 
 app.use(express.urlencoded({extended:false}))
+app.use(express.json())
 
 app.use(index);
 
