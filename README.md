@@ -102,7 +102,7 @@
             "id": 6,"title": "Minggu",
             "description": "Nonton Tv",
             "status": false,
-            "due_date": "2020-02-02T17:00:00.000Z",
+            "due_date": "2020-03-04T17:00:00.000Z",
             "updatedAt": "2020-03-02T10:07:28.668Z",
             "createdAt": "2020-03-02T10:07:28.668Z"
         }
@@ -146,7 +146,7 @@
             "title": "Minggu",
             "description": "Nonton Tv",
             "status": false,
-            "due_date": "2020-02-02T17:00:00.000Z",
+            "due_date": "2020-03-04T17:00:00.000Z",
             "updatedAt": "2020-03-02T10:07:28.668Z",
             "createdAt": "2020-03-02T10:07:28.668Z"
         },
@@ -184,7 +184,7 @@
             "title": "Minggu",
             "description": "Nonton Tv",
             "status": false,
-            "due_date": "2020-02-02T17:00:00.000Z",
+            "due_date": "2020-03-04T17:00:00.000Z",
             "updatedAt": "2020-03-02T10:07:28.668Z",
             "createdAt": "2020-03-02T10:07:28.668Z"
         },
