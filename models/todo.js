@@ -17,20 +17,31 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     status: { 
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      validate: {
-        notEmpty: true
-      }
+      type: DataTypes.BOOLEAN
     },
     due_date: {
       type: DataTypes.DATE,
       allowNull: false,
       validate: {
-        notEmpty: true
+        notEmpty: true,
+        isDate: true, 
+        isGreaterThanOtherField(value) {
+          let insertedDate =  new Date(value)
+          let currentDate = new Date()
+          if (insertedDate < currentDate) {
+            throw new Error('Date must be greater or equal to today');
+          }
+        }  
       }
     }
   }, {
+    hooks: {
+      beforeCreate: (activity, options) => {
+        if (!activity.status) {
+          activity.status = false
+        }
+      }
+    },
     sequelize,
     modelName: "todo"
   })
