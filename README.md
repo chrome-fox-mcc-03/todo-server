@@ -58,12 +58,12 @@
   OR
 
   * **Code:** 400 Bad Request <br />
-    **Content:** `{ error : "Email Invalid" }`
+    **Content:** `{ error : "Please enter due_date" }`
  
 * **Error Response:**
 
   * **Code:** 500 Internal Server Error <br />
-    **Content:** `{ error : "Log in" }`
+    **Content:** `{ error : "Error" }`
 
 **Update Todo**
 ----
@@ -102,17 +102,17 @@
 * **Error Response:**
 
   * **Code:** 500 Internal Server Error <br />
-    **Content:** `{ error : "Log in" }`
+    **Content:** `{ error : "Error" }`
 
   OR
 
   * **Code:** 404 Not Found <br />
-    **Content:** `{ error : "Email Invalid" }`
+    **Content:** `{ error : "id not found!" }`
 
   OR
 
   * **Code:** 400 Bad Request <br />
-    **Content:** `{ error : "Email Invalid" }`
+    **Content:** `{ error : "Please enter due_date" }`
 
 **Delete Todos**
 ----
@@ -139,9 +139,9 @@
 * **Error Response:**
 
   * **Code:** 500 Internal Server Error <br />
-    **Content:** `{ error : "Log in" }`
+    **Content:** `{ error : "Error" }`
 
   OR
 
   * **Code:** 404 Not Found <br />
-    **Content:** `{ error : "Email Invalid" }`
+    **Content:** `{ error : "id not found!" }`
