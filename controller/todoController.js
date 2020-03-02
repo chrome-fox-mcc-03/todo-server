@@ -33,12 +33,19 @@ class TodoController {
 	static findById (req, res) {
 		Todo.findByPk(req.params.id)
 			.then(data => {
-				res.status(200).json({
-					data
-				});
+				console.log(data);
+				if (data !== null) {
+					res.status(200).json({
+						data
+					});
+				} else {
+					throw new Error('Todo not found!');
+				}
 			})
 			.catch(err => {
-				res.status(500).json(err);
+				res.status(500).json({
+					err: new Error(err.message)
+				});
 			})
 	}
 
