@@ -13,8 +13,8 @@ class Controller {
             .then((result) => {
                 res.status(201).json(result)
             })
-            .catch(() => {
-                res.status(500)
+            .catch((err) => {
+                res.status(500).json(err.errors[0].message)
             })
     }
 
@@ -56,6 +56,9 @@ class Controller {
         })
         .then((result)=>{
             res.status(200).json(result[1])
+        })
+        .catch((err)=>{
+            res.status(500).json(err.errors[0].message)
         })
     }
 

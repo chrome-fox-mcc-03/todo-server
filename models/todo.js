@@ -11,7 +11,12 @@ module.exports = (sequelize, DataTypes) => {
     status: DataTypes.BOOLEAN,
     due_date: DataTypes.DATE
 
-  }, {
+  }, { validate:{
+    dueDateCheck(){
+      let now = new Date()
+      if (this.due_date < now) throw new Error('Due Date must be greater than now')
+    }
+  },
     sequelize,
     modelName: 'Todo'
   })
