@@ -45,7 +45,7 @@
         {
             "id": 3,
             "title": "Olahraga",
-            "description": "Sehat",
+            "description": "No description.",
             "status": false,
             "due_date": "2020-03-04T00:00:00.000Z"
         }
@@ -137,11 +137,11 @@
     ```json
     [
         {
-            "id": 8,
-            "title": "service motors",
-            "description": "gajadi isi bensin, serpis duluu",
-            "status": true,
-            "due_date": "2020-03-02T00:00:00.000Z"
+            "id": 3,
+            "title": "Olahraga",
+            "description": "Sehat",
+            "status": false,
+            "due_date": "2020-03-04T00:00:00.000Z"
         }
     ]
     ```
@@ -152,7 +152,7 @@
 
   OR
 
-  * **Code:** 404 UNAUTHORIZED <br />
+  * **Code:** 404 Not Found <br />
     **Content:** `{ error : "ERROR 404: Data not found" }`
 ------
 
@@ -203,12 +203,12 @@
 
   OR
 
-  * **Code:** 400 UNAUTHORIZED <br />
+  * **Code:** 400 Bad Request <br />
     **Content:** `{ error : "ERROR 400: Data is not valid!" }`
 
   OR
 
-  * **Code:** 404 UNAUTHORIZED <br />
+  * **Code:** 404 Not Found <br />
     **Content:** `{ error : "ERROR 404: Data not found" }`
 ------
 
@@ -256,5 +256,18 @@
 
   OR
 
-  * **Code:** 404 UNAUTHORIZED <br />
+  * **Code:** 404 Not Found <br />
     **Content:** `{ error : "ERROR 404: Data not found" }`
+
+------
+**Status Codes**
+----
+| Code        | Meaning           |
+| ------------- |:-------------:|
+| 200 | Data received      |   
+| 201 | Data created/updated      |
+||
+| 500     | Server internal error/malfunction |
+| 404      | Parameter(s) is not found on the database      | 
+| 400     | Bad request: <br> - Data type input is not correct <br> - Name cannot be empty <br> - Date must be in the future      |   
+   

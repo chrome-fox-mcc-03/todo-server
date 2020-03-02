@@ -5,7 +5,10 @@ module.exports = (sequelize, DataTypes) => {
     title: {
       type: DataTypes.STRING,
       validate: {
-        notEmpty: true
+        notEmpty: {
+          args: true,
+          msg: '01: Name cannot be empty'
+        }
       }
     },
     description: {
@@ -21,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isAfter: {
           args: String(new Date()),
-          msg: 'Date is not valid.'
+          msg: '02: Due date must be in the future.'
         }
       }
     }
