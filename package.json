@@ -1,0 +1,29 @@
+{
+  "name": "todo-server",
+  "version": "1.0.0",
+  "description": "FANCY TODO LIST ----   <_Additional information about your API call. Try to use verbs that match both request type (fetching vs modifying) and plurality (one vs multiple)._>",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "NODE_ENV=development nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andreasnw/todo-server.git"
+  },
+  "keywords": [],
+  "author": "andreasnw",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andreasnw/todo-server/issues"
+  },
+  "homepage": "https://github.com/andreasnw/todo-server#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^7.18.2",
+    "sequelize": "^5.21.5"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  }
+}
