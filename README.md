@@ -90,8 +90,8 @@
     {
         "status": false,
         "id": 6,
-        "title": "'Isi bensin'",
-        "description": "'bensin mo abiss coe'",
+        "title": "Isi bensin",
+        "description": "bensin mo abiss coe",
         "due_date": "2020-03-01T17:00:00.000Z",
         "updatedAt": "2020-03-02T07:21:37.446Z",
         "createdAt": "2020-03-02T07:21:37.446Z"
@@ -133,8 +133,8 @@
     ```json
     {
         "id": 6,
-        "title": "'service motor'",
-        "description": "'gajadi isi bensin, serpis duluu'",
+        "title": "service motor",
+        "description": "gajadi isi bensin, serpis duluu",
         "status": false,
         "due_date": "2020-03-01T17:00:00.000Z"
     }
@@ -220,8 +220,8 @@
     ```json
     {
         "id": 5,
-        "title": "'Isi bensin'",
-        "description": "'bensin mo abiss coe'",
+        "title": "Isi bensin",
+        "description": "bensin mo abiss coe",
         "status": false,
         "due_date": "2020-03-01T17:00:00.000Z",
         "createdAt": "2020-03-02T06:57:45.848Z",
