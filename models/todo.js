@@ -20,7 +20,13 @@ module.exports = (sequelize, DataTypes) => {
       },
       due_date: {
         type: DataTypes.DATE,
-        allowNull: false
+        allowNull: false,
+        validate: {
+          isAfter: {
+            args: String(new Date()),
+            msg: "Due date must be later than now"
+          }
+        }
       }
     },
     {

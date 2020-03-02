@@ -13,12 +13,17 @@ class TodoController {
         res.status(201).json(data);
       })
       .catch(err => {
-        if (err.name === "SequelizeValidationError") {
-          res.status(400).json({
-            error: "Validation error"
+        if (
+          err.name === "SequelizeValidationError" &&
+          err.errors[0].message === "Due date must be later than now"
+        ) {
+          res.status(500).json({
+            error: err.errors[0].message
           });
         } else {
-          res.status(500).json(err);
+          res.status(500).json({
+            error: "Null value cannot be processed"
+          });
         }
       });
   }
@@ -72,7 +77,11 @@ class TodoController {
           res.status(200).json(data);
         }
       })
-      .catch(err => res.status(500).json(err));
+      .catch(err =>
+        res.status(500).json({
+          error: "Null value cannot be processed"
+        })
+      );
   }
 
   static delete(req, res) {
