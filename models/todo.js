@@ -15,9 +15,36 @@ module.exports = (sequelize, DataTypes) => {
 				msg: 'Title cannot be empty!'
 			}
 		},
-		description: DataTypes.STRING,
-		status: DataTypes.BOOLEAN,
-		due_date: DataTypes.DATE
+		description: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			notNull: {
+				args: false,
+				msg: 'Description cannot be empty!'
+			}
+		},
+		status: {
+			type: DataTypes.BOOLEAN,
+			allowNull: false,
+			notNull: {
+				args: false,
+				msg: 'Status cannot be empty!'
+			}
+		},
+		due_date: {
+			type: DataTypes.DATE,
+			allowNull: false,
+			validate: {
+				notNull: {
+					args: false,
+					msg: 'Due date cannot be empty!'
+				},
+				isAfter: {
+					args: new Date().toDateString(),
+					msg: 'Date must be after current date'
+				}
+			}
+		}
 	}, { sequelize });
 
 	return Todo;

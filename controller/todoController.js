@@ -33,13 +33,12 @@ class TodoController {
 	static findById (req, res) {
 		Todo.findByPk(req.params.id)
 			.then(data => {
-				console.log(data);
 				if (data !== null) {
 					res.status(200).json({
 						data
 					});
 				} else {
-					res.status(200).json({
+					res.status(404).json({
 						message: 'Todo not found!'
 					});
 				}
@@ -75,10 +74,16 @@ class TodoController {
 		Todo.destroy({
 			where: { id: parseInt(req.params.id) }
 		})
-			.then(data => {
-				res.status(200).json({
-					message: `Todo id ${req.params.id} successfully deleted!`
-				})
+			.then(result => {
+				if (result) {
+					res.status(200).json({
+						message: `Todo id ${req.params.id} successfully deleted!`
+					});
+				} else {
+					res.status(404).json({
+						message: 'Todo not found!'
+					});
+				}
 			})
 			.catch(err => {
 				res.status(500).json(err)
