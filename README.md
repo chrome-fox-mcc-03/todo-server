@@ -22,7 +22,7 @@
  
    `title=[string]`,
    `status=[boolean]`,
-   `due_date=[date]`
+   `due_date=[date]`,
 
    **Optional:**
 

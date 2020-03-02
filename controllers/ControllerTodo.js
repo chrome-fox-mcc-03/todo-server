@@ -25,9 +25,7 @@ class ControllerTodo {
         Todo.findByPk(findId)
             .then(todo => {
                 if(!todo) {
-                    res.status(404).json({
-                        error: "Not Found"
-                    })
+                    throw todo
                 } else {
                     res.status(200).json(todo)
                 }
