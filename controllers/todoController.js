@@ -27,9 +27,12 @@ class TodoController {
     static findById(req,res) {
         Todo.findByPk(req.params.id)
         .then((result) => {
+            if(result == null) {
+                throw new Error()
+            }
             res.status(200).json({result})     
         }).catch((err) => {
-            res.status(404).json({message:'Error not found'})
+            res.status(404).json({message:'Error Data not found'})
         });
     }
 
@@ -62,10 +65,13 @@ class TodoController {
             return Todo.destroy({where:{id}})
         })
         .then((result) => {
+            if(result == 0) {
+                throw new Error
+            }
             res.status(200).json({data,message:'Success Delete'})
         })
         .catch((err) => {
-            res.status(404).json({err,message:"Error Not Found"})
+            res.status(404).json({message:'Error Data Not Found'})
         })
     }
 }

@@ -1,74 +1,5 @@
-# todo-server
-**Title**
-----
-  <_Todos App._>
-
-* **URL**
-
-  /todos
-
-* **Method:**
-
-  `GET`
-
-* **Data Params**
-
-  None
-
-* **Success Response:**
-
-  * **Code:** 200 <br />
-    **Content:** 
-    ```
-    [
-        {
-            "id": 2,
-            "title": "John Doe",
-            "description": "test",
-            "status": false,
-            "due_date": "2020-03-02T07:41:44.308Z",
-            "createdAt": "2020-03-02T07:41:44.308Z",
-            "updatedAt": "2020-03-02T07:41:44.308Z"
-        }
-    ]
- 
-* **Error Response:**
-
-  * **Code:** 500 Internal Server Error <br />
-    **Content:** `{ "message" : 'Internal Server Error' }`
-----
-
-* **URL**
-
-  /todos/:id
-
-* **Method:**
-
-  `GET`
-
-* **Data Params**
-
-  None
-
-* **Success Response:**
-
-  * **Code:** 200 <br />
-    **Content:** 
-    ```
-    {
-        "id": 2,
-        "title": "John Doe",
-        "description": "test",
-        "status": false,
-        "due_date": "2020-03-02T07:41:44.308Z",
-        "createdAt": "2020-03-02T07:41:44.308Z",
-        "updatedAt": "2020-03-02T07:41:44.308Z"
-    }
- 
-* **Error Response:**
-
-  * **Code:** 404 Not Found <br />
-    **Content:** `{ "message" : 'Error Not Found' }`
+# Todos App
+**Create Todo**
 ----
 
 * **URL**
@@ -112,6 +43,82 @@
 
   * **Code:** 500 Internal Server Error <br />
     **Content:** `{ "message" : 'Internal Server Error' }`
+# 
+**Read Todos**
+----
+
+* **URL**
+
+  /todos
+
+* **Method:**
+
+  `GET`
+
+* **Data Params**
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+    ```
+    [
+        {
+            "id": 2,
+            "title": "John Doe",
+            "description": "test",
+            "status": false,
+            "due_date": "2020-03-02T07:41:44.308Z",
+            "createdAt": "2020-03-02T07:41:44.308Z",
+            "updatedAt": "2020-03-02T07:41:44.308Z"
+        }
+    ]
+ 
+* **Error Response:**
+
+  * **Code:** 500 Internal Server Error <br />
+    **Content:** `{ "message" : 'Internal Server Error' }`
+
+# 
+**Read Todo By Id**
+----
+
+* **URL**
+
+  /todos/:id
+
+* **Method:**
+
+  `GET`
+
+* **Data Params**
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+    ```
+    {
+        "id": 2,
+        "title": "John Doe",
+        "description": "test",
+        "status": false,
+        "due_date": "2020-03-02T07:41:44.308Z",
+        "createdAt": "2020-03-02T07:41:44.308Z",
+        "updatedAt": "2020-03-02T07:41:44.308Z"
+    }
+ 
+* **Error Response:**
+
+  * **Code:** 404 Not Found <br />
+    **Content:** `{ "message" : 'Error Data Not Found' }`
+
+# 
+**Update Todo**
 ----
 
 * **URL**
@@ -156,7 +163,61 @@
 * **Error Response:**
 
   * **Code:** 400 Bad Request <br />
-    **Content:** `{ "message" : 'Validation Errors' }`
+    **Content:** 
+    ```
+    {
+        "err": {
+            "name": "SequelizeDatabaseError",
+            "parent": {
+                "name": "error",
+                "length": 136,
+                "severity": "ERROR",
+                "code": "22007",
+                "file": "datetime.c",
+                "line": "3809",
+                "routine": "DateTimeParseError",
+                "sql": "UPDATE \"Todos\" SET \"title\"=$1,\"description\"=$2,\"status\"=$3,\"due_date\"=$4,\"updatedAt\"=$5 WHERE \"id\" = $6",
+                "parameters": [
+                    "Selasa",
+                    "Mengejar Anjing Tetangga",
+                    true,
+                    "Invalid date",
+                    "2020-03-02 15:53:12.251 +00:00",
+                    "200"
+                ]
+            },
+            "original": {
+                "name": "error",
+                "length": 136,
+                "severity": "ERROR",
+                "code": "22007",
+                "file": "datetime.c",
+                "line": "3809",
+                "routine": "DateTimeParseError",
+                "sql": "UPDATE \"Todos\" SET \"title\"=$1,\"description\"=$2,\"status\"=$3,\"due_date\"=$4,\"updatedAt\"=$5 WHERE \"id\" = $6",
+                "parameters": [
+                    "Selasa",
+                    "Mengejar Anjing Tetangga",
+                    true,
+                    "Invalid date",
+                    "2020-03-02 15:53:12.251 +00:00",
+                    "200"
+                ]
+            },
+            "sql": "UPDATE \"Todos\" SET \"title\"=$1,\"description\"=$2,\"status\"=$3,\"due_date\"=$4,\"updatedAt\"=$5 WHERE \"id\" = $6",
+            "parameters": [
+                "Selasa",
+                "Mengejar Anjing Tetangga",
+                true,
+                "Invalid date",
+                "2020-03-02 15:53:12.251 +00:00",
+                "200"
+            ]
+        },
+        "message": "Validation Errors"
+    }
+# 
+**Delete Todo**
 ----
 
 * **URL**
@@ -166,6 +227,10 @@
 * **Method:**
 
   `DELETE`
+
+* **Data Params**
+
+  None
 
 *  **URL Params**
 
@@ -194,5 +259,7 @@
 * **Error Response:**
 
   * **Code:** 404 Not Found <br />
-    **Content:** `{ "message" : 'Error Not Found' }`
+    **Content:** 
+    ```
+    { "message" : 'Error Data Not Found' }
 ----
