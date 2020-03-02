@@ -39,12 +39,14 @@ class TodoController {
 						data
 					});
 				} else {
-					throw new Error('Todo not found!');
+					res.status(200).json({
+						message: 'Todo not found!'
+					});
 				}
 			})
 			.catch(err => {
 				res.status(500).json({
-					err: new Error(err.message)
+					err: new Error(err)
 				});
 			})
 	}
