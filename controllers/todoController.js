@@ -11,7 +11,6 @@ class TodoController {
         .then((result) => {
             res.status(201).json({result})
         }).catch((err) => {
-            console.log(err)
             res.status(400).json(err)
         });
     }
