@@ -5,8 +5,20 @@ const { User } = require('../models');
 
 class Authentication {
   static isAuthentic(req, res, next) {
+    const token = req.headers.token;
+    const decoded = verifyToken(token);
+    req.loginId = decoded.id;
     try {
-    } catch (error) {}
+      User.findByPk(req.loginId).then(user => {
+        if (user) {
+          next();
+        } else {
+          next(err);
+        }
+      });
+    } catch (err) {
+      next(err);
+    }
   }
 }
 
