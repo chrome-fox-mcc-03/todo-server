@@ -11,15 +11,15 @@ function errorHandler(err, req, res, next) {
         let errors = []
 
         err.errors.forEach(error => {
-            errors.push(error.name)
+            errors.push(error.message)
         });
         res.status(statusCode).json({ errors })
     } else if (err.name === '404NotFound') {
         statusCode = 404
         msg = 'Data not found'
-        res.status(statusCode).json({ msg })
+        res.status(statusCode).json({ error: msg })
     } else {
-        res.status(statusCode).json({ msg })
+        res.status(statusCode).json({ error: msg })
     }
 
 

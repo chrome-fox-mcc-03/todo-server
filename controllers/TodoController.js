@@ -17,13 +17,13 @@ class TodoController {
             })
     }
 
-    static findAll(req, res) {
+    static findAll(req, res, next) {
         Todo.findAll()
             .then(result => {
                 res.status(200).json(result)
             })
             .catch(err => {
-                res.status(500)
+                next(err)
             })
     }
 
@@ -50,14 +50,14 @@ class TodoController {
             due_date: req.body.due_date
         }
         let id = req.params.id
-        Todo.findByPk({ where: { id } }).then(todo => {
+        Todo.findByPk(id).then(todo => {
             if (todo) {
                 Todo.update(input, { where: { id }, returning: true })
                     .then(result => {
                         res.status(200).json({ msg: 'Todo updated.', data: result })
                     })
                     .catch(err => {
-                        res.send(err)
+                        next(err)
                     })
             } else {
                 next({ name: '404NotFound' })

@@ -17,13 +17,15 @@
 
 * **Error Response :**
 
-  * **Code:** 404 NOT FOUND <br />
-    **Content:** `{ error : ""}`
+  * **Code:** 400 <br />
+    **Content:** `{ errors: ["Title can't be empty",
+    "Description can't be empty"
+  ] }`
 
     OR
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
-    **Content:** `{ error : "" }`
+    **Content:** `{ error : "Internal Server Error" }`
 
 
 **2. GET**
@@ -45,7 +47,8 @@
 * **Error Response :**
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
-    **Content:** `{ error : "" }`
+    **Content:** `{ error : "Internal Server Error" }`
+
 
 
 **3. GET-id**
@@ -72,8 +75,8 @@
 
 * **Error Response:**
 
-    * **Code:** 404 NOT FOUND <br />
-    **Content:** `{ error : ""}`
+ * **Code:** 404 ERROR NOT FOUND <br />
+    **Content:** `{ error : "Data not found" }`
 
 
 **4. PUT**
@@ -106,12 +109,12 @@
 * **Error Response :**
 
     * **Code:** 404 NOT FOUND <br />
-    **Content:** `{ error : ""}`
+    **Content:** `{ error : "Data not found"}`
 
         OR
 
     * **Code:** 500 INTERNAL SERVER ERROR <br />
-    **Content:** `{ error : "" }`
+    **Content:** `{ error : "Internal Server Error" }`
 
 **5. DELETE**
 
@@ -139,11 +142,11 @@
 * **Error Response :**
 
     * **Code:** 404 NOT FOUND <br />
-    **Content:** `{ error : ""}`
+    **Content:** `{ error : "Data not found"}`
 
         OR
 
     * **Code:** 500 INTERNAL SERVER ERROR <br />
-    **Content:** `{ error : "" }`
+    **Content:** `{ error : "Internal Server Error" }`
 
 

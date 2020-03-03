@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     status: {
       type: DataTypes.BOOLEAN,
-      defaultValues: false,
+      defaultValue: false,
     },
     due_date: {
       type: DataTypes.DATE,
