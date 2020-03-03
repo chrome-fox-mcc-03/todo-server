@@ -1,5 +1,5 @@
 const {Todo} = require("../models")
-let id
+
 class TodoController {
 
     static create(req, res) {
@@ -44,7 +44,7 @@ class TodoController {
             if(todo) {
                 res.status(200).json({todo:todo, message: "Entry found"})
             } else {
-                throw ("Index not Found")
+                res.status(404).json({error: "Entry Not Found"})
             }
         })
         .catch(err => {
@@ -54,36 +54,41 @@ class TodoController {
     }
 
     static update(req, res) {
-        // console.log(req.body);
-        Todo.update({
-            title: req.body.title,
-            description: req.body.description,
-            status: req.body.status,
-            due_date: req.body.due_date
-        }, {
-            where: {
-                id: +req.params.id
-            },
-            returning: true
-        })
+        // console.log(`updating`);
+        // console.log(req.params.id);
+        Todo.update(
+            {
+                title: req.body.title,
+                description: req.body.description,
+                status: req.body.status,
+                due_date: req.body.due_date
+            }, {
+                where: {
+                    id: +req.params.id
+                },
+                returning: true
+            }
+        )
         .then(updated => {
-            if(updated[1].length !== 0) {
-                // console.log(`updating`)
-                // console.log(updated);
-                // console.log(`the previous value`);
-                // console.log(updated._previousDataValues);
-                res.status(200).json({todo:updated[1], message: "Entry updated"})
+            console.log(`this is updated data`);
+            console.log(updated);
+            if(updated[0] === 0) {
+                res.status(404).json({error: "Entry Not Found"})
             } else {
-                throw("Index not found")
+                res.status(200).json({todo:updated[1], message: "Entry updated"})
             }
         })
         .catch(err => {
-            res.status(500).json({error:err})
+            if(err.name === "SequelizeValidationError") {
+                res.status(400).json({error: err.name, message: err.message})
+            } else {
+                res.status(500).json({error:err})
+            }
+            
         })
     }
 
     static delete(req, res) {
-        id = +req.params.id
         Todo.destroy({
             where: {
                 id: +req.params.id
@@ -91,9 +96,9 @@ class TodoController {
         })
         .then(deleted => {
             if(deleted === 1) {
-                res.status(200).json({todo:deleted, message: `Delete success for ID ${id}`})
+                res.status(200).json({todo:deleted, message: "Delete Success"})
             } else {
-                throw("Index not Found")
+                res.status(404).json({error: "Entry Not Found"})
             }
             
         })

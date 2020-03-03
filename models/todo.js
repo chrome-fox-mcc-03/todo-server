@@ -2,9 +2,9 @@
 module.exports = (sequelize, DataTypes) => {
   // const Todo = sequelize.define('Todo', {
     class Todo extends sequelize.Sequelize.Model {
-      static associate(models) {
+      // static associate(models) {
 
-      }
+      // }
 
     }
     Todo.init({
@@ -47,10 +47,10 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     sequelize,
-    "modelName": "Todo"
+    modelName: "Todo"
   });
-  // Todo.associate = function(models) {
-  //   // associations can be defined here
-  // };
+  Todo.associate = function(models) {
+    // associations can be defined here
+  };
   return Todo;
 };

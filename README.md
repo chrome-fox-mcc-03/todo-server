@@ -44,7 +44,7 @@
     "due_date": "2020-08-07T17:00:00.000Z",
     "updatedAt": "2020-03-02T15:19:24.046Z",
     "createdAt": "2020-03-02T15:19:24.046Z"
-}`
+}`<br><br>
  
 * **Error Response:**
 
@@ -269,6 +269,14 @@
  
 * **Error Response:**
 
+  * **Code:** 404 ENTRY NOT FOUND <br />
+    **Content:** <br>
+    `{
+    "error": "Entry Not Found"
+    }`
+
+  <br><br>
+
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** <br>
     `{
@@ -299,13 +307,6 @@
         "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
     }
 }`
-<br><br>
-
-    **OR**
-    <br>
-    `{
-      "error": "Index not Found"
-      }`
 
 <br>
 <hr>
@@ -354,68 +355,75 @@
  
 * **Error Response:**
 
-  * **Code:** 500 INTERNAL SERVER ERROR <br />
-    **Content:** `{
-    "err": {
-        "name": "SequelizeValidationError",
-        "errors": [
-            {
-                "message": "All entries must be filled",
-                "type": "Validation error",
-                "path": "isNotNull",
-                "value": null,
-                "origin": "FUNCTION",
-                "instance": {
-                    "id": null,
-                    "title": "bikin nastar",
-                    "description": "hari raya",
-                    "status": "pending",
-                    "due_date": "",
-                    "updatedAt": "2020-03-02T10:46:46.489Z"
-                },
-                "validatorKey": "isNotNull",
-                "validatorName": null,
-                "validatorArgs": [],
-                "original": {}
-            }
-        ]
-    },
-    "message": "UPDATE FAILED"
-}`<br><br>
+   * **Code:** 400 SEQUELIZE VALIDATION ERROR <br />
+    **Content:** <br>
+    `{
+    "error": "SequelizeValidationError",
+    "message": "Validation error: Due date must be today or later"
+    }`
 
-    **OR**<br>
 
+  <br><br>
+
+  * **Code:** 404 ENTRY NOT FOUND <br />
+    **Content:** <br>
+    `{
+    "error": "Entry Not Found"
+    }`
+  <br><br>
+
+  * **Code:** 500 DATABASE ERROR <br />
+    **Content:** <BR>
     `{
     "error": {
-        "name": "SequelizeValidationError",
-        "errors": [
-            {
-                "message": "Due date must be today's date or later",
-                "type": "Validation error",
-                "path": "due_date",
-                "value": "2020-01-19T00:00:00.000Z",
-                "origin": "FUNCTION",
-                "instance": {
-                    "id": null,
-                    "title": "bikin nastar",
-                    "description": "hari raya",
-                    "status": "pending",
-                    "due_date": "2020-01-19T00:00:00.000Z",
-                    "updatedAt": "2020-03-02T11:16:13.304Z"
-                },
-                "validatorKey": "beforeToday",
-                "validatorName": null,
-                "validatorArgs": [],
-                "original": {}
-            }
+        "name": "SequelizeDatabaseError",
+        "parent": {
+            "name": "error",
+            "length": 170,
+            "severity": "ERROR",
+            "code": "22P02",
+            "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\utils\\adt\\numutils.c",
+            "line": "259",
+            "routine": "pg_strtoint32",
+            "sql": "UPDATE \"Todos\" SET \"title\"=$1,\"description\"=$2,\"status\"=$3,\"due_date\"=$4,\"updatedAt\"=$5 WHERE \"id\" = $6",
+            "parameters": [
+                "nyekareDIT",
+                "hari raya",
+                "pending",
+                "2020-09-02 00:00:00.000 +00:00",
+                "2020-03-03 09:33:14.760 +00:00",
+                null
+            ]
+        },
+        "original": {
+            "name": "error",
+            "length": 170,
+            "severity": "ERROR",
+            "code": "22P02",
+            "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\utils\\adt\\numutils.c",
+            "line": "259",
+            "routine": "pg_strtoint32",
+            "sql": "UPDATE \"Todos\" SET \"title\"=$1,\"description\"=$2,\"status\"=$3,\"due_date\"=$4,\"updatedAt\"=$5 WHERE \"id\" = $6",
+            "parameters": [
+                "nyekareDIT",
+                "hari raya",
+                "pending",
+                "2020-09-02 00:00:00.000 +00:00",
+                "2020-03-03 09:33:14.760 +00:00",
+                null
+            ]
+        },
+        "sql": "UPDATE \"Todos\" SET \"title\"=$1,\"description\"=$2,\"status\"=$3,\"due_date\"=$4,\"updatedAt\"=$5 WHERE \"id\" = $6",
+        "parameters": [
+            "nyekareDIT",
+            "hari raya",
+            "pending",
+            "2020-09-02 00:00:00.000 +00:00",
+            "2020-03-03 09:33:14.760 +00:00",
+            null
         ]
     }
-}`<br><br>
-
-    **OR**<br>
-    `{
-    "error": "Index not found"
-    }`
+}`
 
 <br>
 <hr>
@@ -449,6 +457,13 @@
  
 * **Error Response:**
 
+  * **Code:** 404 ENTRY NOT FOUND <br />
+    **Content:** <br>
+    `{
+    "error": "Entry Not Found"
+    }`
+  <br><br>
+
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** <br>
     `{
@@ -479,11 +494,6 @@
         "sql": "DELETE FROM \"Todos\" WHERE \"id\" = NaN"
     }
 }`
-<br><br>
-    **OR**<br>
-    `{
-      "error": "Index not found"
-      }`
 
 <br>
 <hr>
