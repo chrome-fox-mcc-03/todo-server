@@ -25,7 +25,8 @@ module.exports = (sequelize, DataTypes) => {
           }
         }
       },
-    }
+    },
+    UserId: DataTypes.INTEGER
   },{
     hooks:{
       beforeCreate: (todo) => {
@@ -53,6 +54,7 @@ module.exports = (sequelize, DataTypes) => {
   
   Todo.associate = function(models) {
     // associations can be defined here
+    Todo.belongsTo(models.User)
   };
   return Todo;
 };
