@@ -10,12 +10,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: {
         args: false,
-        message: 'title cannot be empty'
+        msg: 'title cannot be empty'
       },
       validate: {
         len: {
           args: [1],
-          message: 'title cannot be empty'
+          msg: 'title cannot be empty'
         }
       }
     },
@@ -23,12 +23,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: {
         args: false,
-        message: 'description cannot be empty'
+        msg: 'description cannot be empty'
       },
       validate: {
         len: {
           args: [1],
-          message: 'description cannot be empty'
+          msg: 'description cannot be empty'
         }
       }
     },
@@ -36,14 +36,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       allowNull: {
         args: false,
-        message: 'status cannot be empty'
-      }
+        msg: 'status cannot be empty'
+      },
+      defaultValue: false
     },
     due_date: {
       type: DataTypes.DATE,
       allowNull: {
         args: false,
-        message: 'due date cannot be empty'
+        msg: 'due date cannot be empty'
       }
     },
     UserId: {

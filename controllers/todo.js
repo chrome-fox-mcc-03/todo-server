@@ -1,16 +1,63 @@
-const { Todo } = require('../models')
+const { Todo, User } = require('../models')
 
 module.exports = {
-    createTodo(req, res, next) {
+  createTodo(req, res, next) {
+    const { id } = req.decoded
+    const { title, description, due_date } = req.body
+    Todo.create({
+      title, description, due_date, UserId: id
+    })
+    .then(data => {
+      res.status(201).json({
+        data,
+        message: 'success create ToDo'
+      })
+    })
+    .catch(next)
+  },
+  findAllTodo(req, res, next) {
+    const { id } = req.decoded
 
-    },
-    findAllTodo(req, res, next) {
+    Todo.findAll({
+      where: { UserId: id },
+      include: [ User ]
+    })
+    .then(data => {
+      res.status(200).json({
+        data
+      })
+    })
+    .catch(next)
+  },
+  updateTodo(req, res, next) {
+    const { id } = req.params
+    const { title, description, due_date } = req.body
 
-    },
-    updateTodo(req, res, next) {
+    Todo.update({
+      title, description, due_date  
+    },{
+      where: { id },
+      returning: true
+    })
+    .then(data => {
+      res.status(200).json({
+        data,
+        message: 'success update Todo'
+      })
+    })
+    .catch(next)
+  },
+  destroyTodo(req, res, next) {
+    const { id } = req.params
 
-    },
-    destroyTodo(req, res, next) {
-
-    }
+    Todo.destroy({
+      where: { id }
+    })
+    .then(_ => {
+      res.status(200).json({
+        message: 'success delete Todo'
+      })
+    })
+    .catch(next)
+  }
 }

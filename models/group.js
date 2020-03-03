@@ -10,12 +10,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: {
         args: false,
-        message: 'Group name cannot be empty'
+        msg: 'Group name cannot be empty'
       },
       validate: {
         len: {
           args: [1],
-          message: 'Group name cannot be empty'
+          msg: 'Group name cannot be empty'
         }
       }
     }

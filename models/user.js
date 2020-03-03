@@ -1,9 +1,11 @@
 'use strict';
+const { hashPassword } = require('../helpers')
+
 module.exports = (sequelize, DataTypes) => {
   class User extends sequelize.Sequelize.Model {
     static associate(models){
       User.hasMany(models.Todo)
-      User.belongsTo(models.GroupUser)
+      User.hasMany(models.GroupUser)
     }
   }
   User.init({
@@ -11,12 +13,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: {
         args: false,
-        message: 'username cannot be empty'
+        msg: 'username cannot be empty'
       },
       validate: {
         len: {
           args: [1],
-          message: 'username cannot be empty'
+          msg: 'username cannot be empty'
         }
       }
     },
@@ -24,36 +26,43 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: {
         args: false,
-        message: 'email cannot be empty'
+        msg: 'email cannot be empty'
       },
       validate: {
         len: {
           args: [1],
-          message: 'email cannot be empty'
+          msg: 'email cannot be empty'
         },
         isEmail: {
           args: true,
-          message: 'email must contain email format'
+          msg: 'email must contain email format'
         }
       },
       unique: {
         args: true,
-        message: 'email already in use'
+        msg: 'email already in use'
       }
     },
     password: {
       type: DataTypes.STRING,
       allowNull: {
         args: false,
-        message: 'password cannot be empty'
+        msg: 'password cannot be empty'
       },
       validate: {
         len: {
           args: [5],
-          message: 'password character cannot less than 5'
+          msg: 'password character cannot less than 5'
         }
       }
     }
-  }, { sequelize })
+  }, { 
+    sequelize,
+    hooks: {
+      beforeCreate: (user, opt) => {
+        user.password = hashPassword(user.password)
+      }
+    }
+   })
   return User;
 };
