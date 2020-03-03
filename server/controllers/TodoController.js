@@ -32,7 +32,11 @@ class TodoController {
     Todo.findByPk(todoId)
       .then(result => {
         if (!result) {
-          next(err);
+          // 404 not found
+          next({
+            status: 404,
+            message: 'Not Found'
+          });
         } else {
           res.status(200).json(result);
         }
@@ -75,14 +79,16 @@ class TodoController {
 
       .then(deleted => {
         if (!deleted) {
-          next(err);
+          // 404
+          next({
+            status: 404,
+            message: `Not Found`
+          });
         } else {
           res.send(200).json(deleted[0]);
         }
       })
-      .catch(err => {
-        next(err);
-      });
+      .catch(next);
   }
 }
 

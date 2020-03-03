@@ -18,9 +18,7 @@ class UserController {
         };
         res.status(201).json(result);
       })
-      .catch(err => {
-        next(err);
-      });
+      .catch(next);
   }
 
   static login(req, res, next) {
@@ -39,16 +37,20 @@ class UserController {
             res.status(200).json({ token });
           } else {
             // error 400
-            next(err);
+            next({
+              status: 400,
+              message: `Wrong email/password`
+            });
           }
         } else {
           // error 400
-          next(err);
+          next({
+            status: 400,
+            message: `Wrong email/password`
+          });
         }
       })
-      .catch(err => {
-        next(err);
-      });
+      .catch(next);
   }
 
   static logout(req, res) {

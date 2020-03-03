@@ -1,7 +1,7 @@
 'use strict';
 
 class ErrorHandler {
-  static errHandling(err, req, res, _) {
+  static errHandling(err, req, res, next) {
     // Error Token
     if (err.name === 'JsonWebTokenError') {
       err.status = 401;
@@ -15,7 +15,6 @@ class ErrorHandler {
     }
 
     // Default Error Status 500
-
     res
       .status(err.status || 500)
       .json({ message: err.message || `Internal Server Error` });
