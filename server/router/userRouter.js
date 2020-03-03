@@ -5,12 +5,12 @@ const router = express.Router();
 const { UserController } = require('../controllers/UserController');
 
 // register
-router.get('/register', UserController.register);
+router.post('/register', UserController.register);
 
 // login
-router.get('/login', UserController.login);
+router.post('/login', UserController.login);
 
 // logout
-router.get('/logout', UserController.logout);
+router.post('/logout', UserController.logout);
 
 module.exports = { userRouter: router };

@@ -1,34 +1,53 @@
 'use strict';
 
 const { User } = require('../models');
+const { generateToken } = require('../helpers/generateToken');
+const { comparePassword } = require('../helpers/hashPassword');
 
 class UserController {
-  static register(req, res) {
+  static register(req, res, next) {
     let payload = {
       email: req.body.email,
       password: req.body.password
     };
     User.create(payload)
-      .then(response => {
-        res.send(response);
+      .then(user => {
+        let result = {
+          id: user.id,
+          email: user.email
+        };
+        res.status(201).json(result);
       })
       .catch(err => {
-        res.send(err);
+        next(err);
       });
   }
 
-  static login(req, res) {
-    let { email } = req.body;
+  static login(req, res, next) {
+    let { email, password } = req.body;
     User.findOne({
       where: {
         email
       }
     })
       .then(user => {
-        res.send(user);
+        if (user) {
+          const isCorrect = comparePassword(password, user.password);
+          if (isCorrect) {
+            const payload = { id: user.id };
+            const token = generateToken(payload);
+            res.status(200).json({ token });
+          } else {
+            // error 400
+            next(err);
+          }
+        } else {
+          // error 400
+          next(err);
+        }
       })
       .catch(err => {
-        res.send(err);
+        next(err);
       });
   }
 

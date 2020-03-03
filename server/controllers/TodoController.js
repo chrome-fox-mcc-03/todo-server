@@ -4,50 +4,49 @@ const { Todo } = require('../models');
 
 class TodoController {
   static showAll(req, res, next) {
-    Todo.findAll()
-      .then(result => {
-        res.status(200).json(result);
+    Todo.findAll({
+      order: [['id', 'ASC']]
+    })
+      .then(todos => {
+        res.status(200).json(todos);
       })
-      .catch(err => {
-        res.send(err);
-      });
+      .catch(next);
   }
-  static createTodo(req, res) {
-    let { title, description, status, due_date } = req.body;
+  static createTodo(req, res, next) {
+    let { title, description, status, due_date, UserId } = req.body;
     Todo.create({
       title,
       description,
       status,
-      due_date
+      due_date,
+      UserId
     })
       .then(result => {
         res.status(201).json(result);
       })
-      .catch(err => {
-        res.send(err);
-      });
+      .catch(next);
   }
-  static showTodoById(req, res) {
+  static showTodoById(req, res, next) {
     let { id } = req.params;
     let todoId = +id;
     Todo.findByPk(todoId)
       .then(result => {
         if (!result) {
-          // next(err)
+          next(err);
         } else {
           res.status(200).json(result);
         }
       })
       .catch(err => {
-        res.send(err);
+        next(err);
       });
   }
-  static updateTodo(req, res) {
-    let { title, description, status, due_date } = req.body;
+  static updateTodo(req, res, next) {
+    let { title, description, status, due_date, UserId } = req.body;
     let updateId = +req.params.id;
 
     Todo.update(
-      { title, description, status, due_date },
+      { title, description, status, due_date, UserId },
       {
         where: {
           id: updateId
@@ -58,11 +57,9 @@ class TodoController {
       .then(result => {
         res.send(result);
       })
-      .catch(err => {
-        res.send(err);
-      });
+      .catch(next);
   }
-  static deleteTodo(req, res) {
+  static deleteTodo(req, res, next) {
     let deleteId = +req.params.id;
     Todo.findByPk(deleteId)
       .then(result => {
@@ -78,13 +75,13 @@ class TodoController {
 
       .then(deleted => {
         if (!deleted) {
-          // next(err);
+          next(err);
         } else {
           res.send(200).json(deleted[0]);
         }
       })
       .catch(err => {
-        res.send(err);
+        next(err);
       });
   }
 }
