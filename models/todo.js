@@ -53,7 +53,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize
   });
   Todo.associate = function(models) {
-    // associations can be defined here
+    Todo.belongsTo(models.User,{foreignKey:'UserId'})
   };
   return Todo;
 };
