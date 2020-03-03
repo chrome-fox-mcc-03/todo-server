@@ -35,10 +35,6 @@ module.exports = (sequelize, DataTypes) => {
         isEmail: {
           args: true,
           msg: "Please insert Email within @"
-        },
-        notEmpty: {
-          args: true,
-          msg: "Please Insert Email"
         }
       }
     },

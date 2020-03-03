@@ -37,8 +37,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         isAfter: {
-          args: dateHelpper,
-          msg: 'Please insert ' + dateHelpper
+          args: `${new Date().toDateString()}`,
+          msg: 'Please insert more than current day'
         }
       }
     },
