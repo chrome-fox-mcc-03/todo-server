@@ -17,7 +17,8 @@ class Controller {
         Todo.create({
             title: req.body.title,
             description: req.body.description,
-            due_date: req.body.due_date
+            due_date: req.body.due_date,
+            user_id: req.decoded.id
         })
         .then(newTodo => res.status(201).json(newTodo))
         .catch(err => next(err))

@@ -16,6 +16,10 @@ module.exports = function authentication(req, res, next){
         })
         .then(result => {            
             if(result[0]){
+                req.decoded = {
+                   username: decodedData.username,
+                   id: decodedData.id
+                } 
                 next()
             }
             else{
