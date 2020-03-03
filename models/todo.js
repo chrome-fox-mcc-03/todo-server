@@ -38,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     status: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
+      defaultValue: false,
       validate: {
         notNull: {
           msg: 'Status should be filled',
@@ -55,6 +56,10 @@ module.exports = (sequelize, DataTypes) => {
           args: convert(new Date()),
           msg: 'Time should not be older than today',
         },
+        notEmpty: {
+          args: true,
+          msg: 'Date should be filled',
+        }
       },
     },
     userId: DataTypes.INTEGER,
