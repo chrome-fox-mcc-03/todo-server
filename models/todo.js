@@ -24,10 +24,12 @@ module.exports = (sequelize, DataTypes) => {
         isAfter : {
           args : new Date().toISOString(),
           msg : "Cant Put Date before now"}
-      }}
+      }},
+    UserId : DataTypes.INTEGER
   }, {sequelize})
   Todo.associate = function(models) {
     // associations can be defined here
+    Todo.belongsTo(models.User)
   };
   return Todo;
 };
