@@ -6,7 +6,6 @@ const authentication = require('../middleware/authentication')
 
 router.get('/', todoController.showAllTodo)
 
-// router.use(authentication)
 router.post('/', authentication ,todoController.createTodo)
 router.get('/:id', todoController.getTodoById)
 router.put('/:id', todoController.updateTodoById)

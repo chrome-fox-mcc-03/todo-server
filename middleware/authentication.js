@@ -4,39 +4,42 @@ const jwt  = require('jsonwebtoken');
 const { User } = require('../models')
 
 module.exports = function(req, res, next){
-    const access_token = req.headers.access_token
-    // const decoded = jwt.verify(access_token, process.env.SECRET,);
-    const decoded_token = jwt.verify(access_token, process.env.SECRET, (err, decoded) => {
-        if(err){
-            throw err
-        }else{
-            return decoded
-        }
-    });
     
-    const {id, email} = decoded_token.id
-    
-    
-    User.findOne({
-        where: {
-            id,
-            email
-        }
-    })
-    .then((result) => {
+    try {
+        const access_token = req.headers.access_token
+        const decoded_token = jwt.verify(access_token, process.env.SECRET);
+        const {id, email} = decoded_token.id
         
-        if(result){
-            req.headers.userId = id
-            next()
-        }else{
-            const error = {
-                status : 401,
-                msg : 'Forbidden access!'
+        User.findOne({
+            where: {
+                id,
+                email
             }
-            throw error
+        })
+        .then((result) => {
+            
+            if(result){
+                req.headers.userId = id
+                next()
+                return result
+            }else{
+                const error = {
+                    status : 401,
+                    message : 'Forbidden access!'
+                }
+                throw error
+            }
+        }).catch((err) => {
+            res.status(err.status).json({"Error message":err.message})
+        });
+
+    } catch (error) {
+        const err = {
+            status : 401,
+            message : 'Forbidden access!'
         }
-    }).catch((err) => {
-        res.status(err.status).json({"Error message":err.msg})
-    });
+        res.status(err.status).json({"Error message":err.message})
+    }
+    
     
 }
