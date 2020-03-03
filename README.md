@@ -5,7 +5,7 @@
 
 * **URL**
 
-  /todos/
+  /todos
 
 * **Method:**
   
@@ -19,14 +19,14 @@
 * **Error Response:**
 
   * **Code:** 500 Internal Server Error <br />
-    **Content:** `{ error : "Log in" }`
+    **Content:** `{ error : "Error" }`
 
 **Post Todo**
 ----
 
 * **URL**
 
-  /todos/
+  /todos
 
 * **Method:**
   
@@ -58,7 +58,7 @@
   OR
 
   * **Code:** 400 Bad Request <br />
-    **Content:** `{ error : "Please enter due_date" }`
+    **Content:** `Please enter title`, `Please enter status`, `Please enter due_date`, `Please enter UserId`, `Please enter UserId`, `due_date must be greater than now!`
  
 * **Error Response:**
 
@@ -70,7 +70,7 @@
 
 * **URL**
 
-  /todos/
+  /todos
 
 * **Method:**
   
@@ -106,20 +106,15 @@
 
   OR
 
-  * **Code:** 404 Not Found <br />
-    **Content:** `{ error : "id not found!" }`
-
-  OR
-
   * **Code:** 400 Bad Request <br />
-    **Content:** `{ error : "Please enter due_date" }`
+    **Content:** `id not found!`
 
 **Delete Todos**
 ----
 
 * **URL**
 
-  /todos/
+  /todos
 
 * **Method:**
   
@@ -143,5 +138,74 @@
 
   OR
 
-  * **Code:** 404 Not Found <br />
-    **Content:** `{ error : "id not found!" }`
+  * **Code:** 400 Bad Request <br />
+    **Content:** `id not found!`
+
+**Login**
+----
+
+* **URL**
+
+  /login
+
+* **Method:**
+  
+  `POST`
+
+* **Data Params**
+
+  **Required:**
+
+  `email=[string]`<br />
+  `password=[string]`
+  
+* **Success Response:**
+  
+  * **Code:** 200 <br />
+    **Content:** `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNTgzMjM4NzYzfQ.fdLNdMN-7D_7JzqBGBRpCfY51cW5WTNBms8ZmQFgOvQ`
+ 
+* **Error Response:**
+
+  * **Code:** 500 Internal Server Error <br />
+    **Content:** `{ error : "Error" }`
+
+  OR
+
+  * **Code:** 400 Bad Request <br />
+    **Content:** `invalid email / password`
+
+**Register**
+----
+
+* **URL**
+
+  /register
+
+* **Method:**
+  
+  `POST`
+
+* **Data Params**
+
+  **Required:**
+
+  `email=[string]`<br />
+  `password=[string]`
+  
+* **Success Response:**
+  
+  * **Code:** 201 <br />
+    **Content:** `{"id": 11, "title": "makan", "description": "sushi", "status": "pending", "due_date": "2020-03-04T00:00:00.000Z", "UserId": 1, "updatedAt": "2020-03-03T11:45:35.441Z", "createdAt": "2020-03-03T11:45:35.441Z"}`
+ 
+* **Error Response:**
+
+  * **Code:** 500 Internal Server Error <br />
+    **Content:** `{ error : "Error" }`
+
+  OR
+
+  * **Code:** 400 Bad Request <br />
+    **Content:** `Email address already in use!`, `Please enter email`, `please enter valid email address`, `Please enter password`, `password at least 6 characters!`
+
+
+
