@@ -4,25 +4,43 @@ const { generateToken } = require('../helper/jwt.js')
 
 
 class UserController {
-    static signUp(req, res) {
+    static signUp(req, res, next) {
         let { email, password } = req.body;
-        User.create({
-            email,
-            password
+        User.findOne({
+            where: {
+                email
+            }
         })
             .then(result => {
-                let data = {
-                    id: result.id,
-                    email: result.email
+                if (result.length == 0) {
+                    User.create({
+                        email,
+                        password
+                    })
+                        .then(result => {
+                            let data = {
+                                id: result.id,
+                                email: result.email
+                            }
+                            res.status(200).json(data);
+                        })
+                        .catch(error => {
+                            next({ error })
+                        })
+                } else {
+                    next({
+                        status: 400,
+                        message: `someone has signed up using this email`
+                    })
                 }
-                res.status(200).json(data);
             })
             .catch(error => {
                 next({ error })
             })
+
     }
 
-    static signIn(req, res) {
+    static signIn(req, res, next) {
         User.findOne({
             where: {
                 email: req.body.email
