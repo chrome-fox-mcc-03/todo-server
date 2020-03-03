@@ -1,4 +1,7 @@
 'use strict';
+
+const { hashPassword } = require('../helpers/hashPassword');
+
 module.exports = (sequelize, DataTypes) => {
   class User extends sequelize.Sequelize.Model {
     static associate(models) {
@@ -32,6 +35,9 @@ module.exports = (sequelize, DataTypes) => {
     {
       hooks: {
         // to hash password
+        beforeCreate: function(user, option) {
+          user.password = hashPassword(user.password);
+        }
       },
       sequelize,
       modelName: 'User'
