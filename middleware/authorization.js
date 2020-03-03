@@ -1,9 +1,8 @@
-const jwt = require('jsonwebtoken')
-const { UserTodo } = require('../models')
+const { Todo } = require('../models')
 
 
 module.exports = function(req, res, next) {
-    UserTodo.findByPk(req.params.id)
+    Todo.findByPk(req.params.id)
         .then(function(result) {
             if(req.currentUserId == result.UserId) {
                 next()

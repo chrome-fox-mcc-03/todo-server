@@ -1,13 +1,13 @@
 ## todo-server
 Postman Documentation : https://documenter.getpostman.com/view/10570615/SzKbKukw
 
-**Show User**
+**Show Todos**
 ----
-  Returns json data about a single user.
+  Returns json data about users.
 
 * **URL**
 
-  /users/:id
+  /todos
 
 * **Method:**
 
@@ -21,7 +21,6 @@ Postman Documentation : https://documenter.getpostman.com/view/10570615/SzKbKukw
 
    **Required:**
  
-   `id=[integer]`
 
 * **Data Params**
 
@@ -30,16 +29,171 @@ Postman Documentation : https://documenter.getpostman.com/view/10570615/SzKbKukw
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** `{ id : 12, name : "Michael Bloom" }`
+    **Content:** 
+   `[
+    {
+        "id": 3,
+        "Title": "mandi",
+        "Description": "habis bangun tidur ya mandi",
+        "Status": false,
+        "Due_Date": "2020-03-15T00:00:00.000Z",
+        "createdAt": "2020-03-03T11:58:39.884Z",
+        "updatedAt": "2020-03-03T11:58:39.884Z",
+        "UserId": null
+    }
+    ]`
  
 * **Error Response:**
 
-  * **Code:** 404 NOT FOUND <br />
-    **Content:** `{ error : "User doesn't exist" }`
+  * **Code:** 500 Internal Server Error <br />
+    **Content:** `{"msg": "Internal Server Error"}`
 
-  OR
-
-  * **Code:** 401 UNAUTHORIZED <br />
-    **Content:** `{ error : "You are unauthorized to make this request." }`
 
 =========================================================================================================================
+**Add Todos**
+----
+  Returns json data about a single Todos.
+
+* **URL**
+
+  /todos/:id
+
+* **Method:**
+
+  `POST`
+
+* **Headers:**
+
+  `access_token`
+  
+*  **URL Params**
+    id: Integer
+   **Required:**
+ 
+
+* **Data Params**
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+    `{
+    "id": 4,
+    "Description": "habis bangun tidur ya mand",
+    "Status": false,
+    "Due_Date": "2020-03-15T00:00:00.000Z",
+    "Title": "Pakai Baju",
+    "updatedAt": "2020-03-03T12:03:41.052Z",
+    "createdAt": "2020-03-03T12:03:41.052Z",
+    "UserId": null
+    }`
+ 
+* **Error Response:**
+
+  * **Code:** 400 Bad Request<br />
+    **Content:** `{"msg": "Please Fill In Correctly"}`
+
+  ==============================================================
+
+**Update Todos**
+----
+  Returns json data about Updated users.
+
+* **URL**
+
+  /todos/:id
+
+* **Method:**
+
+  `PUT`
+
+* **Headers:**
+
+  `access_token`
+  
+*  **URL Params**
+    id: Integer
+   **Required:**
+ 
+
+* **Data Params**
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+   `[
+    1,
+    [
+        {
+            "id": 4,
+            "Title": "makan",
+            "Description": "langsung makan skrg",
+            "Status": true,
+            "Due_Date": "2020-03-04T00:00:00.000Z",
+            "createdAt": "2020-03-03T12:03:41.052Z",
+            "updatedAt": "2020-03-03T12:27:18.739Z",
+            "UserId": null
+        }
+    ]
+  ]`
+ 
+* **Error Response:**
+
+  * **Code:** 400 Bad Request<br />
+    **Content:** `{
+    "msg": "Please Fill In Correctly"
+    }`
+
+=============================================================
+
+**Delete Todos**
+----
+  Returns json data about users.
+
+* **URL**
+
+  /todos
+
+* **Method:**
+
+  `DELETE`
+
+* **Headers:**
+
+  `access_token`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+
+* **Data Params**
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+   `{
+    "id": 4,
+    "Title": "hehehe",
+    "Description": "langsung makan skrg",
+    "Status": true,
+    "Due_Date": "2020-03-04T00:00:00.000Z",
+    "createdAt": "2020-03-03T12:03:41.052Z",
+    "updatedAt": "2020-03-03T12:27:18.739Z",
+    "UserId": null
+}`
+ 
+* **Error Response:**
+
+  * **Code:** 500 Internal Server Error<br />
+    **Content:** `{
+    "msg": "Internal Server Error"
+}`

@@ -3,9 +3,9 @@ module.exports = (sequelize, DataTypes) => {
   class Todo extends sequelize.Sequelize.Model {}
     Todo.init({
       Title: {
-        type:DataTypes.STRING,
-        allowNull:false,
-        validate:{
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
           customValidator(value) {
             if(value === null ){
               throw new Error("DO NOT LEAVE IT AT BLANK")
@@ -28,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     }, { sequelize, modelName: 'Todo' });
 
   Todo.associate = function(models) {
+    Todo.belongsTo(models.User)
     // associations can be defined here
   };
   return Todo;

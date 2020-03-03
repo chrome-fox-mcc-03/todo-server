@@ -1,26 +1,36 @@
-const {Todo} = require('../models')
+const {Todo, User} = require('../models')
+const encrypt = require('../helper/bcrypt')
+const bcryptjs = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+const axios = require('axios')
 class Controller {
-    static add(req, res) {
+    static add(req, res, next) {
         Todo.create(req.body)
             .then(function(result) {
+
                 res.status(201).json(result)
             })
             .catch(function(err) {
-                res.status(400).json(err)
+                next(err)
             })
     }
 
-    static findAll(req, res) {
-        Todo.findAll()
+    static findAll(req, res, next) {
+        Todo.findAll({
+            // where:{
+                // UserId: accesstoken header id(karena res ngga kebawa)
+            // }
+        })
             .then(function(result) {
                 res.status(200).json(result)
             })
             .catch(function(err) {
+                console.log(err)
                 res.status(500).json(err.message)
             })
     }
 
-    static findI(req, res) {
+    static findI(req, res, next) {
         Todo.findByPk(req.params.id ,{
             returning:true
         })
@@ -35,7 +45,7 @@ class Controller {
 
     }
 
-    static update(req, res) {
+    static update(req, res, next) {
         Todo.update({
             Title: req.body.Title,
             Description: req.body.Description,
@@ -51,11 +61,11 @@ class Controller {
                 res.status(200).json(result)
             })
             .catch(function(err) {
-                res.status(400).json(err)
+                next(err)
             })
     }
 
-    static delete(req, res) {
+    static delete(req, res, next) {
         let data;
         Todo.findByPk(req.params.id)
             .then(function(result) {
@@ -66,13 +76,16 @@ class Controller {
                 res.status(200).json(data)
             })
             .catch(function(err) {
-                res.status(404).json({
-                    error: "Error Not Found"
-                })
+                console.log('dihapus')
+                next(err)
+                // res.status(404).json({
+                //     error: "Error Not Found"
+                // })
             })
 
     }
-        
+
+    
 }
 
 module.exports = Controller
