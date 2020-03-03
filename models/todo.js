@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           args: true,
-          msg: '01: Name cannot be empty'
+          msg: 'Name cannot be empty'
         }
       }
     },
@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isAfter: {
           args: String(new Date()),
-          msg: '02: Due date must be in the future.'
+          msg: 'Due date must be in the future.'
         }
       }
     }
@@ -33,7 +33,9 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Todo'
   });
   Todo.associate = function(models) {
-    // associations can be defined here
+    Todo.belongsTo(models.User, {
+      foreignKey: 'user_id'
+    })
   };
   return Todo;
 };

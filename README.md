@@ -267,7 +267,7 @@
 | 200 | Data received      |   
 | 201 | Data created/updated      |
 ||
-| 500     | Server internal error/malfunction |
-| 404      | Parameter(s) is not found on the database      | 
 | 400     | Bad request: <br> - Data type input is not correct <br> - Name cannot be empty <br> - Date must be in the future      |   
+| 404      | Parameter(s) is not found on the database      | 
+| 500     | Server internal error/malfunction |
    

@@ -10,7 +10,7 @@ module.exports = function(err, req, res, next){
             break
         case "SequelizeValidationError":
         case "SequelizeDatabaseError":
-            res.status(400).send(`ERROR 400: ${err.message}`)
+            res.status(400).send(`ERROR 400 Bad Request: ${err.message}`)
             break
     }
 }
