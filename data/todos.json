@@ -1,32 +1,44 @@
 [
   {
-    "title": "Walk dog to school",
-    "description": "Remember to bring rope",
-    "status": false,
-    "due_date": "2020-03-7"
+    "title": "Eliminate Dementors in the dungeon",
+    "description": "remember to use the kill spell Dumbledore taught you",
+    "status": "false",
+    "due_date": "2020-03-14",
+    "UserId": 3
   },
   {
-    "title": "Feed fish",
-    "description": "The fish only eats vegans food",
-    "status": true,
-    "due_date": "2020-03-12"
+    "title": "Grade the Spell Defense Exams",
+    "description": "Heavily penalize Potter's score",
+    "status": "true",
+    "due_date": "2020-03-20",
+    "UserId": 3
   },
   {
-    "title": "Drink water",
-    "description": "Remember to also remind your hydrobuddy",
-    "status": false,
-    "due_date": "2020-03-17"
+    "title": "Buy a new catfish",
+    "description": "Mr. Munchkins need a new friend",
+    "status": "false",
+    "due_date": "2020-03-13",
+    "UserId": 1
   },
   {
-    "title": "Create resume",
-    "description": "Anything above one page will be automatically delete",
-    "status": true,
-    "due_date": "2020-03-22"
+    "title": "Cook Mr.Munchkins",
+    "description": "That new recipe sounds pretty good",
+    "status": "true",
+    "due_date": "2020-03-21",
+    "UserId": 1
   },
   {
-    "title": "Clean your room",
-    "description": "Before cleaning the world",
-    "status": false,
-    "due_date": "2020-03-27"
+    "title": "Create a new deck",
+    "description": "The theme for this one is Dragons and Spellcasters",
+    "status": "true",
+    "due_date": "2020-03-10",
+    "UserId": 2
+  },
+  {
+    "title": "Challenge that annoying kid to a duel",
+    "description": "That bully needs to be taught a lesson",
+    "status": "false",
+    "due_date": "2020-03-17",
+    "UserId": 2
   }
 ]

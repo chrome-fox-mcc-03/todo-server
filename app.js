@@ -1,14 +1,17 @@
 if (process.env.NODE_ENV === "development") {
   require("dotenv").config();
 }
+
 const express = require("express");
-const routers = require("./routers");
-app = express();
+const app = express();
+const router = require("./routes");
+const errorHandler = require("./middlewares/errorHandling");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(routers);
+app.use(router);
 
-app.listen(process.env.PORT, (req, res) =>
-  console.log(`I love you ${process.env.PORT}.`)
+app.use(errorHandler);
+app.listen(process.env.PORT, () =>
+  console.log(`${process.env.PORT}のポートを聞いた。`)
 );
