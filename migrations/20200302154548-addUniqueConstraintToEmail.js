@@ -6,5 +6,5 @@ module.exports = {
     name: 'unique_email_constraint',
   }),
 
-  down: (queryInterface) => queryInterface.dropTable('Users', 'unique_email_constraint'),
+  down: (queryInterface) => queryInterface.removeConstraint('Users', 'unique_email_constraint'),
 };

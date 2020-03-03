@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
 
   class Project extends Model {
     static associate(models) {
-      Project.hasMany(models.Todo);
+      Project.hasMany(models.Todo, { foreignKey: 'id' });
       Project.belongsToMany(models.User, {
         through: 'UserProject',
       });
