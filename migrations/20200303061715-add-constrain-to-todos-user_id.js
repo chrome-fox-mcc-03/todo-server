@@ -15,6 +15,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.removeConstraint('Todos', ['user_id'])
+    return queryInterface.removeConstraint('Todos', 'fkey_user_id')
   }
 };

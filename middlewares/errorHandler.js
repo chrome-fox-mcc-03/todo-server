@@ -10,7 +10,14 @@ module.exports = function(err, req, res, next){
             break
         case "SequelizeValidationError":
         case "SequelizeDatabaseError":
+        case "LoginError":
             res.status(400).send(`ERROR 400 Bad Request: ${err.message}`)
             break
+        case "SequelizeUniqueConstraintError":
+            res.status(400).send(`ERROR 400 Bad Request: ${err.message}`)
+            break
+        case "Unauthorized":
+            res.status(401).send(`ERROR 401 Bad Request: ${err.message}`)
+
     }
 }
