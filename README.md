@@ -46,10 +46,15 @@
 
   * **Code:** 400 BAD REQUEST <br />
     **Content:** `{ message: "email cannot be empty" }`
+  
+  OR
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ message: "email must contain email format" }`
 
   OR
 
-  * **Code:** 500 <br />
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** `{ message: "Internal Server Error" }`
 
 **Login**
@@ -96,7 +101,7 @@
 
   OR
 
-  * **Code:** 500 <br />
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** `{ message: "Internal Server Error" }`
 
 **Create todo**
@@ -135,7 +140,7 @@
 * **Success Response:**
 
   * **Code:** 201 <br />
-    **Content:** `{ message: "success add todo" }`
+    **Content:** `{ message: "success create todo" }`
  
 * **Error Response:**
 
@@ -154,7 +159,7 @@
 
   OR
 
-  * **Code:** 500 <br />
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** `{ message: "Internal Server Error" }`
 
 **Find All todo**
@@ -188,11 +193,25 @@
     **Content:** 
     ```javascript
     {
-      data: [
+      data: "data": [
         {
-          title: "puasa full gk bolong bolong",
-          description: "puasa harus full jangan mampir ke warteg",
-          due_date: "23 Mei 2020"
+            id: 5,
+            title: "puasa full gk bolong bolong",
+            description: "puasa harus full jangan mampir ke warteg",
+            status: false,
+            due_date: "2020-03-03T16:35:19.171Z",
+            UserId: 5,
+            GroupId: null,
+            createdAt: "2020-03-03T16:35:19.171Z",
+            updatedAt: "2020-03-03T16:35:19.171Z",
+            User: {
+                id: 5,
+                username: "user",
+                email: "user@mail.com",
+                password: "$2a$10$xpb6EM68AqYdRAByKQ/cVeq4ritqH9EJIyNSxI52o0sIzklA9rY7q",
+                createdAt: "2020-03-03T16:35:19.141Z",
+                updatedAt: "2020-03-03T16:35:19.141Z"
+            }
         }
       ]
     }
@@ -200,7 +219,7 @@
 
 * **Error Response:**
 
-  * **Code:** 500 <br />
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** `{ message: "Internal Server Error" }`
 
 **Update todo**
@@ -222,7 +241,15 @@
 
 * **Data Params**
 
-    None
+    **Required:**
+
+  ```javascript
+    {
+        title: "puasa full gk bolong bolong",
+        description: "puasa harus full jangan mampir ke warteg siang siang",
+        due_date: "23 Mei 2020"
+    }
+  ```
 
 *  **URL headers**
 
@@ -233,7 +260,28 @@
 * **Success Response:**
 
   * **Code:** 201 <br />
-    **Content:** `{ message: "success update todo" }`
+    **Content:** 
+    ```javascript
+    {
+    "data": [
+      1,
+      [
+        {
+          "id": 5,
+          "title": "puasa full gk bolong bolong",
+          "description": "puasa harus full jangan mampir ke warteg siang siang",
+          "status": false,
+          "due_date": "2020-03-03T16:35:19.171Z",
+          "UserId": 5,
+          "GroupId": null,
+          "createdAt": "2020-03-03T16:35:19.171Z",
+          "updatedAt": "2020-03-03T16:43:23.199Z"
+        }
+      ]
+    ],
+      "message": "success update Todo"
+    }
+    ```
  
 * **Error Response:**
 
@@ -252,7 +300,7 @@
 
   OR
 
-  * **Code:** 500 <br />
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** `{ message: "Internal Server Error" }`
 
 **Delete todo**
@@ -289,5 +337,5 @@
  
 * **Error Response:**
 
-  * **Code:** 500 <br />
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** `{ message: "Internal Server Error" }`

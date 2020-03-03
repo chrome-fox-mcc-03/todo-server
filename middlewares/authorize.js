@@ -6,24 +6,24 @@ module.exports = (req, res, next) => {
 
   Todo.findOne({
     where: { id },
-    include: [ User ]
+    include: [User]
   })
-  .then(data => {
-    if (data) {
-      if (data.dataValues.UserId === UserId) {
-        next()
+    .then(data => {
+      if (data) {
+        if (data.dataValues.UserId === UserId) {
+          next()
+        } else {
+          next({
+            status: 401,
+            message: "You haven't access to this ToDo"
+          })
+        }
       } else {
         next({
-          status: 401,
-          message: "You haven't access to this ToDo"
+          status: 404,
+          message: 'ToDo not found'
         })
       }
-    } else {
-      next({
-        status: 404,
-        message: 'ToDo not found'
-      })
-    }
-  })
-  .catch(next)
+    })
+    .catch(next)
 }
