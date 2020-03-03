@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const todoController = require('../controllers/todoController')
+const todoRoutes = require('../routes/todoRoutes')
 
 router.get('/', (req, res) => {
     let welcome = `Welcome to Todo App
@@ -9,11 +9,6 @@ router.get('/', (req, res) => {
     res.status(200).send(welcome)
 })
 
-router.get('/todos', todoController.showAllTodo)
-router.post('/todos', todoController.createTodo)
-router.get('/todos/:id', todoController.getTodoById)
-router.put('/todos/:id', todoController.updateTodoById)
-router.delete('/todos/:id', todoController.deleteTodoById)
-
+router.use('/todos', todoRoutes)
 
 module.exports = router
