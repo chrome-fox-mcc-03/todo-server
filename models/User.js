@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
             args: true,
             msg: "Please enter valid email format e.g. 'john_doe@domain.com'"
           }
+        },
+        unique: {
+          args: true,
+          msg: "Email has been used."
         }
       },
       password: {
