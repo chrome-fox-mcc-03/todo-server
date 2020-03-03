@@ -7,7 +7,7 @@ module.exports = {
       name: 'UserId',
       references: {
         //Required field
-        table: 'User',
+        table: 'Users',
         field: 'id'
       },
       onDelete: 'cascade',

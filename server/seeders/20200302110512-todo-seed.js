@@ -16,6 +16,7 @@ const data = [
 ];
 
 data.map(each => {
+  each.UserId = null;
   each.createdAt = new Date();
   each.updatedAt = new Date();
   return data;

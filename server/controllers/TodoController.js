@@ -2,14 +2,14 @@
 
 const { Todo } = require('../models');
 
-class Controller {
-  static showAll(req, res) {
+class TodoController {
+  static showAll(req, res, next) {
     Todo.findAll()
       .then(result => {
         res.status(200).json(result);
       })
       .catch(err => {
-        res.status(500).json(err);
+        res.send(err);
       });
   }
   static createTodo(req, res) {
@@ -24,11 +24,7 @@ class Controller {
         res.status(201).json(result);
       })
       .catch(err => {
-        if (err.name === 'SequelizeValidationError') {
-          res.status(400).json(err);
-        } else {
-          res.status(500).json(err);
-        }
+        res.send(err);
       });
   }
   static showTodoById(req, res) {
@@ -37,56 +33,37 @@ class Controller {
     Todo.findByPk(todoId)
       .then(result => {
         if (!result) {
-          throw err;
+          // next(err)
         } else {
           res.status(200).json(result);
         }
       })
       .catch(err => {
-        res.status(404).json({ err: `Todo not found` });
+        res.send(err);
       });
   }
   static updateTodo(req, res) {
     let { title, description, status, due_date } = req.body;
     let updateId = +req.params.id;
-    let errorStatus;
 
     Todo.update(
       { title, description, status, due_date },
       {
         where: {
           id: updateId
-        }
+        },
+        returning: true
       }
     )
       .then(result => {
-        if (!result) {
-          errorStatus = 400;
-        } else {
-          return Todo.findByPk(result[0]);
-        }
-      })
-      .then(todo => {
-        res.send(200).json(todo);
+        res.send(result);
       })
       .catch(err => {
-        if (err.name === 'SequelizeValidationError') {
-          errorStatus = 404;
-        } else {
-          errorStatus = 500;
-        }
-        if (errorStatus === 400) {
-          res.status(400).json(err);
-        } else if (errorStatus === 404) {
-          res.status(404).json({ err: `Todo Not Found` });
-        } else {
-          res.status(500).json(err);
-        }
+        res.send(err);
       });
   }
   static deleteTodo(req, res) {
     let deleteId = +req.params.id;
-    let deleteStatus;
     Todo.findByPk(deleteId)
       .then(result => {
         return Promise.all([
@@ -98,21 +75,18 @@ class Controller {
           })
         ]);
       })
+
       .then(deleted => {
         if (!deleted) {
-          deleteStatus = 404;
+          // next(err);
         } else {
           res.send(200).json(deleted[0]);
         }
       })
       .catch(err => {
-        if ((deleteStatus = 404)) {
-          res.status(404).json({ err: `Todo cannot be found` });
-        } else {
-          res.status(500);
-        }
+        res.send(err);
       });
   }
 }
 
-module.exports = { Controller };
+module.exports = { TodoController };

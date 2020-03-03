@@ -2,14 +2,22 @@
 
 const express = require('express');
 const router = express.Router();
-const { Controller } = require('../controllers/Controller');
+const { TodoController } = require('../controllers/TodoController');
+const { Authentication } = require('../middlewares/authentication');
+const { ErrorHandler } = require('../middlewares/errorHandler');
+const { Authorization } = require('../middlewares/authorization');
 
-router.get('/', Controller.showAll);
-router.post('/', Controller.createTodo);
+// router.use(Authentication.isAuthentic);
 
-router.get('/:id', Controller.showTodoById);
-router.put('/:id', Controller.updateTodo);
+router.get('/', TodoController.showAll);
+router.post('/', TodoController.createTodo);
 
-router.delete('/:id', Controller.deleteTodo);
+router.get('/:id', TodoController.showTodoById);
+router.put('/:id', TodoController.updateTodo);
+
+// Authorization.isAuthorized
+router.delete('/:id', TodoController.deleteTodo);
+
+// router.use(errorHandler)
 
 module.exports = { todoRouter: router };
