@@ -1,7 +1,7 @@
 const { Todo } = require('../models/index')
 
 class TodoController {
-    static createTodo(req, res) {
+    static createTodo(req, res, next) {
         Todo.create({
             title: req.body.title,
             description: req.body.description,
@@ -9,43 +9,46 @@ class TodoController {
             due_date: req.body.due_date,
             UserId: req.decoded.id
         })
-            .then((todo) => {
+            .then(todo => {
                 res.status(201).json(todo)
             })
-            .catch((err) => {
-                let status = 500;
-                if (err.name === "SequelizeValidationError") {
-                    status = 400;
-                }
-                res.status(status).json(err)
+            .catch(err => {
+                next(err)
             })
     }
 
-    static findAll(req, res) {
+    static findAll(req, res, next) {
         Todo.findAll()
-            .then((todos) => {
+            .then(todos => {
                 res.status(200).json(todos)
             })
-            .catch(() => {
-                res.status(500)
+            .catch(err => {
+                next(err)
             })
     }
 
-    static findOne(req, res) {
+    static findOne(req, res, next) {
         Todo.findOne({
             where: {
                 id: req.params.id
             }
         })
-            .then((todo) => {
-                res.status(200).json(todo)
+            .then(todo => {
+                if (todo) {
+                    res.status(200).json(todo)
+                } else {
+                    next({
+                        status: 404,
+                        message: { error: 'Todo not found' }
+                    })
+                }
             })
-            .catch(() => {
-                res.status(500)
+            .catch(err => {
+                next(err)
             })
     }
 
-    static update(req, res) {
+    static update(req, res, next) {
         Todo.update({
             title: req.body.title,
             description: req.body.description,
@@ -61,29 +64,35 @@ class TodoController {
             .then((updatedTodo) => {
                 res.status(200).json(updatedTodo[1])
             })
-            .catch((err) => {
-                res.status(500).json(err)
+            .catch(err => {
+                next(err)
             })
     }
 
-    static delete(req, res) {
+    static delete(req, res, next) {
         let todoId = req.params.id
         let deletedTodo;
         Todo.findByPk(todoId)
-            .then((todo) => {
-                deletedTodo = todo;
-                return Todo.destroy({
-                    where: {
-                        id: req.params.id
-                    }
-                })
+            .then(todo => {
+                if (todo) {
+                    deletedTodo = todo;
+                    return Todo.destroy({
+                        where: {
+                            id: req.params.id
+                        }
+                    })
+                } else {
+                    next({
+                        status: 404,
+                        message: { error: 'Todo not found' }
+                    })
+                }
             })
             .then((deleted) => {
-                console.log(deletedTodo)
                 res.status(200).json(deletedTodo)
             })
-            .catch(() => {
-                res.status(500)
+            .catch(err => {
+                next(err)
             })
     }
 }

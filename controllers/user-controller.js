@@ -3,28 +3,45 @@ const { compare } = require('../helpers/bcrypt');
 const { generateToken } = require('../helpers/jwt');
 
 class UserController {
-    static signUp(req, res) {
-        
-        User.create({
-            email: req.body.email,
-            password: req.body.password
-        })
-            .then((createdUser) => {
-                let { id, email } = createdUser
-                res.status(201).json({ id, email })
-            })
-            .catch((err) => {
-                res.status(400).json(err)
-            })
-    }
-
-    static signIn(req, res) {
+    static signUp(req, res, next) {
         User.findOne({
             where: {
                 email: req.body.email
             }
         })
-            .then((userFound) => {
+            .then(result => {
+                if (result == null) {
+                    User.create({
+                        email: req.body.email,
+                        password: req.body.password
+                    })
+                        .then(createdUser => {
+                            let { id, email } = createdUser
+                            res.status(201).json({ id, email })
+                        })
+                        .catch(err => {
+                            next(err)
+                        })
+                } else {
+                    next({
+                        status: 400,
+                        message: { error: 'Your email has already registered' } 
+                    })
+                }
+            })
+            .catch(err => {
+                next(err)
+            })
+
+    }
+
+    static signIn(req, res, next) {
+        User.findOne({
+            where: {
+                email: req.body.email
+            }
+        })
+            .then(userFound => {
                 if (userFound) {
                     const pw = compare(req.body.password, userFound.password);
                     if (pw) {
@@ -32,14 +49,20 @@ class UserController {
                         let token = generateToken(payload)
                         res.status(200).json(token)
                     } else {
-                        res.status(400).json('Username/password invalid')
+                        next({
+                            status: 400,
+                            message: { error: 'Username/password invalid' }
+                        })
                     }
                 } else {
-                    res.status(400).json('Username/password invalid')
+                    next({
+                        status: 400,
+                        message: { error: 'Username/password invalid' }
+                    })
                 }
             })
-            .catch((err) => {
-                res.status(500).json(err)
+            .catch(err => {
+                next(err)
             })
     }
 }

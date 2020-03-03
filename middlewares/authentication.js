@@ -4,7 +4,10 @@ module.exports = function(req, res, next) {
     try {
         req.decoded = verifyToken(req.headers.token);
         next()
-    } catch(err) {
-        res.status(500).json(err)
+    } catch {
+        next({
+            status: 401,
+            message: { error: 'Login required' }
+        })
     }
 }

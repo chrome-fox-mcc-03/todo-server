@@ -11,13 +11,19 @@ module.exports = function(req, res, next) {
                 if (todo.UserId == req.decoded.id) {
                     next()
                 } else {
-                    res.status(400).json('Authorization failed')
+                    next({
+                        status: 400,
+                        message: { error: 'Authorization failed' }
+                    })
                 }
             } else {
-                res.status(404).json('Todo not found')
+                next({
+                    status: 404,
+                    message: { error: 'Todo not found' }
+                })
             }
         })
         .catch(err => {
-            res.status(500).json(err)
+            next(err)
         })
 }
