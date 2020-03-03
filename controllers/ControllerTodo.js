@@ -68,16 +68,7 @@ class ControllerTodo {
             returning: true
         })
             .then(todo => {
-                if (todo[1].length == 0) {
-                    next({
-                        status: 404,
-                        message: {
-                            error: 'Todo not found'
-                        }
-                    })
-                } else {
-                    res.status(200).json(todo[1][0])
-                }
+                res.status(200).json(todo[1][0])
             })
             .catch(err => {
                 if (err.errors) {

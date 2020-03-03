@@ -40,7 +40,7 @@
 
   OR
 
-  * **Code:** 500 SERVER <br />
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** `{ error : "Server Error" }`
 
 

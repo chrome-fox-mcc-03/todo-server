@@ -8,13 +8,22 @@ module.exports = (req, res, next) => {
         }
     })
         .then(todo => {
-            if (todo.UserId == req.decoded.id) {
-                next()
+            if (todo) {
+                if (todo.UserId == req.decoded.id) {
+                    next()
+                } else {
+                    next({
+                        status: 401,
+                        message: {
+                            error: 'You do not have authorize to do this'
+                        }
+                    })
+                }
             } else {
                 next({
-                    status: 401,
+                    status: 404,
                     message: {
-                        error: 'You do not have authorize to do this'
+                        error: 'Todo not found'
                     }
                 })
             }
