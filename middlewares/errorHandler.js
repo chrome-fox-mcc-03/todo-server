@@ -1,6 +1,4 @@
 function errorHandler(err, req, res, next) {
-    console.log(err)
-
 
     let statusCode = 500
     let msg = 'Internal Server Error'
@@ -17,6 +15,10 @@ function errorHandler(err, req, res, next) {
     } else if (err.name === '404NotFound') {
         statusCode = 404
         msg = 'Data not found'
+        res.status(statusCode).json({ error: msg })
+    } else if (err.name === 'Unauthorized') {
+        statusCode = 401
+        msg = 'Unauthorized'
         res.status(statusCode).json({ error: msg })
     } else {
         res.status(statusCode).json({ error: msg })

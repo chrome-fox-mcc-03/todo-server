@@ -100,11 +100,9 @@
   * **Code:** 200 <br />
     **Content:** `{
   msg : "Todo updated.",
-  data : [
-    1,
-    [{
+  data : {
         id : 4 , title : "membaca novel" , description : "membaca novel doraemon" , status : false , due_date : "2020-03-16T17:00:00.000Z" , createdAt : "2020-03-02T08:33:59.822Z" , updatedAt : "2020-03-02T09:44:11.248Z"
-      }]]}`
+      }}`
 
 * **Error Response :**
 

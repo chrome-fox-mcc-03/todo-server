@@ -6,8 +6,11 @@ class TodoController {
             title: req.body.title,
             description: req.body.description,
             status: req.body.status,
-            due_date: req.body.due_date
+            due_date: req.body.due_date,
+
         }
+        input.UserId = req.currentUserId
+
         Todo.create(input)
             .then(result => {
                 res.status(201).json({ msg: 'Todo created.', data: result })
@@ -18,7 +21,8 @@ class TodoController {
     }
 
     static findAll(req, res, next) {
-        Todo.findAll()
+        let UserId = req.currentUserId
+        Todo.findAll({ where: { UserId } })
             .then(result => {
                 res.status(200).json(result)
             })
@@ -54,7 +58,8 @@ class TodoController {
             if (todo) {
                 Todo.update(input, { where: { id }, returning: true })
                     .then(result => {
-                        res.status(200).json({ msg: 'Todo updated.', data: result })
+
+                        res.status(200).json({ msg: 'Todo updated.', data: result[1][0] })
                     })
                     .catch(err => {
                         next(err)
