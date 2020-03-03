@@ -6,8 +6,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notNull: true,
-        len: [3, 120]
+        notNull: {args: true, msg: "Please fill title of your note"},   //true
+        len: {args: [4], msg: "Please add title at least 4 character"}    // ! [3, 120]
       }
     },
     description: DataTypes.STRING,
@@ -16,8 +16,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       allowNull: false,
       validate: {
-        notNull: true,
-        isAfter: new Date().toISOString() ,
+        notNull: {args: true, msg: "Please add your due Task"},
+        isAfter: {args: new Date().toISOString(), msg: "Your due minimum must due today"} ,  //new Date().toISOString()
       }
     }
   }, {sequelize, modelName: 'Todo'})
