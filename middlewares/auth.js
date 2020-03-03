@@ -7,7 +7,6 @@ const authentication = async (req, res, next) => {
     if (token) {
       const decoded = verifyToken(token);
       req.decoded = decoded.data;
-      console.log(decoded);
       
       const user = await User.findOne({
         where: { id: req.decoded.id },
@@ -55,7 +54,7 @@ const todoAuthorization = async (req, res, next) => {
       }
     } else {
       const error = {
-        status:404,
+        status: 404,
         message: 'Todo not found',
       };
       next(error);

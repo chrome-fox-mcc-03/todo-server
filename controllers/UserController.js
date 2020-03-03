@@ -20,7 +20,6 @@ class Controller {
       }
       res.status(201).json(payload);
     } catch (err) {
-      console.log(req.body);
       next(err);
     };
   }

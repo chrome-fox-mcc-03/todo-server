@@ -1,7 +1,6 @@
  const errorHandler = (err, req, res, _) => {
    let status = err.status || 500;
    const obj = {}
-  console.log(err);
    // TODO: Switch case ke class (avoid conditional)
    // class Error {}
    // class ValidationError extends Error {}
