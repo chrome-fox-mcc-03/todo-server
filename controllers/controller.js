@@ -1,4 +1,6 @@
 const { todo } = require('./../models')
+const axios = require('axios').default;
+
 
 class Controller{
     static getTodos(req,res, next) {
@@ -23,9 +25,35 @@ class Controller{
             userId: req.decoded.id
         })
             .then(todo => {
-                console.log(todo)
-                res.status(201).json(todo)
+                const sendEmail = axios.create({
+                    baseURL: 'https://todosapp-1a8b.restdb.io',
+                    headers: {"x-apikey": '2699edc589ecd4a75c21f30a24930277eb5d2'}     
+                });
+                let status
+                if (req.body.status) {
+                    status = req.body.status
+                } else {
+                    status = false
+                }
+                sendEmail.post('/mail', {
+                    "to": req.decoded.email,
+                    "subject": "Your new to do!", 
+                    "html": `
+                    <h2>New To Do: </h2>
+                    <h3>Title: ${req.body.title} </h3>
+                    <h3>Description: ${req.body.description} </h3>
+                    <h3>Status: ${status} </h3>
+                    <h3>Due Date: ${req.body.due_date} </h3>
+                    `, 
+                    "company": "TodosApp Inc", 
+                    "sendername": "TodosApp customer support"
+                })
+                return todo
             })
+            .then(function (response) {
+                res.status(201).json(response)
+            })
+            
             .catch(err => {
                 next(err)
             })
@@ -62,8 +90,35 @@ class Controller{
                 if (edited[1].length === 0) {
                     throw ({name:"noIdFound" ,errors: [{message: "Id not found"}]})
                 } else {
-                    res.status(200).json(edited[1])
+                    const sendEmail = axios.create({
+                        baseURL: 'https://todosapp-1a8b.restdb.io',
+                        headers: {"x-apikey": '2699edc589ecd4a75c21f30a24930277eb5d2'}     
+                    });
+                    let status
+                    if (req.body.status) {
+                        status = req.body.status
+                    } else {
+                        status = false
+                    }
+                    sendEmail.post('/mail', {
+                        "to": req.decoded.email,
+                        "subject": "Your updated to do!", 
+                        "html": `
+                        <h2>New To Do: </h2>
+                        <h3>Title: ${req.body.title} </h3>
+                        <h3>Description: ${req.body.description} </h3>
+                        <h3>Status: ${status} </h3>
+                        <h3>Due Date: ${req.body.due_date} </h3>
+                        `, 
+                        "company": "TodosApp Inc", 
+                        "sendername": "TodosApp customer support"
+                    })
+                    let data = edited[1]
+                    return data
                 }
+            })
+            .then(function (response) {
+                res.status(200).json(response)
             })
             .catch(err => {
                 next(err)
