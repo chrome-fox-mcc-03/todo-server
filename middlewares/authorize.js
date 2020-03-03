@@ -1,27 +1,30 @@
 const { Todo } = require("../models")
+const { CustomError } = require("../helpers/errorModel.js")
 
-function authorize(req, res, next) {
+function authorizer(req, res, next) {
     let todoId = +req.params.id
-    let userId = +req.payload.id
+    let userId = req.decoded.id
+
+    console.log(`hello, req params`);
+    console.log(req.params);
+
+    console.log(`before anything, this is the paylod`);
+    console.log(req.decoded);
+
+    console.log(`the id of decoded payload of interest is ${req.decoded.id}`);
 
     Todo.findByPk(todoId)
         .then(result => {
-            // console.log(result);
-            if(result.dataValue.UserId === userId) {
+            console.log(result);
+            if(result.UserId === userId) {
                 next()
             } else {
-                next({
-                    status: 401,
-                    message: "User not authorized"
-                })
+                throw new CustomError(404, "Query not found")
             }
             
         })
-        .catch({
-            status: 404,
-            message: "Entry not found"
-        })
+        .catch(next)
 
 }
 
-module.exports = authorize
+module.exports = authorizer

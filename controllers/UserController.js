@@ -79,6 +79,7 @@ class UserController {
                 console.log(`generated token`);
                 console.log(accessToken);
                 // req.headers.token = accessToken;
+                req.payload = payload
                 res.status(200).json({token: accessToken, payload:payload})
 
             } else {

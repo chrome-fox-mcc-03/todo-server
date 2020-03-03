@@ -1,4 +1,4 @@
-const {Todo} = require("../models")
+const {Todo, User} = require("../models")
 const { CustomError } = require("../helpers/errorModel.js")
 
 class TodoController {
@@ -23,10 +23,20 @@ class TodoController {
     }
 
     static findAll(req, res, next) {
-        // console.log(`req decoded is`);
-        // console.log(req.decoded);
+        console.log(`req decoded is`);
+        console.log(req.decoded);
+        console.log(`the ID of decoded is ${req.decoded.id}`);
+        console.log(`payload is`);
+        console.log(req.payload);
         
-        Todo.findAll()
+        Todo.findAll({
+            include: [{
+                model: User,
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt', 'password']
+                }
+            }]
+        })
             .then(todos => {
                 // console.log(`Todos are:`);
                 // console.log(todos);
@@ -41,16 +51,16 @@ class TodoController {
     }
 
     static findById(req, res, next) {
-        Todo.findOne({
-            where: {
-                id: +req.params.id
-            }
-        })
+        console.log(`req decoded is`);
+        console.log(req.decoded);
+        console.log(`payload is`);
+        console.log(req.payload);
+        Todo.findByPk(+req.params.id)
         .then(todo => {
-            // console.log(`recovered todo is`);
-            // console.log(todo);
+            console.log(`recovered todo is`);
+            console.log(todo);
             if(todo) {
-                res.status(200).json({todo:todo, message: "Entry found"})
+                res.status(200).json({todo:todo, message: "Entry found", decoded:req.decoded})
             } else {
                 // res.status(404).json({error: "Entry Not Found"})
                 throw new CustomError(400, "Entry not found")
@@ -64,8 +74,12 @@ class TodoController {
     }
 
     static update(req, res, next) {
-        // console.log(`updating`);
-        // console.log(req.params.id);
+        console.log(`updating`);
+        console.log(req.params.id);
+        console.log(`checking which user`);
+        console.log(req.decoded);
+        console.log(`which payload again?`);
+        console.log(req.payload);
         Todo.update(
             {
                 title: req.body.title,
