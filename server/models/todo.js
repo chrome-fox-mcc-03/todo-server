@@ -1,7 +1,9 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   class Todo extends sequelize.Sequelize.Model {
-    static associate(models) {}
+    static associate(models) {
+      Todo.belongsTo(models.User);
+    }
   }
 
   Todo.init(
@@ -18,6 +20,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       due_date: {
         type: DataTypes.DATE
+      },
+      UserId: {
+        type: DataTypes.INTEGER
       }
     },
     {
