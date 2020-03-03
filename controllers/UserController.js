@@ -1,16 +1,18 @@
 const { User } = require('../models/index');
 const AppError = require('../helper/myCustomError');
-const { hashPass, checkPass } = require('../helper/bcrypt')
+const { checkPass } = require('../helper/bcrypt');
 const { getToken } = require('../helper/jwt');
 
 class UserController {
     static register(req, res, next) {
         const { email, password } = req.body;
         // console.log(email, password);
-        let hash = hashPass(password);
+        if (!email || !password) {
+            next(AppError(400, "Email & password is required"))
+        }
         User.create({
             email: email,
-            password: hash
+            password: password
         })
         .then(result => {
             res.status(200).json({
@@ -25,6 +27,9 @@ class UserController {
     }
     static login(req, res, next) {
         const { email, password } = req.body;
+        if (!email || !password) {
+            next(AppError(400, "Email / password is required"))
+        }
         User.findOne({
             where: {
                 email: email

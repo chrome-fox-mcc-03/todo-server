@@ -6,8 +6,10 @@ const authorizator = require('../middlewares/authorize');
 //authenticate here
 router.use(authenticator);
 
+//my chosen api: public holiday, show any national holiday between today until due date
 router.get("/", TodoController.getRoot);
 router.get("/:id", TodoController.getRootId);
+
 router.post("/", TodoController.postRoot);
 
 //authorize before delete and update

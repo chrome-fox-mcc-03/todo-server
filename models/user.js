@@ -1,4 +1,6 @@
 'use strict';
+const { hashPass } = require('../helper/bcrypt');
+
 module.exports = (sequelize, DataTypes) => {
   class User extends sequelize.Sequelize.Model {};
   User.init({
@@ -27,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       validate: {
+        notEmpty: false,
         len: {
           args: [6],
           msg: "Minimum password length is 6"
@@ -36,6 +39,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: "User"
+  });
+  User.addHook('beforeCreate', (user, options) => {
+    user.password = hashPass(user.password);
   });
   User.associate = function(models) {
     // associations can be defined here

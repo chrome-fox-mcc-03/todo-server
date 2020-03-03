@@ -1,5 +1,6 @@
 const { Todo, Sequelize } = require("../models/index");
 const AppError = require('../helper/myCustomError');
+const { getHoliday, holidayBetween } = require('../helper/nextHoliday');
 
 class TodoController {
     static getRoot(req, res, next) {
@@ -22,10 +23,24 @@ class TodoController {
                 throw new Sequelize.EmptyResultError("Item with id not found")
             } else {
                 //for future: use session
-                res.status(200).json({
-                    todo: result.dataValues
-                });
+                req.todo = result.dataValues;
+                // res.status(200).json({
+                //     todo: result.dataValues
+                // });
+                return getHoliday();
             }
+        })
+        .then(response => {
+            // res.status(200).json(response.data);
+            // console.log(new Date().toDateString())
+            let holidays = [];
+            if (response.data.length > 0) {
+                holidays = holidayBetween(response.data, req.todo.due_date)
+            }
+            res.status(200).json({
+                todo: req.todo,
+                holidays: holidays
+            })
         })
         .catch(err => {
             next(err)
@@ -36,7 +51,8 @@ class TodoController {
             title: req.body.title,
             description: req.body.description,
             status: req.body.status,
-            due_date: req.body.due_date
+            due_date: req.body.due_date,
+            UserId: req.thisUser.id
         }
 
         Todo.create(request)
