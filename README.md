@@ -1,3 +1,6 @@
+**TODO**
+-----------
+
 **Create Todo**
 ----
   Create new to-do activity.
@@ -46,7 +49,7 @@
     "createdAt": "2020-03-02T15:19:24.046Z"
 }`<br><br>
  
-* **Error Response:**
+* **Error Responses:**
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** <br>
@@ -168,7 +171,7 @@
     "message": "Here are the complete list"
 }`
  
-* **Error Response:**
+* **Error Responses:**
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** 
@@ -267,7 +270,7 @@
     "message": "Entry found"
 }`
  
-* **Error Response:**
+* **Error Responses:**
 
   * **Code:** 404 ENTRY NOT FOUND <br />
     **Content:** <br>
@@ -353,7 +356,7 @@
     "message": "Entry updated"
 }`
  
-* **Error Response:**
+* **Error Responses:**
 
    * **Code:** 400 SEQUELIZE VALIDATION ERROR <br />
     **Content:** <br>
@@ -455,7 +458,7 @@
     "message": "Delete success for ID 3"
 }`
  
-* **Error Response:**
+* **Error Responses:**
 
   * **Code:** 404 ENTRY NOT FOUND <br />
     **Content:** <br>
@@ -498,3 +501,112 @@
 <br>
 <hr>
 <br>
+
+<br>
+<br>
+<HR>
+<HR>
+
+**USER**
+-----
+
+**Signup**
+----
+  Registers new user
+
+* **URL**
+
+  /users/signup
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+    None
+
+* **Data Params**
+  **Required**
+  - `email` : string
+  - `password` : string
+
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**<br>
+    `{
+    "datum": {
+        "id": 9,
+        "email": "jose_mourinho@liverpoolfc.uk",
+        "password": "$2a$10$7zt.ibh3cp2eBD7pN9AjCuQ5rwmiyQMv7PVFNxq9uS/Qbag3TUHa2",
+        "updatedAt": "2020-03-03T11:29:45.084Z",
+        "createdAt": "2020-03-03T11:29:45.084Z"
+    },
+    "message": "Signup Success. Please Signin to Continue"
+  }`
+     
+
+* **Error Responses:**
+
+  * **Code:** 400 SEQUELIZE VALIDATION ERROR<br />
+    **Content:**<br>
+      `{
+    "error": "SequelizeValidationError",
+    "message": "Validation error: Please enter valid email format e.g. 'john_doe@domain.com'"
+    }`
+
+    **OR**
+
+    `{
+    "error": "SequelizeValidationError",
+    "message": "Validation error: Passwords must be between 8-16 characters long"
+    }`
+
+<br>
+<hr>
+<br>
+
+**Signin**
+----
+  Login user
+
+* **URL**
+
+  /users/signin
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+    None
+
+* **Data Params**
+  **Required**
+  - `email` : string
+  - `password` : string
+
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**<br>
+    `{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJjcmlzdGlhbm9fcm9uYWxkb0BsaXZlcnBvb2xmYy51ayIsImlhdCI6MTU4MzIzNzgwOH0.eUjWk-QOFVss77WLfbbqFvt9rKuLNCNk4xEzCSiAdYk"
+}`
+     
+
+* **Error Responses:**
+
+  * **Code:** 401 WRONG EMAIL/PASSWORD<br />
+    **Content:**<br>
+      `{
+    "error": "Wrong email/password"
+    }`
+
+    **OR**
+
+    `{
+    "error": "Wrong email/password"
+    }`

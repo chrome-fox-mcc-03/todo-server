@@ -2,12 +2,13 @@ const {Todo} = require("../models")
 
 class TodoController {
 
-    static create(req, res) {
+    static create(req, res, next) {
         Todo.create({
             title: req.body.title,
             description: req.body.description,
             status: req.body.status,
-            due_date: req.body.due_date
+            due_date: req.body.due_date,
+            UserId: req.body.UserId
         })
         .then(todo => {
             // console.log("entering create");
@@ -19,7 +20,7 @@ class TodoController {
         })
     }
 
-    static findAll(req, res) {
+    static findAll(req, res, next) {
         Todo.findAll()
             .then(todos => {
                 // console.log(`Todos are:`);
@@ -32,7 +33,7 @@ class TodoController {
 
     }
 
-    static findById(req, res) {
+    static findById(req, res, next) {
         Todo.findOne({
             where: {
                 id: +req.params.id
@@ -53,7 +54,7 @@ class TodoController {
         })
     }
 
-    static update(req, res) {
+    static update(req, res, next) {
         // console.log(`updating`);
         // console.log(req.params.id);
         Todo.update(
@@ -88,7 +89,7 @@ class TodoController {
         })
     }
 
-    static delete(req, res) {
+    static delete(req, res, next) {
         Todo.destroy({
             where: {
                 id: +req.params.id
