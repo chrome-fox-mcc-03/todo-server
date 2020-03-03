@@ -1,5 +1,5 @@
 'use strict';
-
+//after create 2 users
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Todos', [{
@@ -8,14 +8,16 @@ module.exports = {
       status: "todo",
       due_date: new Date(),
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
+      UserId: 1
     }, {
       title: 'todo 02',
       description: "consectetur adipiscing elit",
       status: "todo",
       due_date: new Date(),
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
+      UserId: 2
     }], {});
   },
 

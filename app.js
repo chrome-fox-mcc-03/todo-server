@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 
 const router = require('./routes/index');
 
-const errorHandler = require('./helper/myErrorHandler')
+const errorHandler = require('./middlewares/errorHandler')
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded( {extended: false} ));

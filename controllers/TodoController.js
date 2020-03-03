@@ -1,7 +1,9 @@
 const { Todo, Sequelize } = require("../models/index");
+const AppError = require('../helper/myCustomError');
 
 class TodoController {
     static getRoot(req, res, next) {
+        // res.status(200).json(req.thisUser);
         Todo.findAll()
         .then(result => {
             res.status(200).json({
@@ -106,7 +108,7 @@ class TodoController {
             if (result) {
                 return Todo.findByPk(id);
             } else {
-                throw new Error("Failed to update todo item");
+                throw AppError(400, "Failed to update todo item");
             }
         })
         .then(result => {
