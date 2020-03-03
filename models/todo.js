@@ -18,7 +18,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
-    due_date: DataTypes.DATE
+    due_date: {
+      type: DataTypes.DATE,
+      validate: {
+        isBeforeNow(date) {
+          if (date.toLocaleDateString() < new Date().toLocaleDateString()) {
+            throw new Error('due date at least is today.');
+          }
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'Todo'

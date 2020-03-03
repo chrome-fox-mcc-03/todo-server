@@ -1,6 +1,6 @@
 const { Todo } = require('../models');
 
-class Controller {
+class TodoController {
     static create(req, res) {
         console.log(req.body);
         
@@ -110,4 +110,4 @@ class Controller {
 
 }
 
-module.exports = Controller
+module.exports = TodoController

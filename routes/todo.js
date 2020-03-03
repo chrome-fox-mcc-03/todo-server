@@ -1,14 +1,14 @@
 const router = require('express').Router();
 const Controller = require('../controllers/todo');
 
-router.post('/todos', Controller.create)
+router.post('/', Controller.create)
 
-router.get('/todos', Controller.findAll)
+router.get('/', Controller.findAll)
 
-router.get('/todos/:id', Controller.findOne)
+router.get('/:id', Controller.findOne)
 
-router.put('/todos/:id', Controller.update)
+router.put('/:id', Controller.update)
 
-router.delete('/todos/:id', Controller.destroy)
+router.delete('/:id', Controller.destroy)
 
 module.exports = router
