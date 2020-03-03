@@ -2,8 +2,8 @@
 module.exports = (sequelize, DataTypes) => {
   class Group extends sequelize.Sequelize.Model {
     static associate(models) {
-
-    }
+      Group.belongsTo(models.GroupUser)
+    } 
   }
   Group.init({
     name: {
@@ -19,6 +19,6 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     }
-  })
+  }, { sequelize })
   return Group;
 };

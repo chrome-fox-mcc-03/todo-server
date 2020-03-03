@@ -1,11 +1,14 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const GroupUser = sequelize.define('GroupUser', {
+  class GroupUser extends sequelize.Sequelize.Model {
+    static associate(models) {
+      GroupUser.belongsTo(models.Group)
+      GroupUser.belongsTo(models.User)
+    }
+  }
+  GroupUser.init({
     GroupId: DataTypes.INTEGER,
     UserId: DataTypes.INTEGER
-  }, {});
-  GroupUser.associate = function(models) {
-    // associations can be defined here
-  };
+  },{ sequelize })
   return GroupUser;
 };

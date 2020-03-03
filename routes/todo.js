@@ -1,9 +1,9 @@
 const router = require('express').Router()
-const { create, findAll, update, destroy } = require('../controllers/todo')
+const { createTodo, findAllTodo, updateTodo, destroyTodo } = require('../controllers/todo')
 
-router.post('/', create)
-router.get('/', findAll)
-router.put('/:id', update)
-router.delete('/:id', destroy)
+router.post('/', createTodo)
+router.get('/', findAllTodo)
+router.put('/:id', updateTodo)
+router.delete('/:id', destroyTodo)
 
 module.exports = router

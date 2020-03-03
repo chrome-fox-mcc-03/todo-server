@@ -2,6 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   class Todo extends sequelize.Sequelize.Model {
     static associate(models){
+      Todo.belongsTo(models.User)
     }
   }
   Todo.init({
@@ -45,7 +46,12 @@ module.exports = (sequelize, DataTypes) => {
         message: 'due date cannot be empty'
       }
     },
-    UserId: DataTypes.INTEGER
+    UserId: {
+      type: DataTypes.INTEGER
+    },
+    GroupId: {
+      type: DataTypes.INTEGER
+    }
   },{ sequelize })
   return Todo;
 };

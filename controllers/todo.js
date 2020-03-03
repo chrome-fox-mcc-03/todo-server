@@ -1,16 +1,16 @@
 const { Todo } = require('../models')
 
 module.exports = {
-    create(req, res, next) {
+    createTodo(req, res, next) {
 
     },
-    findAll(req, res, next) {
+    findAllTodo(req, res, next) {
 
     },
-    update(req, res, next) {
+    updateTodo(req, res, next) {
 
     },
-    destroy(req, res, next) {
+    destroyTodo(req, res, next) {
 
     }
 }
