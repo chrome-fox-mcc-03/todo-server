@@ -6,14 +6,20 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true
+        notEmpty: {
+          args: true,
+          msg : "title must be filled"
+        }      
       }
     },
     description: { 
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true
+        notEmpty: {
+          args: true,
+          msg : "description must be filled"
+        }
       }
     },
     status: { 
@@ -23,17 +29,24 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       allowNull: false,
       validate: {
-        notEmpty: true,
-        isDate: true, 
+        notEmpty: {
+          args: true,
+          msg : "description must be filled"
+        },
+        isDate: {
+          args: true,
+          msg : "input must be date type"
+        }, 
         isGreaterThanOtherField(value) {
           let insertedDate =  new Date(value)
           let currentDate = new Date()
           if (insertedDate < currentDate) {
-            throw new Error('Date must be greater or equal to today');
+            throw new Error('Date must be greater than today');
           }
         }  
       }
-    }
+    },
+    userId: DataTypes.INTEGER
   }, {
     hooks: {
       beforeCreate: (activity, options) => {
@@ -47,6 +60,7 @@ module.exports = (sequelize, DataTypes) => {
   })
   todo.associate = function(models) {
     // associations can be defined here
+    todo.belongsTo(models.user)
   };
   return todo;
 };

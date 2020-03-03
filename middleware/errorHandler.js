@@ -1,15 +1,31 @@
 function errorHandler (err, req, res, next) {
+    let message; 
     switch (err.name) {
         case "SequelizeDatabaseError":
-            res.status(500).json(err)
+            message = "Database Error!"
+            res.status(500).json([message])
             break;
         case "SequelizeValidationError":
-            res.status(400).json(err)
+            message = err.errors.map(el => el.message)
+            res.status(400).json(message)
             break;
         case "noIdFound":
-            res.status(404).json(err)
+            message = err.errors.map(el => el.message)
+            res.status(404).json(message)
+            break;
+        case "errorLogin":
+            message = err.errors.map(el => el.message)
+            res.status(400).json(message)
+            break;
+        case "JsonWebTokenError":
+            message = "You need to login first!"
+            res.status(401).json([message])
+        case "authorizationError":
+            message = err.errors.map(el => el.message)
+            res.status(401).json(message)
             break;
         default:
+            res.status(500).json(err)
             break;
     }
 }

@@ -2,7 +2,11 @@ const { todo } = require('./../models')
 
 class Controller{
     static getTodos(req,res, next) {
-        todo.findAll()
+        todo.findAll({
+            where: {
+                userId: req.decoded.id
+            }
+        })
             .then(todos => {
                 res.status(200).json(todos)
             })
@@ -32,7 +36,7 @@ class Controller{
                 if (todo) {
                     res.status(200).json(todo)
                 } else {
-                    throw ({name:"noIdFound" ,error: `error`, message: "Id not found"})
+                    throw ({name:"noIdFound" ,errors: [{message: "Id not found"}]})
                 }
             })
             .catch(err => {
@@ -54,7 +58,7 @@ class Controller{
         })
             .then(edited => {
                 if (edited[1].length === 0) {
-                    throw ({name:"noIdFound" ,error: `error`, message: "Id not found"})
+                    throw ({name:"noIdFound" ,errors: [{message: "Id not found"}]})
                 } else {
                     res.status(200).json(edited[1])
                 }
@@ -69,7 +73,7 @@ class Controller{
         todo.findByPk(id)
             .then(todoDeleted => {
                 if(!todoDeleted) {
-                    throw ({name:"noIdFound" ,error: `error`, message: "Id not found"})
+                    throw ({name:"noIdFound" ,errors: [{message: "Id not found"}]})
                 } else {
                     todo.destroy({
                         where: {
