@@ -42,14 +42,15 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'Date should be greater than today'
         } 
       }
-    }
+    },
+    UserId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Todo'
   })
 
   Todo.associate = function(models) {
-    // associations can be defined here
+    Todo.belongsTo(models.User)
   };
   return Todo;
 };

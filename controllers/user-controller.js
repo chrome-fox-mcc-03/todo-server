@@ -1,9 +1,10 @@
 const { User } = require('../models/index');
 const { compare } = require('../helpers/bcrypt');
-const generateToken = require('../helpers/jwt');
+const { generateToken } = require('../helpers/jwt');
 
 class UserController {
     static signUp(req, res) {
+        
         User.create({
             email: req.body.email,
             password: req.body.password
@@ -24,13 +25,17 @@ class UserController {
             }
         })
             .then((userFound) => {
-                const pw = compare(req.body.password, userFound.password);
-                if (pw) {
-                    const payload = { id: userFound.id, email: userFound.email }
-                    let token = generateToken(payload)
-                    res.status(200).json(token)
+                if (userFound) {
+                    const pw = compare(req.body.password, userFound.password);
+                    if (pw) {
+                        const payload = { id: userFound.id, email: userFound.email }
+                        let token = generateToken(payload)
+                        res.status(200).json(token)
+                    } else {
+                        res.status(400).json('Username/password invalid')
+                    }
                 } else {
-                    res.status(401).json('Username/password invalid')
+                    res.status(400).json('Username/password invalid')
                 }
             })
             .catch((err) => {

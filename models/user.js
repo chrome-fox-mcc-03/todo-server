@@ -1,6 +1,6 @@
 'use strict';
 
-const hashPassword = require('../helpers/bcrypt')
+const { hashPassword } = require('../helpers/bcrypt')
 
 module.exports = (sequelize, DataTypes) => {
   class User extends sequelize.Sequelize.Model {}
@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
   })
 
   User.associate = function(models) {
-    // associations can be defined here
+    User.hasMany(models.Todo)
   };
   return User;
 };
