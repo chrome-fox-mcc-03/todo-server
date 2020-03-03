@@ -19,7 +19,7 @@ function authentication(req, res, next) {
             .catch(err => next(err))
     } catch(err) {
         // err
-        res.status(500).json(err)
+        throw err
     }
 }
 
