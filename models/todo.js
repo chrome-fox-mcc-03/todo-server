@@ -22,7 +22,8 @@ module.exports = (sequelize, DataTypes) => {
         isDate: true,
         isAfter: new Date().toString()
       }
-    }
+    },
+    UserId: DataTypes.INTEGER
   }, {
     hooks: {
       beforeCreate(todo, options) {
@@ -33,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   ToDo.associate = function(models) {
     // associations can be defined here
+    ToDo.belongsTo(models.User)
   };
   return ToDo;
 };

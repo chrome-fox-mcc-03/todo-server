@@ -2,6 +2,7 @@ const { ToDo } = require('../models/index.js')
 class Controller {
     static read(req, res) {
         // console.log('masuk')
+        console.log(req.decoded)
         ToDo.findAll()
             .then(todos => res.status(200).json(todos))
             .catch(err => res.status(500).json(err))
@@ -9,10 +10,11 @@ class Controller {
     static create(req, res) {
         // res.status(200).json(req.body)
         let newItem = {
-            title: req.body[0].title,
-            description: req.body[0].description,
-            status: req.body[0].status,
-            due_date: req.body[0].due_date
+            title: req.body.title,
+            description: req.body.description,
+            status: req.body.status,
+            due_date: req.body.due_date,
+            UserId: req.decoded.id
         }
         ToDo.create(newItem)
             .then(todo => res.status(201).json(todo))
@@ -36,10 +38,10 @@ class Controller {
         let id = req.params.id;
         // console.log(req.body)
         let updatedItem = {
-            title: req.body[0].title,
-            description: req.body[0].description,
-            status: req.body[0].status,
-            due_date: req.body[0].due_date
+            title: req.body.title,
+            description: req.body.description,
+            status: req.body.status,
+            due_date: req.body.due_date
         }
         ToDo.update(updatedItem, {where: {id: id}})
             .then(todo => {
