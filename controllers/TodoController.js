@@ -139,7 +139,7 @@ class TodoController {
                     "to": req.decoded.email,
                     "subject": "You just added a to-do!",
                     "html": 
-                    `<h2>NEW TO-DO:</h2> <br>
+                    `<h2>UPDATED TO-DO:</h2> <br>
                      <h3>Title: ${req.body.title}</h3><br>
                      <h3>Description: ${req.body.description}</h3><br>
                      <h3>Status: ${req.body.email}</h3><br>
