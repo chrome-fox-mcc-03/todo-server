@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/andreasnw/todo-server#readme",
   "dependencies": {
+    "bcrypt": "^4.0.1",
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "pg": "^7.18.2",
     "sequelize": "^5.21.5"

@@ -31,7 +31,7 @@ CREATE LIST
 
 * **Success Response:**
   
-  * **Code:** 200 <br />
+  * **Code:** 201 <br />
     **Content:** {
     "id": 2,
     "title": "buat aplikasi todo",
@@ -88,7 +88,7 @@ SHOW LIST
  
 * **Error Response:**
 
-  * **Code:** 500 INTERNAL SERVER ERROR <br />
+  * **Code:** 400 INTERNAL SERVER ERROR <br />
     **Content:** `{ error : "internal server error" }`
 
 

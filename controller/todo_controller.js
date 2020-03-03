@@ -1,9 +1,7 @@
 const { Todo } = require('../models/index')
 
-class todoController {
-    static create(req, res) {
-        console.log(`1`);
-        
+class TodoController {
+    static create(req, res) {        
         Todo.create({
             title: req.body.title,
             description: req.body.description,
@@ -11,7 +9,7 @@ class todoController {
             due_date: req.body.due_date
         })
         .then(result => {
-            res.status(200).json(result);
+            res.status(201).json(result);
         })
         .catch(error => {
             res.status(400).json(error);
@@ -24,7 +22,7 @@ class todoController {
             res.status(200).json(result);
         })
         .catch(error => {
-            res.status(400);
+            res.status(400).json(error);;
         })
     }
 
@@ -37,7 +35,7 @@ class todoController {
             res.status(200).json(result);
         })
         .catch(error => {
-            res.status(400)
+            res.status(400).json(error);
         })
     }
 
@@ -46,10 +44,10 @@ class todoController {
         let id = req.params.id;
         Todo.update( { title, description, status, due_date }, { where: { id }, returning: true})
         .then(result => {
-            res.status(200).json(result)
+            res.status(200).json(result);
         })
         .catch(error => {
-            res.status(400)
+            res.status(400).json(error);
         })
     }
 
@@ -59,12 +57,12 @@ class todoController {
             where : { id }
         })
         .then(result => {
-            res.status(200).json(result)
+            res.status(200).json(result);
         })
         .catch(error => {
-            res.status(400)
+            res.status(400).json(error);
         })
     }   
 }
 
-module.exports = todoController;
+module.exports = TodoController;
