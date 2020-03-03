@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const TodoController = require('../controller/todoController');
+const TodoController = require('../controllers/todoController');
 
 router.get('/', TodoController.findAll);
 router.post('/', TodoController.create);

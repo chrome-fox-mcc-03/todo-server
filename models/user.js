@@ -1,5 +1,5 @@
 'use strict';
-const { decode } = require('../helpers/bcrypt');
+const { encode } = require('../helpers/bcrypt');
 
 module.exports = (sequelize, DataTypes) => {
 	class User extends sequelize.Sequelize.Model {}
@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
 		sequelize,
 		hooks: {
 			beforeCreate: (user, opt) => {
-				user.password = decode(password);
+				user.password = encode(user.password);
 			}
 		}
 	});

@@ -44,6 +44,10 @@ module.exports = (sequelize, DataTypes) => {
 					msg: 'Date must be after current date'
 				}
 			}
+		},
+		UserId: {
+			type: DataTypes.INTEGER,
+			// allowNull: false
 		}
 	}, { sequelize });
 
