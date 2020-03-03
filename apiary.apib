@@ -11,162 +11,126 @@ Todo is a simple API allowing consumers to view his/her todo list and edit in th
 
 + Request (application/x-www-form-urlencoded)
 
-        {
-            "title": "belajar api",
-            "description": "belajar bikin doc api",
-            "status": false,
-            "due_date": "2020-03-03T00:00:00.000Z",
-            "updatedAt": "2020-03-02T08:37:36.849Z",
-            "createdAt": "2020-03-02T08:37:36.849Z"
-        }
+    + Headers
 
-+ Response 201 (application/x-www-form-urlencoded)
+            Token: token value
 
-        {
-            "id": 10,
-            "title": "belajar api",
-            "description": "belajar bikin doc api",
-            "status": false,
-            "due_date": "2020-03-03T00:00:00.000Z",
-            "updatedAt": "2020-03-02T08:37:36.849Z",
-            "createdAt": "2020-03-02T08:37:36.849Z"
-        }
-
-+ Response 400 (application/x-www-form-urlencoded)
-
-        {
-        "name": "SequelizeValidationError",
-        "errors": [
-            {
-                "message": "Validation notEmpty on status failed",
-                "type": "Validation error",
-                "path": "status",
-                "value": "",
-                "origin": "FUNCTION",
-                "instance": {
-                    "id": null,
-                    "title": "belajar api",
-                    "description": "belajar bikin doc api",
-                    "status": "",
-                    "due_date": "2020-03-03T00:00:00.000Z",
-                    "updatedAt": "2020-03-02T09:14:11.761Z",
-                    "createdAt": "2020-03-02T09:14:11.761Z"
-                },
-                "validatorKey": "notEmpty",
-                "validatorName": "notEmpty",
-                "validatorArgs": [
-                    true
-                ],
-                "original": {
-                    "validatorName": "notEmpty",
-                    "validatorArgs": [
-                        true
-                    ]
-                }
-            }
-        ]
-        }
-        
-+ Response 500
+    + Body
 
             {
-            "name": "SequelizeDatabaseError",
-            "parent": {
-                "name": "error",
-                "length": 104,
-                "severity": "ERROR",
-                "code": "42703",
-                "position": "128",
-                "file": "parse_relation.c",
-                "line": "3359",
-                "routine": "errorMissingColumn",
-                "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"todos\" AS \"todo\" WHERE \"todo\".\"id\" = NaN;"
-            },
-            "original": {
-                "name": "error",
-                "length": 104,
-                "severity": "ERROR",
-                "code": "42703",
-                "position": "128",
-                "file": "parse_relation.c",
-                "line": "3359",
-                "routine": "errorMissingColumn",
-                "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"todos\" AS \"todo\" WHERE \"todo\".\"id\" = NaN;"
-            },
-            "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"todos\" AS \"todo\" WHERE \"todo\".\"id\" = NaN;"
-        }
-
-### Find All Todos [GET]
-
-+ Response 200 
-
-        [
-            {
-                "id": 2,
-                "title": "wake up",
-                "description": "wake up, wash face, shower",
-                "status": false,
-                "due_date": "2020-03-01T00:00:00.000Z",
-                "createdAt": "2020-03-02T06:25:38.018Z",
-                "updatedAt": "2020-03-02T06:25:38.018Z"
-            },
-            {
-                "id": 3,
-                "title": "breakfast",
-                "description": "buy bread for breakfast in the nearest minimarket",
-                "status": false,
-                "due_date": "2020-03-01T00:00:00.000Z",
-                "createdAt": "2020-03-02T06:25:38.018Z",
-                "updatedAt": "2020-03-02T06:25:38.018Z"
-            },
-            {
-                "id": 4,
-                "title": "cek",
-                "description": "test",
-                "status": false,
-                "due_date": "2020-03-02T00:00:00.000Z",
-                "createdAt": "2020-03-02T07:14:29.814Z",
-                "updatedAt": "2020-03-02T08:28:17.371Z"
-            },
-            {
-                "id": 10,
                 "title": "belajar api",
                 "description": "belajar bikin doc api",
                 "status": false,
-                "due_date": "2020-03-03T00:00:00.000Z",
-                "createdAt": "2020-03-02T08:37:36.849Z",
-                "updatedAt": "2020-03-02T08:37:36.849Z"
+                "due_date": "2020-03-03"
             }
+
++ Response 201 (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Token: token value
+
+    + Body
+    
+            {
+                "id": 39,
+                "title": "tanpa token",
+                "description": "tanpa token",
+                "status": false,
+                "due_date": "2020-03-15T00:00:00.000Z",
+                "userId": 12,
+                "updatedAt": "2020-03-03T11:51:23.504Z",
+                "createdAt": "2020-03-03T11:51:23.504Z"
+            }
+
++ Response 400 (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Token: token value
+
+    + Body
+
+            [
+                "title must be filled",
+                "description must be filled",
+                "description must be filled",
+                "input must be date type"
+            ]
++ Response 401 (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Token: token value
+
+    + Body
+
+            [
+                "You need to login first!"
+            ]
+         
++ Response 500 (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Token: token value
+
+    + Body
+
+            [
+                "Database Error!"
+            ]
+
+### Find All Todos [GET]
+
++ Request 
+
+    + Headers
+
+            Token: token value
+            
++ Response 200 
+
+    + Headers
+
+            Token: token value
+
+    + Body
+    
+            [
+                {
+                    "id": 18,
+                    "title": "Bikin third party api",
+                    "description": "latihan",
+                    "status": false,
+                    "due_date": "2020-03-04T00:00:00.000Z",
+                    "userId": 12,
+                    "createdAt": "2020-03-03T11:17:36.250Z",
+                    "updatedAt": "2020-03-03T11:17:36.250Z"
+                },
+                {
+                    "id": 19,
+                    "title": "Bikin third party api coba tanpa token",
+                    "description": "latihan",
+                    "status": false,
+                    "due_date": "2020-03-04T00:00:00.000Z",
+                    "userId": 12,
+                    "createdAt": "2020-03-03T11:20:05.389Z",
+                    "updatedAt": "2020-03-03T11:20:05.389Z"
+                }
             ]
 
 + Response 500
 
-            {
-            "name": "SequelizeDatabaseError",
-            "parent": {
-                "name": "error",
-                "length": 104,
-                "severity": "ERROR",
-                "code": "42703",
-                "position": "128",
-                "file": "parse_relation.c",
-                "line": "3359",
-                "routine": "errorMissingColumn",
-                "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"todos\" AS \"todo\" WHERE \"todo\".\"id\" = NaN;"
-            },
-            "original": {
-                "name": "error",
-                "length": 104,
-                "severity": "ERROR",
-                "code": "42703",
-                "position": "128",
-                "file": "parse_relation.c",
-                "line": "3359",
-                "routine": "errorMissingColumn",
-                "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"todos\" AS \"todo\" WHERE \"todo\".\"id\" = NaN;"
-            },
-            "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"todos\" AS \"todo\" WHERE \"todo\".\"id\" = NaN;"
-        }
+    + Headers
+
+            Token: token value
+
+    + Body
+    
+            [
+                "Database Error!"
+            ]
 
 ## Todo Collection [/todos/{id}]
 + Parameters
@@ -174,169 +138,298 @@ Todo is a simple API allowing consumers to view his/her todo list and edit in th
 
 ### Find Todo By Id [GET]
 
++ Request 
+
+    + Headers
+
+            Token: token value
+
 + Response 200 
 
-        [
-            {
-                "id": 3,
-                "title": "breakfast",
-                "description": "buy bread for breakfast in the nearest minimarket",
-                "status": false,
-                "due_date": "2020-03-01T00:00:00.000Z",
-                "createdAt": "2020-03-02T06:25:38.018Z",
-                "updatedAt": "2020-03-02T06:25:38.018Z"
-            }
-        ]
+    + Headers
 
+            Token: token value
+
+    + Body
+    
+            {
+                "id": 38,
+                "title": "drinking vodka",
+                "description": "hehe",
+                "status": false,
+                "due_date": "2020-03-04T00:00:00.000Z",
+                "userId": 12,
+                "createdAt": "2020-03-03T11:49:31.130Z",
+                "updatedAt": "2020-03-03T12:03:07.408Z"
+            }
+
++ Response 401 
+
+    + Headers
+
+            Token: token value
+
+    + Body
+
+            [
+            "You are not authorized"
+            ]
+            
 + Response 404
 
-        {
-            "name": "noIdFound",
-            "error": "error",
-            "message": "Id not found"
-        }
+    + Headers
+
+            Token: token value
+
+    + Body
     
+            [
+                "Id not found"
+            ]
+
++ Response 500
+
+    + Headers
+
+            Token: token value
+
+    + Body
+    
+            [
+                "Database Error!"
+            ]   
     
 ### Update Todo By Id [PUT]
 
 + Request  (application/x-www-form-urlencoded)
 
+    + Headers
+
+            Token: token value
+            
+    + Body
+
+            {
+                "title": "belajar api",
+                "description": "belajar bikin doc api",
+                "status": false,
+                "due_date": "2020-03-03"
+            }
+            
 + Response 200 
 
-        [
-            {
-                "id": 3,
-                "title": "breakfast",
-                "description": "buy bread for breakfast in the nearest minimarket",
-                "status": false,
-                "due_date": "2020-03-01T00:00:00.000Z",
-                "createdAt": "2020-03-02T06:25:38.018Z",
-                "updatedAt": "2020-03-02T06:25:38.018Z"
-            }
-        ]
+    + Headers
+
+            Token: token value
+
+    + Body
+    
+            [
+                {
+                    "id": 38,
+                    "title": "drinking vodka",
+                    "description": "hehe",
+                    "status": false,
+                    "due_date": "2020-03-04T00:00:00.000Z",
+                    "createdAt": "2020-03-03T11:49:31.130Z",
+                    "updatedAt": "2020-03-03T12:03:07.408Z",
+                    "userId": 12
+                }
+            ]
 
 + Response 400
 
-        {
-        "name": "SequelizeValidationError",
-        "errors": [
-            {
-                "message": "Validation notEmpty on title failed",
-                "type": "Validation error",
-                "path": "title",
-                "value": "",
-                "origin": "FUNCTION",
-                "instance": {
-                    "id": null,
-                    "title": "",
-                    "description": "test",
-                    "status": false,
-                    "due_date": "2020-03-02T00:00:00.000Z",
-                    "updatedAt": "2020-03-02T09:36:01.535Z"
-                },
-                "validatorKey": "notEmpty",
-                "validatorName": "notEmpty",
-                "validatorArgs": [
-                    true
-                ],
-                "original": {
-                    "validatorName": "notEmpty",
-                    "validatorArgs": [
-                        true
-                    ]
-                }
-            }
-        ]
-        }
+    + Headers
 
+            Token: token value
+
+    + Body
+    
+            [
+                "title must be filled",
+                "description must be filled"
+            ]
+
++ Response 401 
+
+    + Headers
+
+            Token: token value
+
+    + Body
+
+            [
+            "You are not authorized"
+            ]
+            
 + Response 500
 
-            {
-            "name": "SequelizeDatabaseError",
-            "parent": {
-                "name": "error",
-                "length": 104,
-                "severity": "ERROR",
-                "code": "42703",
-                "position": "128",
-                "file": "parse_relation.c",
-                "line": "3359",
-                "routine": "errorMissingColumn",
-                "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"todos\" AS \"todo\" WHERE \"todo\".\"id\" = NaN;"
-            },
-            "original": {
-                "name": "error",
-                "length": 104,
-                "severity": "ERROR",
-                "code": "42703",
-                "position": "128",
-                "file": "parse_relation.c",
-                "line": "3359",
-                "routine": "errorMissingColumn",
-                "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"todos\" AS \"todo\" WHERE \"todo\".\"id\" = NaN;"
-            },
-            "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"todos\" AS \"todo\" WHERE \"todo\".\"id\" = NaN;"
-        }
+    + Headers
 
+            Token: token value
+
+    + Body
+    
+            [
+                "Database Error!"
+            ] 
+            
 + Response 404
 
-        {
-            "name": "noIdFound",
-            "error": "error",
-            "message": "Id not found"
-        }
+    + Headers
+
+            Token: token value
+
+    + Body
+    
+            [
+                "Id not found"
+            ]
 
 ### Delete Todo By Id [DELETE]
 
 + Request  (application/x-www-form-urlencoded)
 
+    + Headers
+
+            Token: token value
+
 + Response 200 
 
-        [
+    + Headers
+
+            Token: token value
+
+    + Body
+    
             {
-                "id": 3,
-                "title": "breakfast",
-                "description": "buy bread for breakfast in the nearest minimarket",
+                "id": 36,
+                "title": "testing update",
+                "description": "hehe",
                 "status": false,
-                "due_date": "2020-03-01T00:00:00.000Z",
-                "createdAt": "2020-03-02T06:25:38.018Z",
-                "updatedAt": "2020-03-02T06:25:38.018Z"
+                "due_date": "2020-03-04T00:00:00.000Z",
+                "userId": 12,
+                "createdAt": "2020-03-03T11:46:01.055Z",
+                "updatedAt": "2020-03-03T11:57:04.911Z"
             }
-        ]
     
 + Response 404
 
-        {
-            "name": "noIdFound",
-            "error": "error",
-            "message": "Id not found"
-        }
-        
+    + Headers
+
+            Token: token value
+
+    + Body
+    
+            [
+                "Id not found"
+            ]
+
++ Response 401 
+
+    + Headers
+
+            Token: token value
+
+    + Body
+
+            [
+            "You are not authorized"
+            ]
+       
 + Response 500
 
+    + Headers
+
+            Token: token value
+
+    + Body
+    
+            [
+                "Database Error!"
+            ] 
+            
+            
+## Register [/register]
+
+### Add New User [POST]
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Token: token value
+
+    + Body
+
+        
             {
-            "name": "SequelizeDatabaseError",
-            "parent": {
-                "name": "error",
-                "length": 104,
-                "severity": "ERROR",
-                "code": "42703",
-                "position": "128",
-                "file": "parse_relation.c",
-                "line": "3359",
-                "routine": "errorMissingColumn",
-                "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"todos\" AS \"todo\" WHERE \"todo\".\"id\" = NaN;"
-            },
-            "original": {
-                "name": "error",
-                "length": 104,
-                "severity": "ERROR",
-                "code": "42703",
-                "position": "128",
-                "file": "parse_relation.c",
-                "line": "3359",
-                "routine": "errorMissingColumn",
-                "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"todos\" AS \"todo\" WHERE \"todo\".\"id\" = NaN;"
-            },
-            "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"todos\" AS \"todo\" WHERE \"todo\".\"id\" = NaN;"
-        }
+                "email": "JohnDoe@gmail.com",
+                "password": "12345"
+            }
+
++ Response 201 (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Token: token value
+
+    + Body
+    
+            {
+                "id": 12,
+                "email": "JohnDoe@gmail.com"
+            }
+
++ Response 400 (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Token: token value
+
+    + Body
+
+            [
+                "Input must be email",
+                "password must be greater than 2 characters"
+            ]
+ 
+## Login [/login]
+
+### Login [POST]
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Token: token value
+
+    + Body
+
+        
+            {
+                "email": "JohnDoe@gmail.com",
+                "password": "12345"
+            }
+
++ Response 200 (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Token: token value
+
+    + Body
+    
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImVtYWlsIjoibmF1ZmFseXVuYW40NUBnbWFpbC5jb20iLCJpYXQiOjE1ODMyMzQyMTh9.Qth9Oh2cP66JVcrvkU3qq2Xqab8Enhr5bk18WbofroY"
+
++ Response 400 (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Token: token value
+
+    + Body
+
+            [
+                "Email / Password invalid"
+            ]
