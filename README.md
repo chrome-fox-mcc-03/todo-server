@@ -37,7 +37,7 @@
  
 * **Error Response:**
 
-  * **Code:** 400 Validation Sequelize Error <br />
+  * **Code:** 400 Validation Error <br />
     **Content:** 
     ```javascript
     { 
@@ -88,7 +88,7 @@
  
 * **Error Response:**
 
-  * **Code:** 400 Validation Sequelize Error <br />
+  * **Code:** 400 Validation Error <br />
     **Content:** 
     ```javascript
     { 
@@ -146,11 +146,11 @@
  
 * **Error Response:**
 
-  * **Code:** 400 Validation Sequelize Error <br />
+  * **Code:** 400 Validation Error <br />
     **Content:** 
-    ```javascript
+    ```
     { 
-        errors : ["Title shouldn't be empty!"] 
+        errors : ["Title shouldn't be empty!", "This date is invalid"] 
     }
     ```
 
@@ -159,8 +159,8 @@
   * **Code:** 500 <br />
     **Content:** 
     ```
-    { error : "Internal Server Error" }`
-
+    { error : "Internal Server Error" }
+    ```
 
 
 
@@ -326,7 +326,7 @@
  
 * **Error Response:**
 
-  * **Code:** 400 Validation Sequelize Error <br />
+  * **Code:** 400 Validation Error <br />
     **Content:** 
     ```javascript
     { 
