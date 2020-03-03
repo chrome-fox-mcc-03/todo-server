@@ -26,7 +26,7 @@ class TodoController{
             })
         })
         .catch(err => {
-            let errorMessage = err.errors[0].message
+            let errorMessage = err
             res.status(500).send(errorMessage)
         })
     }
