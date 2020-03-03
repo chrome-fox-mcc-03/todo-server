@@ -3,6 +3,7 @@
 const { User } = require('../models/index')
 const { comparePassword } = require('../helpers/bcrypt')
 const { generateToken } = require('../helpers/jsonwt')
+const sendEmail = require('../helpers/thirdparties/restdb')
 
 class Controller {
     static register(req, res, next){
@@ -15,14 +16,22 @@ class Controller {
             username,
             password
         })
-        .then(newUser => {
-            const dataToShow = {
-                name: newUser.name,
-                username: newUser.username,
-                id: newUser.id
+        .then(newUser => sendEmail(newUser))
+        .then(result => {            
+            if(result.status == 201) {
+                return {
+                    name: result.config.user.name,
+                    id: result.config.user.id,
+                    email: result.config.user.email
+                }
             }
-            res.status(201).json(dataToShow)
+            else{
+                throw ({
+                    name: 'EmailError'
+                })
+            }
         })
+        .then(dataToShow => res.status(201).json(dataToShow))
         .catch(next)
     }
 

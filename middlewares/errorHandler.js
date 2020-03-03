@@ -5,6 +5,7 @@ module.exports = function(err, req, res, next){
         case "Error":
             if (err.message === 'Not found') res.status(404).send('ERROR 404: Data not found')
             break
+        case "EmailError":
         case "SequelizeConnectionError":
             res.status(500).send('ERROR 500: Server error!')
             break
@@ -17,7 +18,6 @@ module.exports = function(err, req, res, next){
             res.status(400).send(`ERROR 400 Bad Request: ${err.message}`)
             break
         case "Unauthorized":
-            res.status(401).send(`ERROR 401 Bad Request: ${err.message}`)
-
+            res.status(401).send(`ERROR 401 Unauthorized: ${err.message}`)
     }
 }

@@ -1,8 +1,94 @@
 # todo-server Adam Primarizki
 
+**Register**
+----
+  Adds a new user to database
+
+* **URL**
+
+  /register
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   None
+
+* **Data Params**
+
+  `first_name=[string]`<br />
+  `last_name=[string]`<br />
+  `email=[string]`<br />
+  `username=[string]`<br />
+  `password=[string]`<br />
+
+* **Success Response:**
+
+  * **Code:** 201 <br />
+    **Content:** 
+    ```json
+    {
+    "name": "Adam Primarizki",
+    "username": "prmzk323",
+    "id": 43
+    }
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 500 Internal Server Error <br />
+
+  OR
+
+  * **Code:** 400 Bad Request <br />
+    **Content:** `{ error : "ERROR 400 Bad Request: Username already exists." }`
+------
+**LOG IN**
+----
+  Check username and password, send back a JWT if all condition fulfilled.
+
+* **URL**
+
+  /login
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   None
+
+* **Data Params**
+
+   None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+    ```json
+    JWT
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 500 Internal Server Error <br />
+
+  OR
+
+  * **Code:** 400 Bad Request <br />
+    **Content:** `{ error : "ERROR 400 Bad Request: Username/Email/Password false" }`
+------
 **Show Todos**
 ----
-  Returns json data containing all todos.
+  Returns json data containing all todos belongs to the user.
 
 * **URL**
 
@@ -56,6 +142,10 @@
 
   * **Code:** 500 Internal Server Error <br />
 
+  OR
+
+  * **Code:** 404 Not Found <br />
+    **Content:** `{ error : "ERROR 404: Data not found" }`
 ------
   
 **Create Todo**
@@ -104,13 +194,18 @@
 
   OR
 
-  * **Code:** 400 UNAUTHORIZED <br />
+  * **Code:** 400 Bad Request <br />
     **Content:** `{ error : "ERROR 400: Data is not valid!" }`
+
+  OR
+
+  * **Code:** 401 Unauthorized <br />
+    **Content:** `{ error : "ERROR 401 Unauthorized: You are not authorized!" }`
 ------
   
 **Show Todo by "id"**
 ----
-  Find and show a todo by "id".
+  Find and show a todo by "id" belongs to the user.
 
 * **URL**
 
@@ -154,11 +249,17 @@
 
   * **Code:** 404 Not Found <br />
     **Content:** `{ error : "ERROR 404: Data not found" }`
+
+  OR
+
+  * **Code:** 401 Unauthorized <br />
+    **Content:** `{ error : "ERROR 401 Unauthorized: You are not authorized!" }`
+  
 ------
 
 **Update Todo by "id"**
 ----
-  Find and update a todo by "id".
+  Find and update a todo by "id" belongs to the user.
 
 * **URL**
 
@@ -210,11 +311,16 @@
 
   * **Code:** 404 Not Found <br />
     **Content:** `{ error : "ERROR 404: Data not found" }`
+
+  OR
+
+  * **Code:** 401 Unauthorized <br />
+    **Content:** `{ error : "ERROR 401 Unauthorized: You are not authorized!" }`
 ------
 
 **Delete Todo by "id"**
 ----
-  Find and delete a todo by "id".
+  Find and delete a todo by "id" belongs to the user.
 
 * **URL**
 
@@ -259,6 +365,12 @@
   * **Code:** 404 Not Found <br />
     **Content:** `{ error : "ERROR 404: Data not found" }`
 
+  OR
+
+  * **Code:** 401 Unauthorized <br />
+    **Content:** `{ error : "ERROR 401 Unauthorized: You are not authorized!" }`
+  
+
 ------
 **Status Codes**
 ----
@@ -268,6 +380,7 @@
 | 201 | Data created/updated      |
 ||
 | 400     | Bad request: <br> - Data type input is not correct <br> - Name cannot be empty <br> - Date must be in the future      |   
+| 401      | Not authorized      | 
 | 404      | Parameter(s) is not found on the database      | 
 | 500     | Server internal error/malfunction |
    
