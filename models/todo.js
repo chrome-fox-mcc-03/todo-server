@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isAfter: {
           args: new Date().toDateString(),
-          msg: "Cannot back date, check your date!"
+          msg: "Cannot backdate, check your input date!"
         }
       }
     },

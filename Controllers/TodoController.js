@@ -21,8 +21,9 @@ class TodoController {
                     res.status(200).json({todo})
                 }
                 else {
-                    res.status(404).json({
-                        "message": "Todo not found, check your Id!"
+                    next({
+                        status: 404,
+                        "message": "Todo not found, check your Todo's Id!"
                     })
                 }
             })
@@ -31,12 +32,13 @@ class TodoController {
             })
     }
 
-    static create(req, res) {
+    static create(req, res, next) {
         let input = {
             title: req.body.title,
             description: req.body.description,
             status: req.body.status,
-            due_date: req.body.due_date
+            due_date: req.body.due_date,
+            UserId: req.body.UserId
         }
 
         Todo.create(input)
@@ -44,21 +46,7 @@ class TodoController {
                 res.status(201).json({todo})
             })
             .catch(err => {
-                if(err.errors[0].type === "notNull Violation") {
-                    let error = err.errors[0].message
-                    res.status(400).json({error})
-                }
-                else if(err.errors[0].message === "Cannot backdate, check your input date!") {
-                    let error = err.errors[0].message
-                    res.status(400).json({error})
-                }
-                else if(err.errors[0].message === "Title cannot be empty!") {
-                    let error = err.errors[0].message
-                    res.status(400).json({error})
-                }
-                else {
-                    res.status(500).json({err})
-                }
+                next(err)
             })
     }
 
@@ -73,17 +61,18 @@ class TodoController {
                     })
                 }
                 else {
-                    res.status(404).json({
-                        "message": "Todo not found, check your Id!"
+                    next({
+                        status: 404,
+                        "message": "Todo not found, check your Todo's Id!"
                     })
                 }
             })
             .catch(err => {
-                res.status(500).json({err})
+                next(err)
             })
     }
 
-    static update(req, res) {
+    static update(req, res, next) {
         let id = +req.params.id
         let input = {
             "title": req.body.title,
@@ -102,27 +91,14 @@ class TodoController {
                     })
                 }
                 else {
-                    res.status(404).json({
-                        "message": "Todo not found, check your Id!"
+                    next({
+                        status: 404,
+                        "message": "Todo not found, check your Todo's Id!"
                     })
                 }
             })
             .catch(err => {
-                if(err.errors[0].type === "notNull Violation") {
-                    let error = err.errors[0].message
-                    res.status(400).json({error})
-                }
-                else if(err.errors[0].message === "Cannot backdate, check your input date!") {
-                    let error = err.errors[0].message
-                    res.status(400).json({error})
-                }
-                else if(err.errors[0].message === "Title cannot be empty!") {
-                    let error = err.errors[0].message
-                    res.status(400).json({error})
-                }
-                else {
-                    res.status(500).json({err})
-                }
+                next(err)
             })
     }
 
