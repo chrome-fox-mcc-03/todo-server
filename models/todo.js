@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
           let dueDate = new Date(value).toLocaleDateString()
           let nowDate = new Date().toLocaleDateString()
           if(dueDate < nowDate){
+            //error throws during creation and update process
             throw new Error('Due date cannot be yesterday!')
           }
         }
@@ -28,8 +29,12 @@ module.exports = (sequelize, DataTypes) => {
   },{
     hooks:{
       beforeCreate: (todo) => {
+        //setting up default value for the description and status field
         if(!todo.description){
           todo.description = 'Todo description'
+        }
+        if(!todo.status){
+          todo.status = false
         }
       },
       beforeDestroy: (todo) => {

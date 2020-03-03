@@ -1,6 +1,5 @@
 const { Todo } = require('../models')
 
-
 class TodoController{
     static showAllTodo(req, res){
         Todo.findAll()
@@ -22,8 +21,6 @@ class TodoController{
             due_date: req.body.due_date
         })
         .then(result => {
-            // console.log(req.body.due_date);
-            
             res.status(201).json({
                 data: result
             })
@@ -98,7 +95,6 @@ class TodoController{
                 }
             })
             .catch(err => {
-                // let dataNotFound = err
                 res.status(500).json({err})
             })
     }
