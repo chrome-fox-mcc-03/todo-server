@@ -1,10 +1,10 @@
 const router = require('express').Router();
-const TodoController = require('../controllers/todoController');
+const todoRoutes = require('./todos');
+const UserController = require('../controllers/userController');
 
-router.get("/todos", TodoController.findAll);
-router.post("/todos", TodoController.create);
-router.get("/todos/:id", TodoController.findById);
-router.put("/todos/:id", TodoController.put);
-router.delete("/todos/:id", TodoController.delete);
+router.use("/todos", todoRoutes);
+
+router.post("/register", UserController.register);
+router.post("/login", UserController.login);
 
 module.exports = router;

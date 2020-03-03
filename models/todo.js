@@ -8,6 +8,9 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           msg: 'Please enter title'
+        },
+        notNull: {
+          msg: 'Please enter title'
         }
       }
     },
@@ -18,6 +21,9 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           msg: 'Please enter status'
+        },
+        notNull: {
+          msg: 'Please enter status'
         }
       }
     },
@@ -26,14 +32,29 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: 'Please enter due_date'
+          msg: 'Please enter due date'
+        },
+        notNull: {
+          msg: 'Please enter due date'
         },
         customValidator(value) {
           let now = new Date();
           let date = new Date(value);
-          if (!value || date == "invalid date" || date < now) {
+          if (date == "invalid date" || date < now) {
             throw new Error("due_date must be greater than now!");
           }
+        }
+      }
+    },
+    UserId: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'Please enter UserId'
+        },
+        notNull: {
+          msg: 'Please enter UserId'
         }
       }
     }
@@ -50,7 +71,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Todo.associate = function (models) {
-    // associations can be defined here
+    Todo.belongsTo(models.User);
   };
   return Todo;
 };
