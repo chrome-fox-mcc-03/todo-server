@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const { User } = require("../models")
 const { comparePassword } = require("../helpers/bcrypts.js")
 const { generateToken } = require("../helpers/jwt.js")
+const { CustomError } = require("../helpers/errorModel.js")
 const Op = sequelize.Op
 let emailAddress
 let userId
@@ -83,11 +84,12 @@ class UserController {
             } else {
                 // console.log(`First error: `);
                 // console.log(response);
-                res.status(401).json({error: "Wrong email/password"})
+                // res.status(401).json({error: "Wrong email/password"})
+                throw new CustomError(400, "Invalid email/password")
             }
         })
         .catch(err => {
-            console.log(err);
+            // console.log(err);
             next(err)
         })
 

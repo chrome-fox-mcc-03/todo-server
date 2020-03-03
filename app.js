@@ -6,10 +6,12 @@ if(process.env.NODE_ENV === "development") {
 const express = require("express")
 const app = express()
 const router = require("./routes/index.js")
+const errorHandler = require("./middlewares/errorHandling.js")
 
 app.use(express.urlencoded({extended:false}))
 app.use(express.json())
 app.use(router)
+app.use(errorHandler)
 
 app.listen(process.env.PORT, () => {
     console.log(`Listening on ${process.env.PORT}`);

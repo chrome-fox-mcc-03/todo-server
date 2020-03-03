@@ -1,4 +1,5 @@
 const {Todo} = require("../models")
+const { CustomError } = require("../helpers/errorModel.js")
 
 class TodoController {
 
@@ -16,19 +17,25 @@ class TodoController {
             res.status(201).json(todo)
         })
         .catch(err => {
-            res.status(500).json({error:err})
+            // res.status(500).json({error:err})
+            next(err)
         })
     }
 
     static findAll(req, res, next) {
+        // console.log(`req decoded is`);
+        // console.log(req.decoded);
+        
         Todo.findAll()
             .then(todos => {
                 // console.log(`Todos are:`);
                 // console.log(todos);
-                res.status(200).json({todos:todos, message: "Here are the complete list"})
+                
+                res.status(200).json({todos:todos, message: "Here are the complete list", decoded:req.decoded})
             })
             .catch(err => {
-                res.status(500).json({error:err})
+                // res.status(500).json({error:err})
+                next(err)
             })
 
     }
@@ -45,12 +52,14 @@ class TodoController {
             if(todo) {
                 res.status(200).json({todo:todo, message: "Entry found"})
             } else {
-                res.status(404).json({error: "Entry Not Found"})
+                // res.status(404).json({error: "Entry Not Found"})
+                throw new CustomError(400, "Entry not found")
             }
         })
         .catch(err => {
             // console.log(err);
-            res.status(500).json({error:err})
+            // res.status(500).json({error:err})
+            next(err)
         })
     }
 
@@ -74,18 +83,19 @@ class TodoController {
             console.log(`this is updated data`);
             console.log(updated);
             if(updated[0] === 0) {
-                res.status(404).json({error: "Entry Not Found"})
+                // res.status(404).json({error: "Entry Not Found"})
+                throw new CustomError(400, "Entry not found")
             } else {
                 res.status(200).json({todo:updated[1], message: "Entry updated"})
             }
         })
         .catch(err => {
-            if(err.name === "SequelizeValidationError") {
-                res.status(400).json({error: err.name, message: err.message})
-            } else {
-                res.status(500).json({error:err})
-            }
-            
+            // if(err.name === "SequelizeValidationError") {
+            //     res.status(400).json({error: err.name, message: err.message})
+            // } else {
+            //     res.status(500).json({error:err})
+            // }
+            next(err)
         })
     }
 
@@ -99,12 +109,14 @@ class TodoController {
             if(deleted === 1) {
                 res.status(200).json({todo:deleted, message: "Delete Success"})
             } else {
-                res.status(404).json({error: "Entry Not Found"})
+                // res.status(404).json({error: "Entry Not Found"})
+                throw new CustomError(400, "Entry not found")
             }
             
         })
         .catch(err => {
-            res.status(500).json({error:err})
+            // res.status(500).json({error:err})
+            next(err)
         })
     }
 
