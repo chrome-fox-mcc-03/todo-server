@@ -2,7 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
 	class Todo extends sequelize.Sequelize.Model {
 		static associate (models) {
-			
+			Todo.belongsTo(models.User);
 		}
 	}
 	
