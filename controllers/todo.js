@@ -17,7 +17,7 @@ class TodoController {
         Todo
             .findAll({
                 where: {
-                    UserId : req.decoded.id
+                    UserId : req.currentUserId
                 }
             })
             .then(todos => {
