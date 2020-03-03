@@ -14,11 +14,14 @@ class TodoController{
     }
 
     static createTodo(req, res){
+        // console.log(req.headers);
+        
         Todo.create({
             title: req.body.title,
             description: req.body.description,
             status: req.body.status,
-            due_date: req.body.due_date
+            due_date: req.body.due_date,
+            UserId: req.headers.userId
         })
         .then(result => {
             res.status(201).json({

@@ -7,6 +7,8 @@ module.exports = function(req, res, next){
     
     try {
         const access_token = req.headers.access_token
+        console.log(req.headers);
+        
         const decoded_token = jwt.verify(access_token, process.env.SECRET);
         const {id, email} = decoded_token.id
         
@@ -25,7 +27,7 @@ module.exports = function(req, res, next){
             }else{
                 const error = {
                     status : 401,
-                    message : 'Forbidden access!'
+                    message : `User forbidden access!`
                 }
                 throw error
             }
@@ -36,7 +38,7 @@ module.exports = function(req, res, next){
     } catch (error) {
         const err = {
             status : 401,
-            message : 'Forbidden access!'
+            message : 'Invalid token or not provided, access prohibited!'
         }
         res.status(err.status).json({"Error message":err.message})
     }
