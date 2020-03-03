@@ -4,7 +4,7 @@
 
 ----
 
-Return array of all todos
+Return array of all Todos
 
 * **URL**
 
@@ -154,7 +154,12 @@ Create new object of Todo
  
 * **Error Response:**
   * **Code:** 400 BAD REQUEST <br />
-    **Content:** `{ error : "Title cannot be empty!"}`
+    **Content:** `{ error : "Title cannot be empty!" }`
+
+  OR
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ error : "Cannot backdate, check your input date!" }`
 
   OR
 
@@ -166,7 +171,7 @@ Create new object of Todo
 
 ## **Update Todo**
 
-Update existing Todo on database
+Update existing Todo
 
 * **URL**
 
@@ -214,6 +219,16 @@ Update existing Todo on database
       
  
 * **Error Response:**
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ error : "Title cannot be empty!" }`
+
+  OR
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ error : "Cannot backdate, check your input date!" }`
+
+  OR
+
   * **Code:** 404 NOT FOUND <br />
     **Content:** `{ error : "Todo not found, check your Id!" }`
 

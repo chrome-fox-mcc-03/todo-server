@@ -52,6 +52,10 @@ class TodoController {
                     let error = err.errors[0].message
                     res.status(400).json({error})
                 }
+                else if(err.errors[0].message === "Title cannot be empty!") {
+                    let error = err.errors[0].message
+                    res.status(400).json({error})
+                }
                 else {
                     res.status(500).json({err})
                 }
@@ -109,6 +113,10 @@ class TodoController {
                     res.status(400).json({error})
                 }
                 else if(err.errors[0].message === "Cannot backdate, check your input date!") {
+                    let error = err.errors[0].message
+                    res.status(400).json({error})
+                }
+                else if(err.errors[0].message === "Title cannot be empty!") {
                     let error = err.errors[0].message
                     res.status(400).json({error})
                 }
