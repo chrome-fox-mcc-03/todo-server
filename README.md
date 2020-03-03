@@ -47,61 +47,18 @@ Create todo based on client request and insert to database
   - **Code:** 400 BAD REQUEST <br />
     **Content:**
 
-        {
-            "name": "SequelizeValidationError",
-            "errors": [
-                {
-                    "message": "Todo.title cannot be null",
-                    "type": "notNull Violation",
-                    "path": "title",
-                    "value": null,
-                    "origin": "CORE",
-                    "instance": {
-                        "id": null,
-                        "description": "Self Exploring Course Material Second Phase",
-                        "status": false,
-                        "due_date": "2020-03-25T00:00:00.000Z",
-                        "updatedAt": "2020-03-02T14:56:56.648Z",
-                        "createdAt": "2020-03-02T14:56:56.648Z"
-                    },
-                    "validatorKey": "is_null",
-                    "validatorName": null,
-                    "validatorArgs": []
-                }
-            ]
-        }
+    ```
 
-  OR
+    ```
 
-  - **Code:** 500 INTERNAL SERVER ERROR <br />
-    **Content:**
+OR
 
-        {
-              "name": "SequelizeDatabaseError",
-              "parent": {
-                  "name": "error",
-                  "length": 167,
-                  "severity": "ERROR",
-                  "code": "42703",
-                  "position": "128",
-                  "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\parser\\parse_relation.c",
-                  "line": "3359",
-                  "routine": "errorMissingColumn",
-                  "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
-              },
-              "original": {
-                  "name": "error",
-                  "length": 167,
-                  "severity": "ERROR",
-                  "code": "42703",
-                  "position": "128",
-                  "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\parser\\parse_relation.c",
-                  "line": "3359",
-                  "routine": "errorMissingColumn",
-                  "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
-              },
-              "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
-        }
+- **Code:** 500 INTERNAL SERVER ERROR <br />
+  **Content:**
+
+  ```
+
+  ```
 
 ## **Show All Todos**
 
@@ -156,32 +113,9 @@ Return all todos in JSON data based on client request.
   - **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:**
 
-          {
-              "name": "SequelizeDatabaseError",
-              "parent": {
-                  "name": "error",
-                  "length": 167,
-                  "severity": "ERROR",
-                  "code": "42703",
-                  "position": "128",
-                  "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\parser\\parse_relation.c",
-                  "line": "3359",
-                  "routine": "errorMissingColumn",
-                  "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
-              },
-              "original": {
-                  "name": "error",
-                  "length": 167,
-                  "severity": "ERROR",
-                  "code": "42703",
-                  "position": "128",
-                  "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\parser\\parse_relation.c",
-                  "line": "3359",
-                  "routine": "errorMissingColumn",
-                  "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
-              },
-              "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
-          }
+    ```
+
+    ```
 
 ## **Show Todo by ID**
 
@@ -282,29 +216,9 @@ Update json data based on client request and return to new data
   - **Code:** 400 BAD REQUEST <br />
     **Content:**
 
-          {
-            "name": "SequelizeValidationError",
-            "errors": [
-                {
-                    "message": "Todo.title cannot be null",
-                    "type": "notNull Violation",
-                    "path": "title",
-                    "value": null,
-                    "origin": "CORE",
-                    "instance": {
-                        "id": null,
-                        "description": "Self Exploring Course Material Second Phase",
-                        "status": false,
-                        "due_date": "2020-03-25T00:00:00.000Z",
-                        "updatedAt": "2020-03-02T14:56:56.648Z",
-                        "createdAt": "2020-03-02T14:56:56.648Z"
-                    },
-                    "validatorKey": "is_null",
-                    "validatorName": null,
-                    "validatorArgs": []
-                }
-            ]
-        }
+    ```
+
+    ```
 
 OR
 
@@ -320,32 +234,9 @@ OR
 - **Code:** 500 INTERNAL SERVER ERROR <br />
   **Content:**
 
-      {
-              "name": "SequelizeDatabaseError",
-              "parent": {
-                  "name": "error",
-                  "length": 167,
-                  "severity": "ERROR",
-                  "code": "42703",
-                  "position": "128",
-                  "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\parser\\parse_relation.c",
-                  "line": "3359",
-                  "routine": "errorMissingColumn",
-                  "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
-              },
-              "original": {
-                  "name": "error",
-                  "length": 167,
-                  "severity": "ERROR",
-                  "code": "42703",
-                  "position": "128",
-                  "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\parser\\parse_relation.c",
-                  "line": "3359",
-                  "routine": "errorMissingColumn",
-                  "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
-              },
-              "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
-          }
+  ```
+
+  ```
 
 ## **Delete Todo**
 
@@ -400,29 +291,6 @@ Return deleting a single json data
   - **Code:** 500 INVALID SERVER ERROR <br />
     **Content:**
 
-        {
-              "name": "SequelizeDatabaseError",
-              "parent": {
-                  "name": "error",
-                  "length": 167,
-                  "severity": "ERROR",
-                  "code": "42703",
-                  "position": "128",
-                  "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\parser\\parse_relation.c",
-                  "line": "3359",
-                  "routine": "errorMissingColumn",
-                  "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
-              },
-              "original": {
-                  "name": "error",
-                  "length": 167,
-                  "severity": "ERROR",
-                  "code": "42703",
-                  "position": "128",
-                  "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\parser\\parse_relation.c",
-                  "line": "3359",
-                  "routine": "errorMissingColumn",
-                  "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
-              },
-              "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
-          }
+    ```
+
+    ```
