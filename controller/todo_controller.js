@@ -1,18 +1,20 @@
 const { Todo } = require('../models/index')
 
 class TodoController {
-    static create(req, res) {        
+    static create(req, res) {   
+             
         Todo.create({
             title: req.body.title,
             description: req.body.description,
             status: req.body.status,
-            due_date: req.body.due_date
+            due_date: req.body.due_date,
+            UserId: req.decoded.id
         })
         .then(result => {
             res.status(201).json(result);
         })
         .catch(error => {
-            res.status(400).json(error);
+            next({ error });
         })
     }
 
@@ -22,7 +24,7 @@ class TodoController {
             res.status(200).json(result);
         })
         .catch(error => {
-            res.status(400).json(error);;
+            next({ error });;
         })
     }
 
@@ -35,7 +37,7 @@ class TodoController {
             res.status(200).json(result);
         })
         .catch(error => {
-            res.status(400).json(error);
+            next({ error });
         })
     }
 
@@ -47,7 +49,7 @@ class TodoController {
             res.status(200).json(result);
         })
         .catch(error => {
-            res.status(400).json(error);
+            next({ error });
         })
     }
 
@@ -60,7 +62,7 @@ class TodoController {
             res.status(200).json(result);
         })
         .catch(error => {
-            res.status(400).json(error);
+            next({ error });
         })
     }   
 }

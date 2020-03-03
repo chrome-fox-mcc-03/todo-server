@@ -4,13 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   Todo.init({
     title: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        isNull: {
-          args: true,
-          msg: "title cannot be empty"
-        }
-      }
+      allowNull: false
     },
     description: DataTypes.STRING,
     status: DataTypes.BOOLEAN,
@@ -22,7 +16,18 @@ module.exports = (sequelize, DataTypes) => {
           msg: "date inputted should be at least starting from now"
         }
       } 
+    },
+    UserId: DataTypes.INTEGER
+  }, { sequelize, validate: {
+    isTitleNull() {
+      if(!this.title) {
+        throw new Error('title cannot be empty')
+      }
     }
-  }, { sequelize })
+  } })
+
+  Todo.associate = function (models) {
+    Todo.belongsTo(models.User);
+  };
   return Todo;
 };
