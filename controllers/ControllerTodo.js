@@ -1,12 +1,13 @@
 const {Todo} = require('../models/index')
 
 class ControllerTodo {
-    static create (req, res) {
+    static create (req, res, next) {
         Todo.create({
             title: req.body.title,
             description: req.body.description,
             status: req.body.status,
-            due_date: req.body.due_date
+            due_date: req.body.due_date,
+            UserId: req.decoded.id
         })
             .then(todo => res.status(201).json(todo))
             .catch(err => {
@@ -15,37 +16,45 @@ class ControllerTodo {
                     err.errors.forEach(element => {
                         errors.push(element.message)
                     });
-                    res.status(500).json(errors)
+                    next({
+                        status: 400,
+                        message: {
+                            errors: errors
+                        }
+                    })
                 } else {
-                    res.status(500).json(err)
+                    next(err)
                 }
             })
     }
 
-    static findAll(req, res) {
+    static findAll(req, res, next) {
         Todo.findAll({
             order: [['id', 'ASC']]
         })
             .then(todos => res.status(200).json(todos))
-            .catch(err => res.status(500).json(err))
+            .catch(err => next(err))
     }
 
-    static findByPk(req, res) {
+    static findByPk(req, res, next) {
         let findId = req.params.id
         Todo.findByPk(findId)
             .then(todo => {
                 if(!todo) {
-                    throw todo
+                    next({
+                        status: 404,
+                        message: {
+                            error: 'Todo not found'
+                        }
+                    })
                 } else {
                     res.status(200).json(todo)
                 }
             })
-            .catch(err => res.status(404).json({
-                error: "Not Found"
-            }))
+            .catch(err => next(err))
     }
 
-    static update(req, res) {
+    static update(req, res, next) {
         let updateId = req.params.id
         Todo.update({
             title: req.body.title,
@@ -59,12 +68,36 @@ class ControllerTodo {
             returning: true
         })
             .then(todo => {
-                res.status(200).json(todo[1][0])
+                if (todo[1].length == 0) {
+                    next({
+                        status: 404,
+                        message: {
+                            error: 'Todo not found'
+                        }
+                    })
+                } else {
+                    res.status(200).json(todo[1][0])
+                }
             })
-            .catch(err => res.status(500).json(err))
+            .catch(err => {
+                if (err.errors) {
+                    let errors = []
+                    err.errors.forEach(element => {
+                        errors.push(element.message)
+                    });
+                    next({
+                        status: 400,
+                        message: {
+                            errors: errors
+                        }
+                    })
+                } else {
+                    next(err)
+                }
+            })
     }
 
-    static deleteTodo(req, res) {
+    static deleteTodo(req, res, next) {
         let deleteId = req.params.id
         let deletedTodo
         Todo.findByPk(deleteId)
@@ -77,9 +110,18 @@ class ControllerTodo {
                 })
             })
             .then(deleted => {
-                res.status(200).json(deletedTodo)
+                if(deleted != 0) {
+                    res.status(200).json(deletedTodo)
+                } else {
+                    next({
+                        status: 404,
+                        message: {
+                            error: 'Todo not found'
+                        }
+                    })
+                }
             })
-            .catch(err => res.status(500).json(err))
+            .catch(err => next(err))
     }
 }
 

@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         checkBoolean(status) {
           if (status != false && status != true) {
-            throw new Error(`Status must be "false" or "true"`)
+            throw new Error("Status must be 'false' or 'true'")
           }
         }
       }
@@ -30,6 +30,9 @@ module.exports = (sequelize, DataTypes) => {
           }
         }
       }
+    },
+    UserId: {
+      type: DataTypes.INTEGER
     }
   }, {
     sequelize,
