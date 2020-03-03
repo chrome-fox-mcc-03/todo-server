@@ -1,13 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
 
-  class Todo extends sequelize.Sequelize.Model {
-
-    static associate(models) {
-
-    }
-
-  }
+  class Todo extends sequelize.Sequelize.Model {}
 
   Todo.init({
     title: {
@@ -32,11 +26,19 @@ module.exports = (sequelize, DataTypes) => {
           msg: "Cannot back date, check your date!"
         }
       }
+    },
+    UserId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   }, 
   {
     sequelize
   })
+  
+  Todo.associate = function(models) {
+    Todo.belongsTo(models.User)
+  }
 
   return Todo;
 };
