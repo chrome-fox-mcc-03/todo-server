@@ -2,6 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   class Todo extends sequelize.Sequelize.Model {
     static associate (models){
+      Todo.belongsTo(models.User)
     }
   }
 
@@ -11,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notNull: {
-          msg: 'Field must not null'
+          msg: 'Title must not null'
         }
       }
     },
@@ -20,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notNull: {
-          msg: 'Field must not null'
+          msg: 'Descriptions must not null'
         }
       }
     },
@@ -29,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notNull: {
-          msg: 'Field must not null'
+          msg: 'Status must not null'
         }
       }
     },
@@ -38,13 +39,16 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notNull: {
-          msg: 'Field must not null'
+          msg: 'Due_date must not null'
         },
         isAfter: {
           args: new Date().toDateString(),
           msg: 'Date must after now date'
         }
       }
+    },
+    UserId: {
+      type: DataTypes.INTEGER
     }
   }, {
     sequelize

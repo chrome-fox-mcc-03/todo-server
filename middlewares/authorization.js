@@ -1,0 +1,21 @@
+const { Todo } = require('../models')
+const { verifyToken } = require('../helpers/jwt.js')
+module.exports = function(req, res, next) {
+    Todo.findOne({
+        where: { id: +req.params.id },
+    })
+        .then(response => {
+            if(response.UserId === req.decode.id) {
+                next();
+            } else {
+                next({
+                    status: 401,
+                    message: 'You dont have permission to access this'
+                })
+            }
+        })
+        .catch(err => next({
+            status: 404,
+            message: 'TODO not found'
+        }))
+}
