@@ -37,6 +37,9 @@
       ```
 * **Error Response:**
 
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** `{ message : "You must login first" }`
+
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** `{ message : "Internal server error" }`
 ---
@@ -63,6 +66,7 @@
         "title": "Playing Dota with Adam",
         "description": "Lose",
         "status": false,
+        "UserId" : 3,
         "due_date": "2020-03-05T00:00:00.000Z",
         "updatedAt": "2020-03-03T12:47:05.571Z",
         "createdAt": "2020-03-03T12:47:05.571Z"
@@ -74,6 +78,9 @@
 
   * **Code:** 400 BAD REQUEST <br />
     **Content:** `{ message : "Validation Error" }`
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** `{ message : "You must login first" }`
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** `{ message : "Internal server error" }`
@@ -110,6 +117,7 @@
         "title": "Playing Dota with Adam",
         "description": "Lose",
         "status": false,
+        "UserId" : 3,
         "due_date": "2020-03-05T00:00:00.000Z",
         "updatedAt": "2020-03-03T12:47:05.571Z",
         "createdAt": "2020-03-03T12:47:05.571Z"
@@ -118,6 +126,9 @@
     ```
  
 * **Error Response:**
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** `{ message : "You must login first" }`
 
   * **Code:** 404 Not Found <br />
     **Content:** `{ message : "Not Found" }`
@@ -162,6 +173,9 @@
  
 * **Error Response:**
 
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** `{ message : "You must login first" }`
+
   * **Code:** 400 BAD REQUEST <br />
     **Content:** `{ message : "Validation Error" }`
 
@@ -203,8 +217,99 @@
  
 * **Error Response:**
 
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** `{ message : "You must login first" }`
+
   * **Code:** 404 Not Found <br />
     **Content:** `{ message : "Not Found" }`
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** `{ message : "Internal server error" }`
+
+---
+
+**Register User**
+
+---
+
+  Register a User.
+
+* **URL**
+
+  /register
+
+* **Method**
+
+  `POST`
+
+*  **URL Params**
+
+    **Required**
+
+    None
+
+* **Success Response:**
+
+  * **Code:** 201 <br />
+    **Content:** 
+    ```json
+    {
+        "id": 3,
+        "email": "reinfajar@gmail.com"
+    }
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ message : "Bad request" }`
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ message : "Email Already Exist" }`
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** `{ message : "Internal server error" }`
+
+---
+
+**Google Sign In**
+----
+  Login a user.
+
+* **URL**
+
+  /login
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+
+    **Required**
+
+    None
+
+* **Data Params**
+
+    None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+    ```json
+    {
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNTgwODI2MTk1fQ.h56et9F8Iby0BNgLIG6e5wvGtRC6oRDvpxHf8WO4rWs" 
+    }
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 400 Not Found <br />
+    **Content:** `{ message : "Email / Password are Wrong" }`
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** `{ message : "Internal server error" }`
+
+---
