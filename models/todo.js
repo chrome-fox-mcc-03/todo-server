@@ -1,27 +1,53 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Todo = sequelize.define('Todo', {
+  class Todo extends sequelize.Sequelize.Model {}
+
+  Todo.init({
     title: { 
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isEmpty(title) {
-          if (!title) {
-            throw new Error('title cannot be empty')
+        notEmpty: {
+          args: true,
+          msg: "Title cannot be empty"
+        }
+      }
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "Description cannot be empty"
+        }
+      }
+    },
+    status: {
+      type: DataTypes.BOOLEAN,
+      validate: {
+        setDefaultFalse(status) {
+          if (status != true) {
+            status = false
           }
         }
       }
     },
-    description: DataTypes.STRING,
-    status: DataTypes.BOOLEAN,
     due_date: {
       type: DataTypes.DATE,
       allowNull: false,
       validate: {
-        isAfter: `${new Date().toLocaleDateString()}`
+        isAfter: {
+          args: `${new Date().toLocaleDateString()}`,
+          msg: 'Date should be greater than today'
+        } 
       }
     }
-  }, {});
+  }, {
+    sequelize,
+    modelName: 'Todo'
+  })
+
   Todo.associate = function(models) {
     // associations can be defined here
   };

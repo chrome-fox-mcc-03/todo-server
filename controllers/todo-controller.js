@@ -12,7 +12,11 @@ class TodoController {
                 res.status(201).json(todo)
             })
             .catch((err) => {
-                res.status(500).json(err)
+                let status = 500;
+                if (err.name === "SequelizeValidationError") {
+                    status = 400;
+                }
+                res.status(status).json(err)
             })
     }
 
@@ -67,7 +71,6 @@ class TodoController {
         Todo.findByPk(todoId)
             .then((todo) => {
                 deletedTodo = todo;
-                // console.log(deletedTodo);
                 return Todo.destroy({
                     where: {
                         id: req.params.id
