@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     hooks:{
       beforeCreate: (todo) => {
         if(!todo.description){
-          todo.description = todo.title
+          todo.description = 'Todo description'
         }
       },
       beforeDestroy: (todo) => {
