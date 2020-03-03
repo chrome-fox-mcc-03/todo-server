@@ -1,12 +1,20 @@
-const {Todo} = require('../models/index')
+const {
+    Todo
+} = require('../models/index')
 class Controller {
-    static add(req, res) {
-        let { title, description,status,due_date } = req.body
+    static add(req, res, next) {
+        let {
+            title,
+            description,
+            status,
+            due_date
+        } = req.body
         Todo.create({
                 title: title,
                 description: description,
                 status: status,
                 due_date: due_date,
+                UserId: req.decoded.id,
                 createdAt: new Date(),
                 updatedAt: new Date()
             })
@@ -14,73 +22,111 @@ class Controller {
                 res.status(201).json(result)
             })
             .catch((err) => {
-                res.status(500).json(err.errors[0].message)
+                next({
+                    status: 400,
+                    msg: {
+                        err: err.errors[0].message
+                    }
+                })
             })
     }
 
-    static get(req, res){
+    static get(req, res) {
         Todo.findAll()
-        .then((result)=>{
-            res.status(200).json(result)
-        })
-        .catch(()=>{
-            res.status(500)
-        })
+            .then((result) => {
+                res.status(200).json(result)
+            })
+            .catch((err) => {
+                next({
+                    status: 500,
+                    msg: {
+                        err: 'Internal Error'
+                    }
+                })
+            })
     }
 
-    static getId(req, res){
+    static getId(req, res) {
         let id = req.params.id
         Todo.findAll({
-            where:{id}
-        })
-        .then((result)=>{
-            res.status(200).json(result)
-        })
-        .catch(()=>{
-            res.status(500)
-        })
+                where: {
+                    id
+                }
+            })
+            .then((result) => {
+                res.status(200).json(result[0])
+            })
+            .catch(() => {
+                next({
+                    status: 404,
+                    msg: {
+                        err: 'Todo Not Found'
+                    }
+                })
+            })
     }
 
-    static put(req, res){
+    static put(req, res) {
         let id = req.params.id
-        let { title, description,status,due_date } = req.body
+        let {
+            title,
+            description,
+            status,
+            due_date
+        } = req.body
         Todo.update({
-            title: title,
-            description: description,
-            status: status,
-            due_date: due_date
-        },{
-            where:{id:id},
-            returning: true,
-            plain: true
-        })
-        .then((result)=>{
-            res.status(200).json(result[1])
-        })
-        .catch((err)=>{
-            res.status(500).json(err.errors[0].message)
-        })
+                title: title,
+                description: description,
+                status: status,
+                due_date: due_date
+            }, {
+                where: {
+                    id: id
+                },
+                returning: true,
+                plain: true
+            })
+            .then((result) => {
+                res.status(200).json(result[1])
+            })
+            .catch((err) => {
+                if (!err) {
+                    next({
+                        status: 404,
+                        msg: {
+                            err: 'Todo Not Found'
+                        }
+                    })
+                } else {
+                    next({
+                        status: 400,
+                        msg: {
+                            err: err.errors[0].message
+                        }
+                    })
+                }
+            })
     }
 
-    static delete(req, res){
+    static delete(req, res) {
         let id = req.params.id
         let data;
         Todo.findByPk(id)
-        .then((result)=>{
-            data = result
-            return Todo.destroy({
-                where: {
-                    id: id
-                }
+            .then((result) => {
+                data = result
+                return Todo.destroy({
+                    where: {
+                        id: id
+                    }
+                })
             })
-        })
-        
-        .then((result)=>{
-            res.status(200).json(data)
-        })
-        .catch(()=>{
-            res.status(500)
-        })
+
+            .then((result) => {
+                res.status(200).json(data)
+            })
+            .catch(() => {
+                res.status(500)
+            })
     }
 
 }
