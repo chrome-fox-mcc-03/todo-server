@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notNull: {args: true, msg: "Please fill your password"},   //true
-        len: {args: [4], msg: "Please add title at least 4 character"} 
+        len: {args: [4], msg: "Please add password at least 4 character"} 
       }
     }
   }, {

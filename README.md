@@ -50,12 +50,12 @@
 * **Error Response:**
 
   * **Code:** 400 BAD REQUEST <br />
-    **Content:** `{ error : "Validation len on title failed" }`
+    **Content:** `"Please add title at least 4 character"`
 
   OR
 
   * **Code:** 400 BAD REQUEST <br />
-    **Content:** `{ error : "Validation isAfter on due_date failed" }`
+    **Content:** `"Your due minimum must due today"`
   OR
 
   * **Code:** 500 <br />
@@ -116,7 +116,7 @@
 
 * **URL**
 
-  `http://localhost:3000/:id`
+  `http://localhost:3000/todos/:id`
 
 * **Method:**
   
@@ -153,7 +153,7 @@
 * **Error Response:**
 
   * **Code:** 404 DATA NOT FOUND <br />
-    **Content:** `{ error : "DATA NOT FOUND" }`
+    **Content:** `"DATA NONE"`
 
   * **Code:** 500 <br />
     **Content:** `{ error : "Internal Server Error" }`
@@ -165,7 +165,7 @@
 
 * **URL**
 
-  `http://localhost:3000/:id`
+  `http://localhost:3000/todos/:id`
 
 * **Method:**
   
@@ -202,12 +202,12 @@
 * **Error Response:**
 
   * **Code:** 400 BAD REQUEST <br />
-    **Content:** `{ error : "Validation len on title failed" }`
+    **Content:** `"Please add title at least 4 character"`
 
   OR
 
   * **Code:** 400 BAD REQUEST <br />
-    **Content:** `{ error : "Validation isAfter on due_date failed" }`
+    **Content:** `"Your due minimum must due today"`
   
   OR
 
@@ -222,7 +222,7 @@
 
 * **URL**
 
-  `http://localhost:3000/:id`
+  `http://localhost:3000/todos/:id`
 
 * **Method:**
 
@@ -259,3 +259,106 @@
 
   * **Code:** 500 <br />
     **Content:** `{ error : "Internal Server Error" }`
+
+----
+
+
+**REGISTER NEW USER**
+----
+
+* **URL**
+
+  `http://localhost:3000/register`
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+
+   NONE
+
+* **Data Params**
+
+   ```javascript
+   {
+     email: "mail@mail.com",
+     password: "pass123"
+   }
+   ```
+
+* **Success Response:**
+
+  * **Code:** 201 <br />
+    **Content:** 
+    ```javascript
+    {
+    "email": "mama@mail.com",
+    "password": "$2a$10$wJIACEy5NrV4/tJtfDATPOqdC3G8V31aGZV1pw/iL0TmlyX0iayCW"
+    }
+
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 400 <br />
+    **Content:** `["Please use Email format"]`
+
+  OR
+
+  * **Code:** 400 <br />
+    **Content:** `["Please add password at least 4 character"]`
+
+  OR
+
+  * **Code:** 500 <br />
+    **Content:** `{ error : "Internal Server Error" }`
+
+----
+
+**LOG IN**
+----
+
+* **URL**
+
+  `http://localhost:3000/login`
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+
+   NONE
+
+* **Data Params**
+
+   ```javascript
+   {
+     email: "mail@mail.com",
+     password: "pass123"
+   }
+   ```
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+    ```javascript
+    {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImVtYWlsIjoibWFtYUBtYWlsLmNvbSIsImlkIjoyfSwiaWF0IjoxNTgzMjQ3MzExfQ.w7VLYX3SaXPCM9sksdzuRGh0k8yAoYX97BiXmkyxvKc"
+    }
+
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 401 <br />
+    **Content:** `"PW Email Salah"`
+
+  OR
+
+  * **Code:** 500 <br />
+    **Content:** `{ error : "Internal Server Error" }`
+----
+
