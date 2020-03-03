@@ -5,6 +5,10 @@ function errorHandler (err, req, res, next) {
             message = "Database Error!"
             res.status(500).json([message])
             break;
+        case "SequelizeUniqueConstraintError":
+            message = err.errors.map(el => el.message)
+            res.status(500).json(message)
+            break;
         case "SequelizeValidationError":
             message = err.errors.map(el => el.message)
             res.status(400).json(message)
