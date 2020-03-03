@@ -1,53 +1,54 @@
-const { Todo } = require('../models')
+const { Todo, User } = require('../models')
 
 class TodoController {
 
-  static Create(req, res) {
+  static Create(req, res, next) {
     Todo.create({
       title: req.body.title,
       description: req.body.description,
       status: req.body.status,
-      due_date:req.body.due_date
+      due_date:req.body.due_date,
+      UserId: req.currentUserId
     })
     .then((todo) => {
       res.status(201).json({todo})
     })
-    .catch((err) => {
-      let status = 500;
-      if(err.name === 'SequelizeVlaidationError') {
-        status = 400
-      }
-      res.status(status).json(err)
-    })
+    .catch(next)
   }
 
-  static Display(req, res) {
-    Todo.findAll()
+  static Display(req, res, next) {
+    Todo.findAll({
+      where: {
+        UserId: req.currentUserId
+      },
+      include:[{
+        model: User,
+        attributes: {
+          exclude: ['password']
+        }
+      }]
+    })
     .then((todo) => {
       res.status(200).json({todo})
     })
-    .catch((err) => {
-      res.status(500).json(err)
-    })
+    .catch(next)
   }
 
-  static FindId(req, res) {
+  static FindId(req, res, next) {
     let id = req.params.id
     Todo.findByPk(id)
     .then((todo) => {
       if(!todo) {
-        res.status(404).json({ err: `error not found` })
+        next({name: 'Todo not found'})
       }
       else {
         res.status(200).json({todo})
       }
     })
-    .catch((err) => {
-      res.status(500).json(err)
-    })
+    .catch(next)
   }
 
-  static Update(req, res) {
+  static Update(req, res, next) {
     let id = req.params.id
     Todo.update({
       title: req.body.title,
@@ -62,22 +63,17 @@ class TodoController {
     })
     .then((data) => {
       if(!data[0]) {
-        res.status(404).json({ err: `error not found` })
+        // res.status(404).json({ err: `ToDo not found` })
+        next({name: 'Todo not found'})
       }
       else {
         res.status(200).json({todo})
       }
     })
-    .catch((err) => {
-      let status = 500;
-      if(err.name === 'SequelizeValidationError') {
-        status = 400
-      }
-      res.status(status).json(err)
-    })
+    .catch(next)
   }
 
-  static Delete(req, res) {
+  static Delete(req, res, next) {
     let id = req.params.id
     Todo.destroy({
       where: {
@@ -86,15 +82,13 @@ class TodoController {
     })
     .then((todo) => {
       if(!todo) {
-        res.status(404).json({ err: `error not found`})
+        next({name: 'Todo not found'})
       }
       else {
         res.status(200).json(todo)
       }
     })
-    .catch((err) => {
-      res.status(500).json(err)
-    })
+    .catch(next)
   }
 
 }
