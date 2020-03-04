@@ -10,7 +10,16 @@ class UserController {
 			name: req.body.name
 		})
 			.then(result => {
-				res.status(201).json(result);
+				let payload = {
+					id: result.id,
+					email: result.email
+				}
+				
+				let token = sign(payload);
+
+				res.status(200).json({
+					token
+				});
 			})
 			.catch(err => {
 				next(err);
@@ -32,8 +41,10 @@ class UserController {
 							email: result.email
 						}
 						
+						let token = sign(payload);
+
 						res.status(200).json({
-							token: sign(payload)
+							token
 						});
 					} else {
 						next({

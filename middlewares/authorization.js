@@ -11,14 +11,20 @@ function authorization (req, res, next) {
 				if (result.UserId === req.decode.id) {
 					next();
 				} else {
-					res.status(401).json('You are not authorized');
+					next({
+						status: 401,
+						message: 'You are not authorized'
+					});
 				}
 			} else {
-				res.status(404).json('To Do not found');
+				next({
+					status: 404,
+					message: 'To Do not found'
+				});
 			}
 		})
 		.catch(err => {
-			res.status(500).json(err)
+			next(err.errors);
 		});
 }
 

@@ -10,7 +10,7 @@ function authentication (req, res, next) {
 			where: { email: req.decode.email }
 		})
 			.then(result => {
-				if (result) {
+				if (result && req.decode.id === result.id) {
 					next();
 				} else {
 					next({
@@ -20,10 +20,10 @@ function authentication (req, res, next) {
 				}
 			})
 			.catch(err => {
-				next(err)
+				next(err.errors)
 			})
 	} catch (err) {
-		next(err)
+		next(err.errors)
 	}
 }
 
