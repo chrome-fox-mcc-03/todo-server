@@ -1,7 +1,7 @@
-const LogInController = require("./login");
+const UserController = require("./login");
 const TodoController = require("./todo");
 
 module.exports = {
-  LogInController,
+  UserController,
   TodoController
 };

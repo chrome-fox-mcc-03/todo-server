@@ -2,7 +2,7 @@ const { User } = require("../models");
 const { checkPassword } = require("../helpers/bcrypt");
 const { generateToken } = require("../helpers/jwt");
 
-class LogInController {
+class UserController {
   static register(req, res, next) {
     User.create({
       email: req.body.email,
@@ -56,4 +56,4 @@ class LogInController {
   }
 }
 
-module.exports = LogInController;
+module.exports = UserController;
