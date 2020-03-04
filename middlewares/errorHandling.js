@@ -8,6 +8,13 @@ function errorHandler(err, req, res, next) {
         msg: errMessage
       }
     });
+  } else if (err.name === "SequelizeUniqueConstraintError") {
+    res.status(400).json({
+      error: {
+        status: 400,
+        msg: err.errors[0].message
+      }
+    });
   } else {
     res.status(err.status || 500).json({
       error: {
