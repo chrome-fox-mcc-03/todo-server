@@ -26,13 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     status: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      validate: {
-        notNull: {
-          msg: 'Status must not null'
-        }
-      }
+      type: DataTypes.BOOLEAN
     },
     due_date: {
       type: DataTypes.DATE,
@@ -51,6 +45,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER
     }
   }, {
+    hooks: {
+      beforeCreate: (Todo, options) => {
+        Todo.status = false
+      }
+    },
     sequelize
   })
   return Todo;

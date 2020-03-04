@@ -2,7 +2,12 @@ const { Todo } = require('../models/index')
 const { create } = require('../helpers/google') 
 class TodoController {
     static findAll(req,res, next) {
-        Todo.findAll()
+        Todo.findAll({
+            where: {
+                UserId: req.decode.id
+            },
+            order: ['id']
+        })
             .then(data => {
                 res.status(200).json(data)
             })
@@ -18,13 +23,13 @@ class TodoController {
             UserId: req.decode.id
         })
             .then(data => {
-                res.status(201).json(data)
+                res.status(201).json(data)                
                 var event = {
                     summary: req.body.title,
                     location: 'MCC HACKTIV8',
                     description: req.body.description,
                     start: {
-                      dateTime: new Date(req.body.due_date),
+                      dateTime: data.createdAt,
                       timeZone: 'Asia/Jakarta'
                     },
                     end: {
@@ -32,7 +37,7 @@ class TodoController {
                       timeZone: 'Asia/Jakarta'
                     },
                     recurrence: ['RRULE:FREQ=DAILY;COUNT=2'],
-                    attendees: [{ email: 'lpage@example.com' }, { email: 'sbrin@example.com' }],
+                    attendees: [],
                     reminders: {
                       useDefault: false,
                       overrides: [
@@ -88,7 +93,7 @@ class TodoController {
             .then(data => {
                 if(data) {
                     res.status(200).json({message: `SUCCESS DELETE TODO`})
-                } 
+                }
                 else next({
                     status: 404,
                     message: 'TODO not found'

@@ -4,6 +4,7 @@ const UserController = require('../controllers/userController')
 
 router.post('/signup', UserController.signUp)
 router.post('/signin', UserController.signIn)
+router.post('/googlesignin', UserController.googleLogin)
 
 
 router.use('/todos', TodoRouter)
