@@ -1,6 +1,7 @@
 const { Todo } = require('../models');
 const ErrorModel = require('../helpers/error');
 const axios = require('axios');
+const sendEmail = require('../helpers/nodemailer');
 
 const zomato = axios.create({
     baseURL: 'https://developers.zomato.com/api/v2.1',
@@ -34,7 +35,12 @@ class Controller {
 
         Todo.create(data)
             .then((result) => {
-                res.status(201).json(result)
+                try {
+                    sendEmail("felixwinangun@ymail.com", result.title);
+                    res.status(201).json(result)
+                } catch (error) {
+                    throw new ErrorModel(500, "Error sending mail");
+                }
             })
             .catch(err => {
                 next(err);
