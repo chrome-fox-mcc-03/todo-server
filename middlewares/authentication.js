@@ -13,7 +13,7 @@ function authentication(req, res, next) {
                     return next()
                 }
                 else {
-                    throw {status: 404, customName: 'Token hacker lol'}
+                    throw {status: 404, customName: 'User not found!'}
                 }
             })
             .catch(err => next(err))
