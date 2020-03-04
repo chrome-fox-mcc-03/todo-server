@@ -41,8 +41,8 @@ class UserController {
                     })
                 } else {
                     next({
-                        name: "unauthorized",
-                        status: 401,
+                        name: "not found",
+                        status: 404,
                         message: "email or password is wrong"
                     })
                 }
