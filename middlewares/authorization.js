@@ -13,8 +13,9 @@ function authorization(req, res, next) {
         next();
       } else {
         next({
-          status: 403,
-          msg: "forbidden, you don't have permission to access other people's data"
+          status: 401,
+          msg:
+            "unauthorized, you don't have permission to access other people's data"
         });
       }
     })
