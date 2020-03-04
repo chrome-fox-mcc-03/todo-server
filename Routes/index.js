@@ -5,8 +5,10 @@ const UserController = require('../Controllers/UserController.js')
 
 
 
+
 router.use('/register', UserController.register);
 router.use('/login', UserController.login);
+router.post('/googleLogIn', UserController.googleLogIn);
 
 router.use('/todos', todoRouters);
 

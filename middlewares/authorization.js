@@ -5,10 +5,13 @@ module.exports = function(req, res, next) {
         where: id = +req.params.id 
     })
         .then(response => {
+
             if(response) {
+
                 if(response.UserId === req.decoded.id){
                     next()
                 }
+                
                 else {
                     next({
                         status: 401,

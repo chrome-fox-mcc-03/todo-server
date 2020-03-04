@@ -1,6 +1,8 @@
 const { User } = require('../models/index.js');
 const { comparePassword } = require('../helpers/bcrypt');
 const { generateToken } = require('../helpers/jwt');
+const {OAuth2Client} = require('google-auth-library');
+const client = new OAuth2Client(process.env.CLIENT_ID)
 
 class UserController {
 
@@ -53,6 +55,66 @@ class UserController {
                     message: "email / password invalid"
                 })
             })
+    }
+
+    static googleLogIn(req, res, next) {
+        let token = req.headers.token
+        let email = "";
+        client.verifyIdToken({
+            idToken: token,
+            audience: process.env.CLIENT_ID
+        })
+            .then(ticket => {
+                email = ticket.payload.email
+                return User.findOne({
+                    where: { email }
+                })
+                console.log("ketemu user lama");
+            })
+
+            .then(result => {
+
+                let password = "XdM4yhl6nGf91W876Qgv1uZa3UhEdM1qZ32J9sPanRoWWaPxVDQX8jK4RtpoGTpwSJJsNgC4CqA0vNDX8olyPw=="
+                if(result) {
+                    let id = result.id
+                    let payload = {
+                        id,
+                        email
+                    }
+
+                    token = generateToken(payload);
+
+                    return new Promise((resolve, reject) => {
+                        resolve({token})
+                    })
+                }
+
+                else {
+                    return User.create({ email, password })
+                }
+            })
+
+            .then(response => {
+
+                if(response.token) {
+                    res.status(200).json(response.token);
+                }
+                else {
+                    let payload = {
+                        id: response.id,
+                        email: response.email
+                    }
+                    
+                    token = generateToken(payload)
+                    res.status(200).json(token)
+
+                }                
+            })
+
+            .catch(err => {
+                next(err)
+            })
+
     }
 
 }
