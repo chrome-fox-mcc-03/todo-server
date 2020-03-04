@@ -60,6 +60,10 @@ module.exports = (sequelize, DataTypes) => {
             args: true,
             msg: "due date must be filled with valid date"
           },
+          isDate: {
+            args: true,
+            msg: "due date must be filled with date string"
+          },
           isAfter: {
             args: String(new Date()),
             msg: "due date must be later than now"
