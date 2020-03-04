@@ -1,8 +1,9 @@
+const { compare } = require('../helpers/bcrypt');
+const { sign } = require('../helpers/jwt');
 const { User } = require('../models');
 
 class UserController {
 	static create (req, res, next) {
-		// res.status(200).json(req.body);
 		User.create({
 			email: req.body.email,
 			password: req.body.password,
@@ -12,9 +13,44 @@ class UserController {
 				res.status(201).json(result);
 			})
 			.catch(err => {
-				console.log(err);
-				res.status(500).json(err.message)
+				next(err);
 			})
+	}
+
+	static signIn (req, res, next) {
+		let { email, password } = req.body
+		User.findOne({
+			where: {
+				email
+			}
+		})
+			.then(result => {
+				if (result) {
+					if (compare(password, result.password)) {
+						let payload = {
+							id: result.id,
+							email: result.email
+						}
+						
+						res.status(200).json({
+							token: sign(payload)
+						});
+					} else {
+						next({
+							status: 400,
+							message: 'Email/Password combination not found'
+						});
+					}
+				} else {
+					next({
+						status: 400,
+						message: 'Email/Password combination not found'
+					});
+				}
+			})
+			.catch(err => {
+				next(err);
+			});
 	}
 }
 

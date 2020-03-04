@@ -1,8 +1,11 @@
 const router = require('express').Router();
 const todoRouter = require('../routes/todoRouter');
-const UserController = require('../controllers/userController');
+const userRouter = require('../routes/userRouter');
+const errorHandler = require('../middlewares/errorHandler');
 
-router.post('/signup', UserController.create)
+router.use('/user', userRouter)
 router.use('/todos', todoRouter);
+
+router.use(errorHandler);
 
 module.exports = router;

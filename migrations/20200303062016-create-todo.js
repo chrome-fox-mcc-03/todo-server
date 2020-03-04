@@ -22,10 +22,12 @@ module.exports = {
 			},
 			UserId: {
 				type: Sequelize.INTEGER,
-				// references: {
-				// 	model: 'Users',
-				// 	key: 'id'
-				// }
+				references: {
+					model: 'Users',
+					key: 'id'
+				},
+				onUpdate: 'cascade',
+				onDelete: 'cascade'
 			},
 			createdAt: {
 				allowNull: false,
