@@ -1,7 +1,6 @@
 const {Todo,User} = require('../models')
-const {signToken,checkPassword} = require('../helpers/index')
 
-class TodoController {
+class Controller {
     static create(req,res,next) {
         let {title,description,status,due_date} = req.body
         let {UserId} = req.headers
@@ -16,38 +15,39 @@ class TodoController {
             res.status(201).json({result})
         })
         .catch((err) => {
-            res.status(400).json({err})
+            next(err)
         });
     }
 
-    static findAll(req,res) {
+    static findAll(req,res,next) {
         Todo.findAll()
         .then((result) => {
             res.status(200).json({result})
         })
         .catch((err) => {
-            res.status(500).json({err,message:'Internal Server Error'})
+            next(err)
         });
     }
 
-    static findById(req,res) {
+    static findById(req,res,next) {
         Todo.findByPk(req.params.id)
         .then((result) => {
             if(result == null) {
-                throw new Error()
+                next({
+                    status:404,
+                    message:'Data not Found'
+                })
             }
             res.status(200).json({result})     
         })
         .catch((err) => {
-            res.status(404).json({message:'Error Data not found'})
+            next(err)
         });
     }
 
-    static updateById(req,res) {
+    static updateById(req,res,next) {
         let {id} = req.params
         let {title,description,status,due_date} = req.body
-        console.log(req.params)
-        console.log(req.body)
         Todo.update({
             title,description,status,due_date
         },{where:{
@@ -64,11 +64,11 @@ class TodoController {
             res.status(200).json({result,message:'Success Update!'})    
         })
         .catch((err) => {
-            res.status(400).json({err,message:'Validation Errors'})
+            next(err)
         });
     }
 
-    static deleteById(req,res) {
+    static deleteById(req,res,next) {
         let {id} = req.params
         let data = null
         Todo.findAll({
@@ -77,73 +77,26 @@ class TodoController {
             }
         })
         .then((result) => {
+            if(result.length < 1) {
+                next({
+                    status:404,
+                    message:'Data Not Found'
+                })
+            }
             data = result
-            return Todo.destroy({where:{id}})
+            return Todo.destroy({
+                where:{
+                    id
+                }
+            })
         })
         .then((result) => {
-            if(result == 0) {
-                throw new Error
-            }
             res.status(200).json({data,message:'Success Delete'})
         })
         .catch((err) => {
-            res.status(404).json({message:'Error Data Not Found'})
+            next(err)
         })
-    }
-
-    static register(req,res) {
-        let {email,password} = req.body
-        User.create({
-            email,
-            password
-        })
-        .then((result) => {
-            let {id,email} = result.dataValues
-            let newResult = {id,email}
-            let token = signToken(newResult)
-            req.headers.token = token
-            res.status(201).json({newResult,token})
-        })
-        .catch((err) => {
-            res.status(400).json({err})
-        });
-    }
-
-    static login(req,res) {
-        let {email,password} = req.body
-        User.findOne({
-            where:{
-                email
-            }
-        })
-        .then((result) => {
-            if(result){
-                let check = checkPassword(password,result.dataValues.password)
-                if(check){
-                    let {id,email} = result.dataValues
-                    let newResult = {id,email}
-                    let token = signToken(newResult)
-                    req.headers.token = token
-                    res.status(200).json({token})
-                }else{
-                    const error = {
-                        status: 400,
-                        message:'Email / Password Wrong'
-                    }
-                    throw error 
-                }
-            }else{
-                const error = {
-                    status: 400,
-                    message:'Email / Password Wrong'
-                }
-                throw error
-            }
-        })
-        .catch((err) => {
-            res.status(err.status).json({error:err.message})
-        });
     }
 }
 
-module.exports = TodoController
+module.exports = Controller
