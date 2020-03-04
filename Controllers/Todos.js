@@ -29,7 +29,7 @@ class TodoController {
       }]
     })
     .then((todo) => {
-      res.status(200).json({todo})
+      res.status(200).json(todo)
     })
     .catch(next)
   }
@@ -62,15 +62,17 @@ class TodoController {
       returning: true
     })
     .then((data) => {
-      if(!data[0]) {
-        // res.status(404).json({ err: `ToDo not found` })
+      console.log(data);
+      
+      if(!data[1]) {
         next({name: 'Todo not found'})
       }
       else {
-        res.status(200).json({todo})
+        res.status(200).json({data: data[1][0]})
       }
     })
     .catch(next)
+    
   }
 
   static Delete(req, res, next) {

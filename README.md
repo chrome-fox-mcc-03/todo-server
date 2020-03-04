@@ -234,7 +234,7 @@ http://localhost:3000
     **Content:** 
     ```
     {
-    "todo": [
+    "data": {
         {
           "id": 1,
           "title": "Belajar",
@@ -244,7 +244,7 @@ http://localhost:3000
           "createdAt": "2020-03-02T07:51:05.822Z",
           "updatedAt": "2020-03-02T08:34:57.030Z"
         }
-      ]
+      }
     }
  
 * **Error Response:**
@@ -309,6 +309,13 @@ http://localhost:3000
   OR
 
   * **Code:** 500  <br />
+
+  OR
+
+  * **Code:** 401  <br />
+    **Content:** `{ error : "Not authenticated" }`
+
+
 
 * **Sample Call:**
 
