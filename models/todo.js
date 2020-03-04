@@ -1,4 +1,6 @@
 "use strict";
+const addOneDay = require("../helpers/addOneDay");
+
 module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.Sequelize.Model;
 
@@ -39,12 +41,9 @@ module.exports = (sequelize, DataTypes) => {
       status: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+        defaultValue: false,
         validate: {
           notNull: {
-            msg: "status must be filled with true or false"
-          },
-          notEmpty: {
-            args: true,
             msg: "status must be filled with true or false"
           }
         }
@@ -52,12 +51,9 @@ module.exports = (sequelize, DataTypes) => {
       due_date: {
         type: DataTypes.DATE,
         allowNull: false,
+        defaultValue: addOneDay(),
         validate: {
           notNull: {
-            msg: "due date must be filled with valid date"
-          },
-          notEmpty: {
-            args: true,
             msg: "due date must be filled with valid date"
           },
           isDate: {
@@ -83,8 +79,11 @@ module.exports = (sequelize, DataTypes) => {
     {
       hooks: {
         beforeValidate: (todo, options) => {
-          if (!todo.status) {
+          if (todo.status === "") {
             todo.status = false;
+          }
+          if (todo.due_date === "") {
+            todo.due_date = addOneDay();
           }
         }
       },
