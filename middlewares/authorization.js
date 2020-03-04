@@ -1,6 +1,6 @@
 const { Todo } = require("../models");
 
-function Authorizer(req, res, next) {
+function authorization(req, res, next) {
   let logInId = req.decoded.id;
   let targetId = req.params.id;
   Todo.findOne({
@@ -26,4 +26,4 @@ function Authorizer(req, res, next) {
     );
 }
 
-module.exports = Authorizer;
+module.exports = authorization;

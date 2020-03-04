@@ -1,6 +1,6 @@
 const { verifyToken } = require("../helpers/jwt");
 
-function authenticator(req, res, next) {
+function authentification(req, res, next) {
   try {
     const token = req.headers.token;
     req.decoded = verifyToken(token);
@@ -13,4 +13,4 @@ function authenticator(req, res, next) {
   }
 }
 
-module.exports = authenticator;
+module.exports = authentification;
