@@ -1,12 +1,13 @@
 const {Todo, User} = require("../models")
 const { CustomError } = require("../helpers/errorModel.js")
-const axios = require("axios")
-const restdb = axios.create({
-    baseURL: 'https://todoserver-61c9.restdb.io/',
-    headers: {
-        "x-api-key": '3cdf839513528d0f2e2c7b9812488874b05c9'
-    }
-})
+const restdb = require("../helpers/thirdParty.js")
+// const axios = require("axios")
+// const restdb = axios.create({
+//     baseURL: 'https://todoserver-61c9.restdb.io/',
+//     headers: {
+//         "x-api-key": '3cdf839513528d0f2e2c7b9812488874b05c9'
+//     }
+// })
 
 class TodoController {
 
@@ -16,7 +17,7 @@ class TodoController {
             description: req.body.description,
             status: req.body.status,
             due_date: req.body.due_date,
-            UserId: req.body.UserId
+            UserId: req.decoded.id
         })
         .then(todo => {
             console.log("entering create");
@@ -64,7 +65,10 @@ class TodoController {
                 attributes: {
                     exclude: ['createdAt', 'updatedAt', 'password']
                 }
-            }]
+            }],
+            where: {
+                id: req.payload.id
+            }
         })
             .then(todos => {
                 // console.log(`Todos are:`);
@@ -114,7 +118,8 @@ class TodoController {
                 title: req.body.title,
                 description: req.body.description,
                 status: req.body.status,
-                due_date: req.body.due_date
+                due_date: req.body.due_date,
+                UserId: req.decoded.id
             }, {
                 where: {
                     id: +req.params.id

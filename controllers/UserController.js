@@ -34,6 +34,12 @@ class UserController {
             2. kirim token pake res.status(201).json(token) //klo mau login
             2a. 
             */
+        //    payload = {
+        //        id: result.id,
+        //        email: result.email
+        //    }
+
+        //    req.payload = payload
            res.status(201).json({datum: result, message: "Signup Success. Please Signin to Continue"})
 
         })
@@ -79,8 +85,9 @@ class UserController {
                 console.log(`generated token`);
                 console.log(accessToken);
                 // req.headers.token = accessToken;
-                req.payload = payload
-                res.status(200).json({token: accessToken, payload:payload})
+               
+                // req.payload = payload
+                res.status(200).json({token: accessToken})
 
             } else {
                 // console.log(`First error: `);
