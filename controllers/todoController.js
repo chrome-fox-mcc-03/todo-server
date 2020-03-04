@@ -1,4 +1,5 @@
 const { Todo } = require('../models');
+const { User } = require('../models');
 const ErrorModel = require('../helpers/error');
 const axios = require('axios');
 const sendEmail = require('../helpers/nodemailer');
@@ -32,12 +33,16 @@ class Controller {
             due_date: req.body.due_date,
             UserId: req.decoded.id
         }
-
+        let finalResult;
         Todo.create(data)
             .then((result) => {
+                finalResult = result;
+                return User.findByPk(req.decoded.id)
+            })
+            .then((result) => {
                 try {
-                    sendEmail("felixwinangun@ymail.com", result.title);
-                    res.status(201).json(result)
+                    sendEmail(result.email, finalResult.title);
+                    res.status(201).json(finalResult)
                 } catch (error) {
                     throw new ErrorModel(500, "Error sending mail");
                 }
