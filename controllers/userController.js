@@ -28,6 +28,8 @@ class UserController {
 
 	static signIn (req, res, next) {
 		let { email, password } = req.body
+
+		console.log(email, password);
 		User.findOne({
 			where: {
 				email

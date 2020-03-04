@@ -10,33 +10,36 @@ module.exports = (sequelize, DataTypes) => {
 		title: {
 			type: DataTypes.STRING,
 			allowNull: false,
-			notNull: {
-				args: false,
-				msg: 'Title cannot be empty!'
+			validate: {
+				notNull: {
+					args: true,
+					msg: 'Title cannot be empty!'
+				},
+				notEmpty: {
+					args: true,
+					msg: 'Please input the title!'
+				}
 			}
 		},
 		description: {
 			type: DataTypes.STRING,
 			allowNull: false,
-			notNull: {
-				args: false,
-				msg: 'Description cannot be empty!'
+			validate: {
+				notNull: {
+					args: true,
+					msg: 'Description cannot be empty!'
+				}
 			}
 		},
 		status: {
-			type: DataTypes.BOOLEAN,
-			allowNull: false,
-			notNull: {
-				args: false,
-				msg: 'Status cannot be empty!'
-			}
+			type: DataTypes.BOOLEAN
 		},
 		due_date: {
 			type: DataTypes.DATE,
 			allowNull: false,
 			validate: {
 				notNull: {
-					args: false,
+					args: true,
 					msg: 'Due date cannot be empty!'
 				},
 				isAfter: {
@@ -47,9 +50,17 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		UserId: {
 			type: DataTypes.INTEGER,
-			// allowNull: false
+			allowNull: false
 		}
-	}, { sequelize });
+	}, { 
+		sequelize,
+		hooks: {
+			beforeCreate: (todo, opt) => {
+				todo.status = false
+			}
+		}
+	 }
+	);
 
 	return Todo;
 };

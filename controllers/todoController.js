@@ -49,7 +49,7 @@ class TodoController {
 						});
 					} else {
 						res.status(200).json({
-							data
+							data: data[0]
 						});
 					}
 				} else {
