@@ -4,6 +4,8 @@ const { User } = require("../models")
 const { comparePassword } = require("../helpers/bcrypts.js")
 const { generateToken } = require("../helpers/jwt.js")
 const { CustomError } = require("../helpers/errorModel.js")
+const { OAuth2Client } = require('google-auth-library')
+const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET);
 const Op = sequelize.Op
 let emailAddress
 let userId
@@ -12,6 +14,7 @@ let passcode
 let isLogin = false
 let accessToken
 let passwordMatchFlag
+
 
 class UserController {
 
@@ -84,7 +87,7 @@ class UserController {
 
                 console.log(`generated token`);
                 console.log(accessToken);
-                // req.headers.token = accessToken;
+                req.headers.token = accessToken;
                
                 // req.payload = payload
                 res.status(200).json({token: accessToken})
@@ -101,6 +104,56 @@ class UserController {
             next(err)
         })
 
+    }
+
+    static googleSignin(req, res, next) {
+        accessToken = req.headers.gToken
+        googleClient.verifyIdToken({
+            idToken: accessToken,
+            audience: process.env.GOOGLE_CLIENT_ID
+        })
+        .then(ticket => {
+            console.log(`the ticket is`);
+            console.log(ticket);
+            payload = ticket.getPayload();
+            userId = payload['sub']
+            emailAddress = payload.email
+
+            console.log(`google ticket's payload is`);
+            console.log(payload);
+
+            return User.findAll({
+                where: {
+                    email: emailAddress
+                }
+            })
+
+
+        })
+        .then(result1 => {
+            if(result1.length === 0) {
+
+                return User.create({
+                    email: emailAddress,
+                    password: "leviathan" //leviathan
+                })
+            } else {
+                return result1[0]
+            }
+        })
+        .then(result2 => {
+            payload = {
+                email: result2.email,
+                password: result2.password
+            }
+
+            accessToken = generateToken(payload)
+            req.headers.token = accessToken
+            res.status(200).json({token: accessToken})
+        })
+        .catch(err => {
+            next(err)
+        })
     }
 }
 

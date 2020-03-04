@@ -9,7 +9,8 @@ const router = require("./routes/index.js")
 const errorHandler = require("./middlewares/errorHandling.js")
 const cors = require("cors")
 
-app.use(cors())
+// app.set("view engine", "ejs");
+app.use(cors());
 app.use(express.urlencoded({extended:false}))
 app.use(express.json())
 app.use(router)
