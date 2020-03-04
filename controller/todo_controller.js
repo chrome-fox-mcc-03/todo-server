@@ -19,21 +19,36 @@ class TodoController {
     }
 
     static view(req, res, next) {
-        Todo.findAll()
+        // console.log(`masuk,`);
+        
+        Todo.findAll({
+            where: {
+                UserId : req.decoded.id
+            }
+        })
         .then(result => {
+            // console.log(result);
+            
             res.status(200).json(result);
         })
         .catch(error => {
-            next(error);;
+            // console.log(error,'iiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
+            
+            next(error);
         })
     }
 
     static findById(req, res, next) {
         let id = req.params.id;
+        
         Todo.findAll({
-            where: { id }
+            where: { 
+                id 
+            }
         })
-        .then(result => {            
+        .then(result => {     
+            // console.log(result);
+                   
             if(result.length > 0) {
                 res.status(200).json(result);
             } else {
@@ -46,6 +61,8 @@ class TodoController {
     }
 
     static updateById(req, res, next) {
+        // console.log(`masokkkkkk`);
+        
         let { title, description, status, due_date } = req.body;
         let id = req.params.id;
         Todo.update( { title, description, status, due_date }, { where: { id }, returning: true})
@@ -63,15 +80,20 @@ class TodoController {
 
     static deleteById(req, res, next) {
         let id = req.params.id;
-        Todo.destroy({
-            where : { id }
-        })
+        let deleted;
+        Todo.findByPk(id)
         .then(result => {
-            if(result.length > 0) {
-                res.status(200).json(result);
+            if(result) {
+                deleted = result;
+                return Todo.destroy({
+                    where : { id }
+                })
             } else {
                 next({status: 404, message: {error: `id todo not found`}})
             }
+        })
+        .then(() => {
+            res.status(200).json(deleted)
         })
         .catch(error => {
             next(error);

@@ -54,8 +54,8 @@ class UserController {
                             email: result.email,
                             id: result.id
                         }
-                        let payload = generateToken(data)
-                        res.status(200).json(payload);
+                        let token = generateToken(data)
+                        res.status(200).json({token});
                     } else {
                         next({
                             status: 400,

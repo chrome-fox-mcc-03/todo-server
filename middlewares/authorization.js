@@ -7,20 +7,18 @@ module.exports = (req, res, next) => {
             id : req.params.id
         }
     })
-    .then(result => {        
-        console.log(req.decoded.id);
-        console.log(result.UserId);
-        
-        
+    .then(result => {                
         if(result.UserId == req.decoded.id) {
-            console.log(`masuok`);
-            
+            // console.log(`masuok`);
             next();
         } else {
-            res.status(401).json(`unauthorized account to do this`)
+            next({
+                status: 400,
+                message: `you aren't authorized to do this`
+            })
         }
     })
     .catch(error => {
-        res.status(400).json(error);
+        next(error);
     })
 }
