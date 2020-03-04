@@ -4,15 +4,18 @@ const axios = require('axios').default;
 
 class Controller{
     static getTodos(req,res, next) {
+        // console.log(req.decoded.id)
         todo.findAll({
             where: {
                 userId: req.decoded.id
             }
         })
             .then(todos => {
+
                 res.status(200).json(todos)
             })
             .catch(err => {
+
                 next(err)
             })
     }

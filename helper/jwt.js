@@ -5,6 +5,7 @@ function makeToken(payload) {
 }
 
 function checkAuthent(token) {
+    // console.log(jwt.verify(token, process.env.SECRET))
     return jwt.verify(token, process.env.SECRET)
 }
 

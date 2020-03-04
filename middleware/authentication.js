@@ -4,6 +4,7 @@ function authenticate(req,res,next){
         const decoded = checkAuthent(req.headers.token)
         console.log(decoded)
         req.decoded = decoded
+        console.log(req.decoded)
         next()
     } catch(err) {
         next(err)
