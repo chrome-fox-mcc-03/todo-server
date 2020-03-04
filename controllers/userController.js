@@ -15,7 +15,7 @@ class Controller {
                 if (result) {
                     if (bcrypt.compare(password, result.password)) {
                         const payload = jwt.generateToken({ id: result.id });
-                        res.status(201).json(payload);
+                        res.status(200).json({ token: payload });
                     } else {
                         throw new ErrorModel(400, "invalid email / password");
                     }
@@ -33,7 +33,7 @@ class Controller {
         })
             .then((result) => {
                 const payload = jwt.generateToken({ id: result.id });
-                res.status(201).json(payload);
+                res.status(201).json({ token: payload });
             }).catch(next);
     }
 }
