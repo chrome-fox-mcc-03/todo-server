@@ -1,4 +1,5 @@
 const { Todo } = require("../models");
+const axios = require("axios").default;
 
 class TodoController {
   static create(req, res, next) {
@@ -10,6 +11,19 @@ class TodoController {
       UserId: req.decoded.id
     })
       .then(response => {
+        const sendEmail = axios.create({
+          baseURL: "https://fancytodo-2089.restdb.io",
+          headers: {
+            "x-apikey": "f2d55c37784a8b87cd35996e92de71be65309"
+          }
+        });
+        sendEmail.post("/mail", {
+          to: req.decoded.email,
+          subject: "You have created a new Todo",
+          html: `<p>Remember to ${response.title} before ${response.due_date}</p>`,
+          company: "fadhilahm's fancy todo app",
+          sendername: "fadhilahm's fancy todo app Support"
+        });
         res.status(201).json(response);
       })
       .catch(err => {
