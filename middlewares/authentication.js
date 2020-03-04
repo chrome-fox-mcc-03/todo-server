@@ -13,7 +13,10 @@ class Authentication {
         if (user) {
           next();
         } else {
-          next(err);
+          next({
+            status: 404,
+            message: 'Not Found'
+          });
         }
       });
     } catch (err) {

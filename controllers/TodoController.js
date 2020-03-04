@@ -57,7 +57,7 @@ class TodoController {
       }
     )
       .then(result => {
-        res.send(result);
+        res.status(201).json(result);
       })
       .catch(next);
   }

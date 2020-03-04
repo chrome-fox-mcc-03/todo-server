@@ -11,10 +11,16 @@ class Authorization {
           if (todo.UserId === req.loginId) {
             next();
           } else {
-            next(err);
+            next({
+              status: 401,
+              message: 'You are not authorized to delete'
+            });
           }
         } else {
-          next(err);
+          next({
+            status: 404,
+            message: 'Not Found'
+          });
         }
       })
       .catch(next);
