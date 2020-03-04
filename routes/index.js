@@ -1,9 +1,8 @@
 const router = require("express").Router();
 const todoRouter = require("./todos");
-const { UserController } = require("../controllers");
+const logInRouter = require("./login");
 
-router.post("/register", UserController.register);
-router.post("/login", UserController.logIn);
+router.use("/", logInRouter)
 router.use("/todos", todoRouter);
 
 module.exports = router;
