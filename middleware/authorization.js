@@ -36,6 +36,10 @@ module.exports = function(req, res, next){
         })
 
     } catch (error) {
-        
+        const err = {
+            status : 401,
+            message : 'Invalid token or not provided, access prohibited, please login first!'
+        }
+        res.status(err.status).json({"Error message":err.message})
     }
 }

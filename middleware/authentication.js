@@ -7,7 +7,6 @@ module.exports = function(req, res, next){
     
     try {
         const access_token = req.headers.access_token
-        // console.log(req.headers);
         
         const decoded_token = jwt.verify(access_token, process.env.SECRET);
         const {id, email} = decoded_token.id

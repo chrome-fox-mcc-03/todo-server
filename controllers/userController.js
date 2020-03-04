@@ -62,6 +62,8 @@ class UserController {
             res.status(err.status).json({"Error message":err.msg})
         })
     }
+
+
 }
 
 
