@@ -40,7 +40,7 @@ Add a new todo list
 * **Error Response:**
   * **Code:** 400 <br/>
   * **Content:** `{
-    "error": "Validation error" }`
+    "error": "validation error" }`
 
     OR
 
@@ -182,7 +182,7 @@ update one row from todo list by id
 * **Error Response:**
   * **Code:** 400 <br/>
   * **Content:** `{
-    "error": "Validation error" }`
+    "error": "validation error" }`
 
     OR
 

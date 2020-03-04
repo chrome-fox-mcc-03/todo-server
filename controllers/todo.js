@@ -1,14 +1,13 @@
 const { Todo } = require('../models');
 
 class TodoController {
-    static create(req, res) {
-        console.log(req.body);
-        
+    static create(req, res, next) {        
         Todo.create({
             title: req.body.title,
             description: req.body.description,
             status: req.body.status,
-            due_date: req.body.due_date
+            due_date: req.body.due_date,
+            UserId: req.userId
         })
             .then(result => {
                 res.status(201).json({
@@ -16,13 +15,11 @@ class TodoController {
                 })
             })
             .catch(err => {
-                res.status(500).json({
-                    error: err
-                })
+                next(err)
             })
     }
 
-    static findAll(req, res) {
+    static findAll(req, res, next) {
         Todo.findAll()
             .then(result => {
                 res.status(200).json({
@@ -30,13 +27,11 @@ class TodoController {
                 })
             })
             .catch(err => {
-                res.status(500).json({
-                    error: err
-                })
+                next(err)
             })
     }
 
-    static findOne(req, res) {
+    static findOne(req, res, next) {
         const id = req.params.id
         Todo.findOne({
             where: {
@@ -49,13 +44,15 @@ class TodoController {
                 })
             })
             .catch(err => {
-                res.status(404).json({
-                    error: err
+                next({
+                    name: "not found",
+                    status: 404,
+                    message: "data not found"
                 })
             })
     }
 
-    static update(req, res) {
+    static update(req, res, next) {
         const id = req.params.id
         Todo.update({
             title: req.body.title,
@@ -74,13 +71,15 @@ class TodoController {
                 })
             })
             .catch(err => {
-                res.status(404).json({
-                    error: err
+                next({
+                    name: "not found",
+                    status: 404,
+                    message: "data not found"
                 })
             })
     }
 
-    static destroy(req, res) {
+    static destroy(req, res, next) {
         const id = req.params.id
         let data;
         Todo.findOne({
@@ -102,8 +101,10 @@ class TodoController {
                     })
                 })
                 .catch(err => {
-                    res.status(404).json({
-                        error: err
+                    next({
+                        name: "not found",
+                        status: 404,
+                        message: "data not found"
                     })
                 })
     }
