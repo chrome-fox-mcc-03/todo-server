@@ -14,7 +14,6 @@ class TodoController{
     }
 
     static createTodo(req, res){
-        // console.log(req.headers);
         
         Todo.create({
             title: req.body.title,
