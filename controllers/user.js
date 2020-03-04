@@ -33,7 +33,9 @@ class UserController {
               id: response.id,
               email: response.email
             };
-            res.status(200).json(generateToken(payload));
+            res.status(200).json({
+              token: generateToken(payload)
+            });
           } else {
             // wrong password
             next({
