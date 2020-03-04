@@ -1,14 +1,20 @@
 const { Todo } = require('../models')
 
 class ControllerTodo {
-	  static findAll(req, res, next) {
-		Todo.findAll()
-			.then(data => {
+    static findAll(req, res, next) {
+    Todo.findAll(
+      {
+        where: {
+          UserId: req.currentId
+        }
+      }
+    )
+      .then(data => {
         res.status(200).json(data)
-			})
-			.catch(err => {
+      })
+      .catch(err => {
         next(err)
-			})
+      })
     }
     static findOneTodoUser(req, res, next) {
       const { id } = req.params
@@ -35,31 +41,31 @@ class ControllerTodo {
         })
     }
     static addTodoUser(req, res, next) {
-		const {title, description, due_date} = req.body
-		const id = req.currentId
-			Todo.create({
+    const {title, description, due_date} = req.body
+    const id = req.currentId
+      Todo.create({
         title,
         description,
         status: false,
         due_date,
         UserId: id
-			})
-				.then(data => {
+      })
+        .then(data => {
           res.status(201).json(data)
-				})
-				.catch(err => {
+        })
+        .catch(err => {
           next(err)
-				})
+        })
     }
     static updateTodoUser (req, res, next) {
-			const { status } = req.body
-			const { id } = req.params
-			Todo.findOne({
+      const { status } = req.body
+      const { id } = req.params
+      Todo.findOne({
             where: {
               id
             }
-					})
-					.then(data => {
+          })
+          .then(data => {
             if(data !== null) {
                 return Todo.update(
                   {
@@ -80,13 +86,13 @@ class ControllerTodo {
                 message: "data not found"
               }
             }
-					})
-					.then(data => {
+          })
+          .then(data => {
             res.status(200).json(data[1])
-					})
-					.catch(err => {
+          })
+          .catch(err => {
             next(err)
-					})
+          })
     }
     static deleteTodoUser (req, res, next) {
     const { id } = req.params

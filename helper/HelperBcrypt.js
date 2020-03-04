@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt')
-const salt = 10
+const salt = process.env.SALT
 
 class Helperbcrypt {
     static hashpw (pw) {

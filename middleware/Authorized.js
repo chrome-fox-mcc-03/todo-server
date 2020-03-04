@@ -1,7 +1,7 @@
 const { Todo } = require('../models')
 
 module.exports = (req, res, next) => {
-  const {  } = req.params
+  const { id } = req.params
   Todo.findOne({
       where: {
         id

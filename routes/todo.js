@@ -3,7 +3,7 @@ const router = express()
 const Controller = require('../controller/ControllerTodo')
 const Authentication = require('../middleware/Authentication')
 
-// router.use(Authentication)
+router.use(Authentication)
 router.get('/todo',Controller.findAll)
 router.get('/todo/user/:id',Controller.findOneTodoUser)
 router.post('/todo/user',Controller.addTodoUser)
