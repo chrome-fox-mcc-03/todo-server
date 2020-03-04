@@ -41,9 +41,7 @@ class TodoController {
           res.status(200).json(result);
         }
       })
-      .catch(err => {
-        next(err);
-      });
+      .catch(next);
   }
   static updateTodo(req, res, next) {
     let { title, description, status, due_date, UserId } = req.body;

@@ -1,15 +1,22 @@
 {
-  "name": "server",
+  "name": "todo-server",
   "version": "1.0.0",
-  "description": "Fancy Todo - Server",
+  "description": "Create todo based on client request and insert to database",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "set NODE_ENV=development&&nodemon app.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juleshwa/todo-server.git"
   },
   "keywords": [],
   "author": "Juli Yanti",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/juleshwa/todo-server/issues"
+  },
+  "homepage": "https://github.com/juleshwa/todo-server#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
