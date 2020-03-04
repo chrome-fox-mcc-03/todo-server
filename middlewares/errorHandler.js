@@ -1,4 +1,5 @@
 function errorHandler(err, req, res, next) {
+    console.log(err)
 
     let statusCode = 500
     let msg = 'Internal Server Error'
@@ -20,6 +21,10 @@ function errorHandler(err, req, res, next) {
         statusCode = 401
         msg = 'Unauthorized'
         res.status(statusCode).json({ error: msg })
+    } else if (err.message === 'email/password wrong') {
+        statusCode = 400
+        error = 'email/password wrong'
+        res.status(statusCode).json({ error })
     } else {
         res.status(statusCode).json({ error: msg })
     }
