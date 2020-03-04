@@ -31,9 +31,10 @@ Register new user on server.
   * **Code:** 200 <br />
     **Content:**  
     `{
-        "id": 5,
+        "id": 29,
         "email": "foo@bar.com",
-        "message": "Email registered"
+        "message": "Email registered",
+        "token": <server generated token>
     }`
 * **Error Response:**
 

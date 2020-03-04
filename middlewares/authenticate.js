@@ -1,5 +1,6 @@
 const { getPayload } = require('../helper/jwt')
 const AppError = require('../helper/myCustomError');
+
 function authenticate (req, res, next) {
     let payload = getPayload(req.headers.token);
     if (payload.name === 'JsonWebTokenError') {
