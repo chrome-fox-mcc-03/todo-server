@@ -33,7 +33,6 @@ class UserController {
                             email: user.email
                         }
                         let access_token = generateToken(payload)
-                        req.currentUserId = user.id
                         res.status(200).json({
                             access_token
                         })

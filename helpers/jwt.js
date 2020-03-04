@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const PRIVATKEY = 'kittenpaws'
+const PRIVATKEY = process.env.PRIVATKEY
 
 module.exports = {
     generateToken : (payload) => {
