@@ -3,7 +3,6 @@ const readline = require('readline');
 const { google } = require('googleapis');
 const SCOPES = ['https://www.googleapis.com/auth/calendar'];
 const TOKEN_PATH = 'token.json';
-
 // Load client secrets from a local file.
 
 /**
@@ -13,13 +12,12 @@ const TOKEN_PATH = 'token.json';
  * @param {function} callback The callback to call with the authorized client.
  * @return {function} if error in reading credentials.json asks for a new one.
  */
-function authorize(credentials, callback) {
-  const { client_secret, client_id, redirect_uris } = credentials.installed;
+function authorize(callback) {
   let token = {};
   const oAuth2Client = new google.auth.OAuth2(
-    client_id,
-    client_secret,
-    redirect_uris[0]
+    process.env.CLIENT_ID,
+    process.env.CLIENT_SECRET,
+    "urn:ietf:wg:oauth:2.0:oob"
   );
 
   // Check if we have previously stored a token.
@@ -66,14 +64,13 @@ function getAccessToken(oAuth2Client, callback) {
 
 function create(event) {
     try {
-        const content = fs.readFileSync('credentials.json');
-        authorize(JSON.parse(content), insertEvents);
+        authorize(insertEvents);
       } catch (err) {
         return console.log('Error loading client secret file:', err);
     }
     function insertEvents(auth) {
       const calendar = google.calendar({ version: 'v3', auth });
-    
+
       calendar.events.insert(
         {
           auth: auth,
@@ -92,11 +89,9 @@ function create(event) {
       );
     }
 }
-
 function show() {
     try {
-        const content = fs.readFileSync('credentials.json');
-        authorize(JSON.parse(content), listEvents);
+        authorize(listEvents);
       } catch (err) {
         return console.log('Error loading client secret file:', err);
     }
@@ -116,4 +111,4 @@ function show() {
 module.exports = {
     create,
     show
-}
+} 
