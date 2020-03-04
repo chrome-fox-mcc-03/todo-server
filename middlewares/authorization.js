@@ -5,17 +5,22 @@ module.exports = function(req, res, next) {
         where: { id: +req.params.id },
     })
         .then(response => {
-            if(response.UserId === req.decode.id) {
-                next();
-            } else {
+            if(response) {
+                if(response.UserId === req.decode.id) {
+                    next();
+                } else {
+                    next({
+                        status: 401,
+                        message: 'You dont have permission to access this'
+                    })
+                }
+            }
+            else {
                 next({
-                    status: 401,
-                    message: 'You dont have permission to access this'
+                    status: 404,
+                    message: 'TODO not found'
                 })
             }
         })
-        .catch(err => next({
-            status: 404,
-            message: 'TODO not found'
-        }))
+        .catch(next)
 }

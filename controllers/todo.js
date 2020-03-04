@@ -1,5 +1,5 @@
 const { Todo } = require('../models/index')
-
+const { create } = require('../helpers/google') 
 class TodoController {
     static findAll(req,res, next) {
         Todo.findAll()
@@ -19,6 +19,29 @@ class TodoController {
         })
             .then(data => {
                 res.status(201).json(data)
+                var event = {
+                    summary: req.body.title,
+                    location: 'MCC HACKTIV8',
+                    description: req.body.description,
+                    start: {
+                      dateTime: new Date(req.body.due_date),
+                      timeZone: 'Asia/Jakarta'
+                    },
+                    end: {
+                      dateTime: new Date(req.body.due_date),
+                      timeZone: 'Asia/Jakarta'
+                    },
+                    recurrence: ['RRULE:FREQ=DAILY;COUNT=2'],
+                    attendees: [{ email: 'lpage@example.com' }, { email: 'sbrin@example.com' }],
+                    reminders: {
+                      useDefault: false,
+                      overrides: [
+                        { method: 'email', minutes: 24 * 60 },
+                        { method: 'popup', minutes: 10 }
+                      ]
+                    }
+                  }
+                  create(event)
             })
 
             .catch(err => {
