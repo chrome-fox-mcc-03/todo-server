@@ -57,7 +57,7 @@ class TodoController {
         console.log(req.decoded);
         console.log(`the ID of decoded is ${req.decoded.id}`);
         console.log(`payload is`);
-        console.log(req.payload);
+        console.log(req.decoded);
         
         Todo.findAll({
             include: [{
@@ -67,7 +67,7 @@ class TodoController {
                 }
             }],
             where: {
-                id: req.payload.id
+                UserId: req.decoded.id
             }
         })
             .then(todos => {
@@ -78,6 +78,8 @@ class TodoController {
             })
             .catch(err => {
                 // res.status(500).json({error:err})
+                console.log(`error reading all here`);
+                // console.log(err);
                 next(err)
             })
 
@@ -86,8 +88,8 @@ class TodoController {
     static findById(req, res, next) {
         console.log(`req decoded is`);
         console.log(req.decoded);
-        console.log(`payload is`);
-        console.log(req.payload);
+        // console.log(`payload is`);
+        // console.log(req.payload);
         Todo.findByPk(+req.params.id)
         .then(todo => {
             console.log(`recovered todo is`);
@@ -111,8 +113,8 @@ class TodoController {
         console.log(req.params.id);
         console.log(`checking which user`);
         console.log(req.decoded);
-        console.log(`which payload again?`);
-        console.log(req.payload);
+        // console.log(`which payload again?`);
+        // console.log(req.payload);
         Todo.update(
             {
                 title: req.body.title,
