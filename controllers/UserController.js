@@ -2,7 +2,6 @@ const { User } = require('../models');
 const { generateToken } = require('../helpers/jwtoken');
 const { compare } = require('../helpers/bcrypt');
 const { OAuth2Client } = require('google-auth-library');
-const axios = require('axios');
 
 class Controller {
   static async register(req, res, next) {
