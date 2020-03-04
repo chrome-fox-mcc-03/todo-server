@@ -24,11 +24,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: "description must be filled"
+            msg: "description must be filled with string"
           },
           notEmpty: {
             args: true,
-            msg: "description must be filled"
+            msg: "description must be filled with string"
           },
           len: {
             args: [5],
@@ -41,11 +41,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: "status must be filled"
+            msg: "status must be filled with true or false"
           },
           notEmpty: {
             args: true,
-            msg: "status must be filled"
+            msg: "status must be filled with true or false"
           }
         }
       },
@@ -54,11 +54,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: "due date must be filled"
+            msg: "due date must be filled with valid date"
           },
           notEmpty: {
             args: true,
-            msg: "due date must be filled"
+            msg: "due date must be filled with valid date"
           },
           isAfter: {
             args: String(new Date()),

@@ -17,11 +17,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         validate: {
           notNull: {
-            msg: "email must be filled"
+            msg: "email must be filled with a valid email"
           },
           notEmpty: {
             args: true,
-            msg: "email must be filled"
+            msg: "email must be filled with a valid email"
           },
           isEmail: {
             args: true,
@@ -38,11 +38,11 @@ module.exports = (sequelize, DataTypes) => {
             msg: "password must be at least 6 characters long"
           },
           notNull: {
-            args: "password must be filled"
+            args: "password must be filled with more than 6 characters"
           },
           notEmpty: {
             args: true,
-            msg: "password must be filled"
+            msg: "password must be filled with more than 6 characters"
           }
         }
       }
