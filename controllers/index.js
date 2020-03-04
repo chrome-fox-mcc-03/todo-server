@@ -1,4 +1,4 @@
-const UserController = require("./login");
+const UserController = require("./user");
 const TodoController = require("./todo");
 
 module.exports = {

@@ -11,8 +11,7 @@ class UserController {
       .then(response => {
         let payload = {
           id: response.id,
-          email: response.email,
-          password: req.body.password
+          email: response.email
         };
         res.status(201).json(payload);
       })
