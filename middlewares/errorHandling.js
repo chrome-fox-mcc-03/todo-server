@@ -10,7 +10,7 @@ function errorHandler(err, req, res, next) {
         })
         res.status(400).json(error)
     } else if (err.name === "JsonWebTokenError") {
-        res.status(401).json("Unauthorized Access")
+        res.status(403).json("Unauthorized Access")
     } else if (err.name === "SequelizeUniqueConstraintError") {
         // res.status(400).json(err)
         // error = err.errors.map(el => {

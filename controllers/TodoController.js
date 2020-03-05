@@ -1,13 +1,6 @@
 const {Todo, User} = require("../models")
-const { CustomError } = require("../helpers/errorModel.js")
+const CustomError = require("../helpers/errorModel.js")
 const restdb = require("../helpers/thirdParty.js")
-// const axios = require("axios")
-// const restdb = axios.create({
-//     baseURL: 'https://todoserver-61c9.restdb.io/',
-//     headers: {
-//         "x-api-key": '3cdf839513528d0f2e2c7b9812488874b05c9'
-//     }
-// })
 
 class TodoController {
 
@@ -160,11 +153,6 @@ class TodoController {
             }
         })
         .catch(err => {
-            // if(err.name === "SequelizeValidationError") {
-            //     res.status(400).json({error: err.name, message: err.message})
-            // } else {
-            //     res.status(500).json({error:err})
-            // }
             next(err)
         })
     }
@@ -179,13 +167,11 @@ class TodoController {
             if(deleted === 1) {
                 res.status(200).json({todo:deleted, message: "Delete Success"})
             } else {
-                // res.status(404).json({error: "Entry Not Found"})
                 throw new CustomError(400, "Entry not found")
             }
             
         })
         .catch(err => {
-            // res.status(500).json({error:err})
             next(err)
         })
     }

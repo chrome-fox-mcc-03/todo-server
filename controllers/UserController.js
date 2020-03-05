@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const { User } = require("../models")
 const { comparePassword } = require("../helpers/bcrypts.js")
 const { generateToken } = require("../helpers/jwt.js")
-const { CustomError } = require("../helpers/errorModel.js")
+const CustomError = require("../helpers/errorModel.js")
 const { OAuth2Client } = require('google-auth-library')
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET);
 const Op = sequelize.Op
@@ -37,12 +37,6 @@ class UserController {
             2. kirim token pake res.status(201).json(token) //klo mau login
             2a. 
             */
-        //    payload = {
-        //        id: result.id,
-        //        email: result.email
-        //    }
-
-        //    req.payload = payload
            res.status(201).json({datum: result, message: "Signup Success. Please Signin to Continue"})
 
         })
@@ -83,7 +77,7 @@ class UserController {
                     id: response.dataValues.id,
                     email: emailAddress
                 }
-                accessToken = generateToken(payload, process.env.SECRET)
+                accessToken = generateToken(payload)
 
                 console.log(`generated token`);
                 console.log(accessToken);
@@ -107,7 +101,9 @@ class UserController {
     }
 
     static googleSignin(req, res, next) {
-        accessToken = req.headers.gToken
+        accessToken = req.headers.token
+        console.log(`access token for google is`);
+        console.log(accessToken);
         googleClient.verifyIdToken({
             idToken: accessToken,
             audience: process.env.GOOGLE_CLIENT_ID
@@ -143,13 +139,17 @@ class UserController {
         })
         .then(result2 => {
             payload = {
+                id: result2.id,
                 email: result2.email,
-                password: result2.password
             }
+            console.log(`the result 2 payload is`);
+            console.log(payload);
 
-            accessToken = generateToken(payload)
-            req.headers.token = accessToken
-            res.status(200).json({token: accessToken})
+            // accessToken = generateToken(payload)
+            // console.log(`after result2, accessToken is`);
+            // console.log(accessToken);
+            // req.headers.token = accessToken
+            res.status(201).json({token: generateToken(payload)})
         })
         .catch(err => {
             next(err)
