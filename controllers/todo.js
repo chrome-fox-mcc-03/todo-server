@@ -14,7 +14,8 @@ module.exports = class Controller{
       title: req.body.title,
       description: req.body.description,
       status: req.body.status,
-      due_date: req.body.due_date
+      due_date: req.body.due_date,
+      UserId: req.id
     })
     .then(data => {const payload = {id: data.id, title: data.title, description: data.description, status: data.status, due_date: data.due_date}; res.status(201).json(payload)})
     .catch(err => {next(err)}) //   // 
@@ -40,15 +41,20 @@ module.exports = class Controller{
       description: req.body.description,
       status: req.body.status,
       due_date: req.body.due_date
-    }, {where: {id : req.params.id}, returning: true})
+    }, {
+          where: {
+            id : req.params.id, 
+            UserId: req.id
+          }
+        })
       .then(data => {
         if (data[0] >= 1) {
-        const payload = {id: data.id, title: data.title, description: data.description, status: data.status, due_date: data.due_date }
-        res.status(200).json(payload)
+        
+        res.status(200).json(data[1])
       } else {
         next({name: "DATA NULL", message: "DATA NONE"})
       }})
-      .catch(err => err.name == "SequelizeValidationError" ? next(err) : next(err))
+      .catch(err => next(err))
   }
 
   static destroy(req, res, next) {

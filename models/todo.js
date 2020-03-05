@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {args: true, msg: "Please add your due Task"},
         isAfter: {args: new Date().toISOString(), msg: "Your due minimum must due today"} ,  //new Date().toISOString()
       }
-    }
+    },
+    UserId: DataTypes.INTEGER,
   }, {sequelize, modelName: 'Todo'})
 
   // const Todo = sequelize.define('Todo', {
@@ -31,6 +32,8 @@ module.exports = (sequelize, DataTypes) => {
 
   Todo.associate = function(models) {
     // associations can be defined here
+    Todo.belongsTo(models.User)
+
   };
   return Todo;
 };

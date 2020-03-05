@@ -4,7 +4,7 @@ module.exports = function(err, req, res, next) {
   // } else {
   //   res.status(500).json({ message: "Internal Server Error"})
   // }
-
+  // console.log(err)
   switch (err.name) {
     case "SequelizeValidationError":
       let error = err.errors.map(el => el.message)
