@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
 
 function getToken(payload) {
-    return jwt.sign(payload, process.env.JWT_SECRET)
+    // console.log("get token");
+    return jwt.sign(payload, process.env.JWT_SECRET);
 }
 
 function getPayload(token) {

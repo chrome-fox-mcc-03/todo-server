@@ -11,7 +11,6 @@ const router = require('./routes/index');
 
 const errorHandler = require('./middlewares/errorHandler')
 
-app.set("view engine", "ejs");
 app.use(cors());
 app.use(express.urlencoded( {extended: false} ));
 app.use(express.json());

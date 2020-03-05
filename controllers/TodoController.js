@@ -3,19 +3,21 @@ const AppError = require('../helper/myCustomError');
 const { getHoliday, holidayBetween } = require('../helper/nextHoliday');
 
 class TodoController {
-    static getRoot(req, res, next) {
+    static findAllTodo(req, res, next) {
         // res.status(200).json(req.thisUser);
-        Todo.findAll()
+        Todo.findAll({
+            where: {
+                UserId: req.thisUser.id
+            }
+        })
         .then(result => {
             res.status(200).json({
                 todos: result
             });
         })
-        .catch(err => {
-            next(err);
-        });
+        .catch(next);
     }
-    static getRootId(req, res, next) {
+    static findOneTodo(req, res, next) {
         let id = Number(req.params.id);
         Todo.findByPk(id)
         .then(result => {
@@ -42,11 +44,9 @@ class TodoController {
                 holidays: holidays
             })
         })
-        .catch(err => {
-            next(err)
-        });
+        .catch(next);
     }
-    static postRoot(req, res, next) {
+    static createNewTodo(req, res, next) {
         let request = {
             title: req.body.title,
             description: req.body.description,
@@ -61,11 +61,9 @@ class TodoController {
                 todo: result
             });
         })
-        .catch(err => {
-            next(err)
-        });
+        .catch(next);
     }
-    static deleteRootId(req, res, next) {
+    static deleteTodo(req, res, next) {
         // console.log(req.params.id);
         let id = Number(req.params.id);
         Todo.findByPk(id)
@@ -95,11 +93,9 @@ class TodoController {
                 deleted: deleted
             })
         })
-        .catch(err => {
-            next(err)
-        });
+        .catch(next);
     }
-    static putRootId(req, res, next) {
+    static updateTodo(req, res, next) {
         let id = Number(req.params.id);
         let body = {
             title: req.body.title,
@@ -132,9 +128,7 @@ class TodoController {
                 updated: result
             })
         })
-        .catch(err => {
-            next(err);
-        });
+        .catch(next);
     }
 };
 

@@ -1,4 +1,5 @@
 const { getPayload } = require('../helper/jwt')
+const { User } = require('../models/index');
 const AppError = require('../helper/myCustomError');
 
 function authenticate (req, res, next) {
@@ -7,8 +8,21 @@ function authenticate (req, res, next) {
         next(AppError(400, "Please login as valid user"));
     } else {
         // res.status(200).json(payload);
-        req.thisUser = payload;
-        next();
+        User.findOne({
+            where: {
+                id: payload.id,
+                email: payload.email
+            }
+        })
+        .then(result => {
+            if (result) {
+                req.thisUser = payload;
+                next();
+            } else {
+                next(AppError(400, "Please login as valid user"));
+            }
+        })
+        .catch(next)
     }
 }
 
