@@ -5,7 +5,7 @@
   
 * **URL**
 
-  `http://localhost:3000/register`
+  `http://localhost:3000/signup`
 
 * **Method:**
 
@@ -62,7 +62,7 @@
   
 * **URL**
 
-  `http://localhost:3000/login`
+  `http://localhost:3000/signin`
 
 * **Method:**
 
@@ -109,7 +109,7 @@
   
 * **URL**
 
-  `http://localhost:3000`
+  `http://localhost:3000/todo`
 
 * **Method:**
 
@@ -167,7 +167,7 @@
   
 * **URL**
 
-  `http://localhost:3000`
+  `http://localhost:3000/todo`
 
 * **Method:**
 
@@ -227,7 +227,7 @@
   
 * **URL**
 
-  `http://localhost:3000/:id`
+  `http://localhost:3000/todo/:id`
 
 * **Method:**
 
@@ -308,7 +308,7 @@
   
 * **URL**
 
-  `http://localhost:3000/:id`
+  `http://localhost:3000/todo/:id`
 
 * **Method:**
 

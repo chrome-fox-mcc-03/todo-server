@@ -20,7 +20,8 @@ module.exports = {
 
     Todo.findAll({
       where: { UserId: id },
-      include: [User]
+      include: [User],
+      order: [['id', 'ASC']]
     })
       .then(data => {
         res.status(200).json({
@@ -59,5 +60,16 @@ module.exports = {
         })
       })
       .catch(next)
+  },
+  findOneTodo(req, res, next) {
+    const { id } = req.headers
+
+    Todo.findOne({
+      where: { id }
+    })
+    .then(data => {
+      console.log(data)
+    })
+    .catch(next)
   }
 }

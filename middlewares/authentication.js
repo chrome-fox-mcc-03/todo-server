@@ -3,14 +3,15 @@ const { verifyToken } = require('../helpers')
 
 module.exports = (req, res, next) => {
   const { token } = req.headers
-
+  
   try {
     const { id, email } = verifyToken(token)
-
+    console.log(verifyToken(token))
+    
     User.findOne({
-      where: { id, email }
+      where: { id: id || null, email }
     })
-      .then(data => {
+    .then(data => {
         if (data) {
           req.decoded = data.dataValues
           next()
