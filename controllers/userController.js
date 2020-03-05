@@ -1,6 +1,7 @@
 const { compare } = require('../helpers/bcrypt');
 const { sign } = require('../helpers/jwt');
 const { User } = require('../models');
+const { OAuth2Client } = require('google-auth-library');
 
 class UserController {
 	static create (req, res, next) {
@@ -46,23 +47,86 @@ class UserController {
 						let token = sign(payload);
 
 						res.status(200).json({
-							token
+							token,
+							name: result.name
 						});
 					} else {
 						next({
 							status: 400,
-							message: 'Email/Password combination not found'
+							message: ['Email/Password combination not found']
 						});
 					}
 				} else {
 					next({
 						status: 400,
-						message: 'Email/Password combination not found'
+						message: ['Email/Password combination not found']
 					});
 				}
 			})
 			.catch(err => {
 				next(err);
+			});
+	}
+
+	static googleSignIn (req, res, next) {
+		const clientId = process.env.CLIENT_ID;
+		const token = req.headers.token;
+
+		const client = new OAuth2Client(clientId);
+
+		let email = '';
+		let name = '';
+
+		client.verifyIdToken({
+			idToken: token,
+			audience: clientId,
+		})
+			.then((result) => {
+				email = result.payload.email;
+				name = result.payload.name;
+
+				return User.findOne({
+					where: { email }
+				})
+			})
+			.then((result) => {
+				if (result) { // if email is exist
+					let payload = {
+						id: result.id,
+						email
+					}
+
+					let token = sign(payload);
+
+					res.status(200).json({
+						token,
+						name
+					});
+				} else { // if email is exist
+					return User.create({
+						email,
+						password: 'qwe123',
+						name
+					})
+				}
+			})
+			.then((result) => {
+				if (result) {
+					let payload = {
+						id: result.id,
+						email: result.email
+					}
+					
+					let token = sign(payload);
+	
+					res.status(201).json({
+						token,
+						name
+					});
+				}
+			})
+			.catch((err) => {
+				next(err)
 			});
 	}
 }
