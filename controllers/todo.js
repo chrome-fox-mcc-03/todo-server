@@ -62,13 +62,15 @@ module.exports = {
       .catch(next)
   },
   findOneTodo(req, res, next) {
-    const { id } = req.headers
+    const { id } = req.params
 
     Todo.findOne({
       where: { id }
     })
     .then(data => {
-      console.log(data)
+      res.status(200).json({
+        data: data.dataValues
+      })
     })
     .catch(next)
   }

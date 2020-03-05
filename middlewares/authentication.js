@@ -6,7 +6,6 @@ module.exports = (req, res, next) => {
   
   try {
     const { id, email } = verifyToken(token)
-    console.log(verifyToken(token))
     
     User.findOne({
       where: { id: id || null, email }

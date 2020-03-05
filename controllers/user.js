@@ -73,9 +73,11 @@ module.exports = {
           })
         }
       })
-      .then(_ => {
-        const token = createToken({ email })
-
+      .then(data => {
+        const token = createToken({ 
+          id: data.dataValues.id,
+          email: data.dataValues.email
+         })
         res.status(200).json({
           token
         })
