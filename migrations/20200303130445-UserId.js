@@ -2,10 +2,14 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.addColumn('Todos','UserId', Sequelize.INTEGER );
+    return queryInterface.addColumn('Todos','UserId', {
+      type : Sequelize.INTEGER,
+      allowNull: false,
+      onUpdate: 'cascade',
+      onDelete: 'restrict'} );
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.deleteColumn('Todos', 'UserId');
+    return queryInterface.removeColumn('Todos', 'UserId');
   }
 };

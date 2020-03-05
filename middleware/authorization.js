@@ -1,18 +1,19 @@
 const {Todo} = require('../models')
 
 function authorize(req, res, next){
-    if(req.params.id) {
-        Todo.findOne({where: {id : req.params.Id}})
-            .then(data=> {
-                if(data.length > 0){
+    Todo.findOne({where: {id : req.params.id}})
+        .then(data=> {
+            if(data){
+                if (data.UserId == req.UserId) {
                     next()
                 } else {
                     res.status(401).json('Not Authorized')
                 }
-            })
-    } else {
-        next()
-    }
+            } else {
+                res.status(401).json('Not Authorized')
+            }
+        })
+        .catch(err=> next(''))
 }
 
 module.exports = authorize

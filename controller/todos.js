@@ -6,7 +6,7 @@ class Controller {
             where: {UserId:req.UserId},
             order: [['id', 'ASC']]
         })
-            .then(data=> res.status(200).json(data))
+            .then(data=> res.status(200).json({data}))
             .catch(err=> next())
     }
     static create(req, res, next){
@@ -17,7 +17,7 @@ class Controller {
             due_date : req.body.due_date,
             UserId : req.UserId
         })
-        .then(data=> res.status(201).json(data))
+        .then(data=> res.status(201).json({data}))
         .catch(err=> {
             next(err)
         })
@@ -28,7 +28,7 @@ class Controller {
         })
             .then(data=> {
                 if(data) {
-                    res.status(200).json(data)
+                    res.status(200).json({data})
                 } else {
                     next({
                         name: 'empty'
@@ -55,13 +55,14 @@ class Controller {
                 })
             })
             .then(data=> {
-                res.status(200).json(data)
+                res.status(200).json({data})
             })
             .catch(err=> {
                 next(err)
             })
     }
     static destroy(req, res, next){
+        console.log('ada disini')
         Todo.destroy({
             where: {id:req.params.id}
         })

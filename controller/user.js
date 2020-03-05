@@ -7,7 +7,10 @@ class Controller {
             email : req.body.email,
             password : req.body.password
         })
-            .then(data=> res.status(201).json({id:data.id,email:data.email}))
+            .then(data=> {
+                const token = Helper.generateToken({id:data.id,email:data.email})
+                res.status(201).json({token})
+            })
             .catch(err=> next(err))
     }
     static login(req, res, next){
@@ -17,7 +20,7 @@ class Controller {
             .then(data => {
                 if (Helper.comparePassword(req.body.password, data.password)){
                     const token = Helper.generateToken({id:data.id,email:data.email})
-                    res.status(200).json(token)
+                    res.status(200).json({token})
                 } else {
                     throw ({message : 'Email / Password are Wrong'})
                 }

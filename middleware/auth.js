@@ -1,7 +1,7 @@
 const Helper = require('../helper/helper')
 const {User} = require('../models')
 
-function Auth (req, res, next) {
+function authentication (req, res, next) {
     if (req.headers.token) {
         try {
             var decoded = Helper.verify(req.headers.token, 'wrong-secret');
@@ -24,4 +24,4 @@ function Auth (req, res, next) {
     }
 }
 
-module.exports = Auth
+module.exports = authentication
