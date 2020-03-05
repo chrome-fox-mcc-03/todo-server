@@ -4,7 +4,7 @@ const {User} = require('../models')
 function authentication (req, res, next) {
     if (req.headers.token) {
         try {
-            var decoded = Helper.verify(req.headers.token, 'wrong-secret');
+            var decoded = Helper.verify(req.headers.token);
             User.findOne({
                 where: {id:decoded.id, email: decoded.email}
             })
