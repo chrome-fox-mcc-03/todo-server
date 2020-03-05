@@ -27,7 +27,8 @@ class ControllerUser {
             })
             .then(user => {
                 const { id, email } = user
-                res.status(201).json({ id, email })
+                const access_token = getToken({ id, email })
+                res.status(201).json({ id, email, access_token })
             })
             .catch(err => next(err))
     }
@@ -47,7 +48,8 @@ class ControllerUser {
                             id: user.id,
                             email: user.email
                         }
-                        res.status(200).json(getToken(payload))
+                        payload.access_token = getToken(payload)
+                        res.status(200).json(payload)
                     } else {
                         next({
                             status: 400,

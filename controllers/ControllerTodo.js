@@ -29,8 +29,12 @@ class ControllerTodo {
     }
 
     static findAll(req, res, next) {
+        console.log(req.decoded.id)
         Todo.findAll({
-            order: [['id', 'ASC']]
+            order: [['id', 'ASC']],
+            where: {
+                UserId: req.decoded.id
+            }
         })
             .then(todos => res.status(200).json(todos))
             .catch(err => next(err))
