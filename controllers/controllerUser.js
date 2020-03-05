@@ -42,7 +42,7 @@ class ControllerUser{
                         }
                         const token = makeToken(payload)
                         req.headers.token = token
-                        res.status(200).json(token)
+                        res.status(200).json({ token })
                     } else {
                         throw({name: "errorLogin", errors: [{message:"Email / Password invalid"}]})
                     }
@@ -92,7 +92,7 @@ class ControllerUser{
                 }
                 const token = makeToken(payload)
                 req.headers.token = token
-                res.status(200).json(token)
+                res.status(200).json({ token })
             })
             .catch(err => {
                 console.log(err);

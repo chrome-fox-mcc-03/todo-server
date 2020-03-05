@@ -1,6 +1,10 @@
 const { todo } = require('./../models')
 const axios = require('axios').default;
 
+const sendEmail = axios.create({
+    baseURL: 'https://todosapp-1a8b.restdb.io',
+    headers: {"x-apikey": process.env.APIKEY_RESTDB}     
+});
 
 class Controller{
     static getTodos(req,res, next) {
@@ -8,7 +12,8 @@ class Controller{
         todo.findAll({
             where: {
                 userId: req.decoded.id
-            }
+            },
+            order: [['due_date', 'ASC']]
         })
             .then(todos => {
 
@@ -20,24 +25,21 @@ class Controller{
             })
     }
     static addTodo(req,res, next) {
+        let status
+        if (req.body.status) {
+            status = req.body.status
+        } else {
+            status = false
+        }
         todo.create({
             title: req.body.title,
             description: req.body.description,
-            status: req.body.status,
+            status: status,
             due_date: req.body.due_date,
             userId: req.decoded.id
         })
             .then(todo => {
-                const sendEmail = axios.create({
-                    baseURL: 'https://todosapp-1a8b.restdb.io',
-                    headers: {"x-apikey": '2699edc589ecd4a75c21f30a24930277eb5d2'}     
-                });
-                let status
-                if (req.body.status) {
-                    status = req.body.status
-                } else {
-                    status = false
-                }
+                
                 sendEmail.post('/mail', {
                     "to": req.decoded.email,
                     "subject": "Your new to do!", 
@@ -77,6 +79,12 @@ class Controller{
     }
     static updateTodo(req,res,next) {
         let id = Number(req.params.id)
+        let status
+        if (req.body.status) {
+            status = req.body.status
+        } else {
+            throw ({name:"SequelizeValidationError" ,errors: [{message: "Status must be filled"}]})
+        }
         todo.update({
             title: req.body.title,
             description: req.body.description,
@@ -93,16 +101,8 @@ class Controller{
                 if (edited[1].length === 0) {
                     throw ({name:"noIdFound" ,errors: [{message: "Id not found"}]})
                 } else {
-                    const sendEmail = axios.create({
-                        baseURL: 'https://todosapp-1a8b.restdb.io',
-                        headers: {"x-apikey": '2699edc589ecd4a75c21f30a24930277eb5d2'}     
-                    });
-                    let status
-                    if (req.body.status) {
-                        status = req.body.status
-                    } else {
-                        status = false
-                    }
+                    // let status
+                    console.log(req.body.status)
                     sendEmail.post('/mail', {
                         "to": req.decoded.email,
                         "subject": "Your updated to do!", 
@@ -117,6 +117,7 @@ class Controller{
                         "sendername": "TodosApp customer support"
                     })
                     let data = edited[1]
+                    console.log(data)
                     return data
                 }
             })
@@ -124,6 +125,7 @@ class Controller{
                 res.status(200).json(response)
             })
             .catch(err => {
+                console.log(err)
                 next(err)
             })
     }
