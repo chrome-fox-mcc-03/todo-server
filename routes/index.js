@@ -1,9 +1,12 @@
 const router = require('express').Router();
 const todo = require('./todo');
-const auth = require('./auth');
+const user = require('./user');
+const countdown = require('./countdown');
+
+router.use(user)
 
 router.use("/todos", todo)
 
-router.use(auth)
+router.use(countdown)
 
 module.exports = router

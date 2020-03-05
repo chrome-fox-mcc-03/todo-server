@@ -11,7 +11,7 @@ class TodoController {
         })
             .then(result => {
                 res.status(201).json({
-                    Todo: result
+                    data: result
                 })
             })
             .catch(err => {
@@ -23,7 +23,7 @@ class TodoController {
         Todo.findAll()
             .then(result => {
                 res.status(200).json({
-                    Todo: result
+                    data: result
                 })
             })
             .catch(err => {
@@ -40,14 +40,14 @@ class TodoController {
         })
             .then(result => {
                 res.status(200).json({
-                    Todo: result
+                    data: result
                 })
             })
             .catch(err => {
                 next({
                     name: "not found",
                     status: 404,
-                    message: "data not found"
+                    message: "Todo not found"
                 })
             })
     }
@@ -67,7 +67,7 @@ class TodoController {
         })
             .then(result => {                
                 res.status(200).json({
-                    Todo: result
+                    data: result
                 })
             })
             .catch(err => {
@@ -97,7 +97,7 @@ class TodoController {
                 })
                 .then(result => {
                     res.status(200).json({
-                        Todo: data
+                        data: data
                     })
                 })
                 .catch(err => {
