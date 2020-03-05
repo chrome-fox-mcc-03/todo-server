@@ -1,5 +1,5 @@
 const { Todo } = require("../models")
-const { CustomError } = require("../helpers/errorModel.js")
+const  CustomError  = require("../helpers/errorModel.js")
 
 function authorizer(req, res, next) {
     let todoId = +req.params.id
