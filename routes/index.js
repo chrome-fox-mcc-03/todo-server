@@ -14,4 +14,6 @@ router.delete('/todos/:id',TodoController.deleteById)
 
 router.post('/register', UserController.register)
 router.post('/login', UserController.login)
+
+router.post('/loginGoogle',UserController.loginGoogle)
 module.exports = router

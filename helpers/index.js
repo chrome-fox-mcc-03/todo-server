@@ -8,7 +8,7 @@ function encrypt(password) {
 
 function signToken(payload){
     let token = jwt.sign(payload,process.env.secretKey,{
-        expiresIn:'20'
+        expiresIn:'300000' // 5mnt
     })
     return token
 }
