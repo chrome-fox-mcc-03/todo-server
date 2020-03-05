@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const Controller = require('../controllers/todo-controller');
+const Controller = require('../controllers/TodoController');
 const { authentication, todoAuthorization } = require('../middlewares/auth');
 
 router.use(authentication);

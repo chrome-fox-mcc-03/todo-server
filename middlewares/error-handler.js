@@ -14,6 +14,9 @@
      case 'SequelizeUniqueConstraintError':
        status = 400;
        break;
+      default:
+        status = 500;
+        break;
    }
    obj.message = err.message || err.errors.map(el => el.message);
 

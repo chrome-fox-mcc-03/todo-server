@@ -80,7 +80,7 @@ class Controller {
           email: gUser.email,
         };
         const token = generateToken(payload);
-        res.status(200).json(token);
+        res.status(201).json(token);
       };
 
       if (user) {
