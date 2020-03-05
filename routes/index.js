@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const todoRoutes = require('./todo');
-const UserController = require('../controllers/user-controller')
-const errorHandler = require('../middlewares/errorhandler')
+const UserController = require('../controllers/user-controller');
+const errorHandler = require('../middlewares/errorhandler');
 
 router.post('/signup', UserController.signUp);
 router.post('/signin', UserController.signIn);
+router.post('/googleSignIn', UserController.googleSignIn)
 
 router.use('/todos', todoRoutes)
 
