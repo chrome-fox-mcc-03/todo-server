@@ -100,6 +100,22 @@ class TodoController{
                 res.status(500).json({err})
             })
     }
+
+    static fetchDataByUserId(req, res){
+        Todo.findAll({
+            where: {
+                UserId: req.headers.userId 
+            }
+        })
+        .then(results => {
+            res.status(200).json({
+                data: results
+            })
+        })
+        .catch(err => {
+            res.status(500).json({err})
+        })
+    }
 }
 
 

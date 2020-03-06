@@ -12,7 +12,7 @@ function checkPassword(password, hashedPassword){
 }
 
 function signToken(payload){
-    const token = jwt.sign({ id: payload }, process.env.SECRET, {expiresIn: '5'});
+    const token = jwt.sign({ id: payload }, process.env.SECRET);
     return token
 }
 
