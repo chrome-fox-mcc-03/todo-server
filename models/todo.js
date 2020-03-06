@@ -33,7 +33,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     UserId: {
       type: DataTypes.INTEGER
-    }
+    },
+    imageId: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Todo'

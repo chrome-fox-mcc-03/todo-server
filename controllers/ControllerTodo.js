@@ -7,6 +7,7 @@ class ControllerTodo {
             description: req.body.description,
             status: req.body.status,
             due_date: req.body.due_date,
+            imageId: req.body.imageId,
             UserId: req.decoded.id
         })
             .then(todo => res.status(201).json(todo))
@@ -29,7 +30,6 @@ class ControllerTodo {
     }
 
     static findAll(req, res, next) {
-        console.log(req.decoded.id)
         Todo.findAll({
             order: [['id', 'ASC']],
             where: {

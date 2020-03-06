@@ -20,6 +20,7 @@ module.exports = (req, res, next) => {
                     })
                 }
             } else {
+                console.log('error')
                 next({
                     status: 404,
                     message: {
