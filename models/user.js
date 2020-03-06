@@ -1,4 +1,5 @@
 'use strict';
+const encrypt = require('../helper/bcrypt')
 module.exports = (sequelize, DataTypes) => {
   class User extends sequelize.Sequelize.Model {}
   User.init({
@@ -9,14 +10,24 @@ module.exports = (sequelize, DataTypes) => {
         isEmail: {
           args: true,
           msg: "Must Be Filled in Email Format"
-        }
-        
-
-        
+        }   
       }
     },
-    Password: DataTypes.STRING
-  }, {sequelize, modelName: 'User'})
+    Password: {
+      type: DataTypes.STRING,
+      validate: {
+        len: {
+          args: [2],
+          msg: "Password Must have At least 2 Characters"
+        }
+      }
+    } 
+  }, {hooks: {
+    beforeCreate:function(user, options) {
+      console.log(user)
+      user.Password = encrypt(user.Password)
+    }
+  },sequelize, modelName: 'User'})
   User.associate = function(models) {
     User.hasMany(models.Todo)
     // associations can be defined here

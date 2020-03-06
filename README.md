@@ -99,7 +99,7 @@ Postman Documentation : https://documenter.getpostman.com/view/10570615/SzKbKukw
 
 **Update Todos**
 ----
-  Returns json data about Updated users.
+  Returns json data about Updated Todos.
 
 * **URL**
 
@@ -153,7 +153,7 @@ Postman Documentation : https://documenter.getpostman.com/view/10570615/SzKbKukw
 
 **Delete Todos**
 ----
-  Returns json data about users.
+  Returns json data about Todos.
 
 * **URL**
 
@@ -190,6 +190,132 @@ Postman Documentation : https://documenter.getpostman.com/view/10570615/SzKbKukw
     "updatedAt": "2020-03-03T12:27:18.739Z",
     "UserId": null
 }`
+ 
+* **Error Response:**
+
+  * **Code:** 500 Internal Server Error<br />
+    **Content:** `{
+    "msg": "Internal Server Error"
+}`
+
+=======================================================
+**Register**
+----
+  Returns json data about users.
+
+* **URL**
+
+  /users/register
+
+* **Method:**
+
+  `POST`
+
+* **Headers:**
+
+  ``
+  
+*  **URL Params**
+
+   **Required:**
+ 
+
+* **Data Params**
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+{
+    "id": 35,
+    "Email": "testing123@gmail.com"
+}
+ 
+* **Error Response:**
+
+  * **Code:** 500 Internal Server Error<br />
+    **Content:** `{
+    "msg": "Internal Server Error"
+}`
+
+=======================================================
+**login**
+----
+  Returns json data about users.
+
+* **URL**
+
+  /users/login
+
+* **Method:**
+
+  `POST`
+
+* **Headers:**
+
+  ``
+  
+*  **URL Params**
+
+   **Required:**
+ 
+
+* **Data Params**
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+{
+    "id": 35,
+    "Email": "testing123@gmail.com"
+}
+ 
+* **Error Response:**
+
+  * **Code:** 500 Internal Server Error<br />
+    **Content:** `{
+    "msg": "Internal Server Error"
+}`
+
+=======================================================
+**login**
+----
+  Returns json data about users.
+
+* **URL**
+
+  /users/googlelogin
+
+* **Method:**
+
+  `POST`
+
+* **Headers:**
+
+  ``
+  
+*  **URL Params**
+
+   **Required:**
+ 
+
+* **Data Params**
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+{
+    "id": 35,
+    "Email": "testing123@gmail.com"
+}
  
 * **Error Response:**
 

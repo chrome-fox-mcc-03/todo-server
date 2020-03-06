@@ -3,15 +3,16 @@ const { User } = require('../models')
 
 
 module.exports = function(req, res, next) {
-    console.log(req.headers.access_token)
     const access_token = req.headers.access_token
     const authenticated = jwt.verify(access_token, process.env.JWT_SECRET) //Token_JWT(JWT_SECRET) buat nya di web jwt.io(generate code)
+    req.id = authenticated.id
     User.findOne({
-        id: authenticated
+        where:{
+            id: authenticated.id
+        }
     })
         .then(function(result) {
             if(result) {
-                req.currentUserId = result.id
                 next()
             }
             else{

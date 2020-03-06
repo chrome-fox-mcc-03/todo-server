@@ -7,8 +7,12 @@ userRoute.post('/register', function(req, res, next) {
 })
 
 userRoute.post('/login', function(req, res,next) {
-    usercontroller.Login(req, res, next)
+    console.log(req.body)
+    usercontroller.Login(req, res, next)    
 })
 
+userRoute.post('/googlelogin', function(req, res, next) {
+    usercontroller.googleLogin(req, res, next)
+})
 
 module.exports = userRoute

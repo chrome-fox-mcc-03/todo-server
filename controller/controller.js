@@ -5,10 +5,27 @@ const jwt = require('jsonwebtoken')
 const axios = require('axios')
 class Controller {
     static add(req, res, next) {
-        Todo.create(req.body)
+        const {Title, Description, Status, Due_Date, UserId} = req.body
+        Todo.create({
+            Title,
+            Description,
+            Status,
+            Due_Date,
+            UserId: req.id
+        })
             .then(function(result) {
-
-                res.status(201).json(result)
+                console.log('ahahah')
+                console.log(result)
+               return Todo.findAll({
+                   where: {
+                    UserId: req.id
+                   },
+                   order: [['id', "ASC"]]
+               })
+            })
+            .then(function(result) {
+                console.log(result)
+                res.status(200).json(result)
             })
             .catch(function(err) {
                 next(err)
@@ -17,9 +34,10 @@ class Controller {
 
     static findAll(req, res, next) {
         Todo.findAll({
-            // where:{
-                // UserId: accesstoken header id(karena res ngga kebawa)
-            // }
+            where:{
+                UserId: req.id
+            },
+            order: [['id', "ASC"]]
         })
             .then(function(result) {
                 res.status(200).json(result)
@@ -38,19 +56,20 @@ class Controller {
                 res.status(200).json(result)
             })
             .catch(function(err) {
-                res.status(400).json({
-                    error: "404 not found"
-                })
+                next(err)
             })
 
     }
 
     static update(req, res, next) {
+        console.log(req.body)
+        console.log('update')
+        const { Title, Description, Status, Due_Date } = req.body
         Todo.update({
-            Title: req.body.Title,
-            Description: req.body.Description,
-            Status: req.body.Status,
-            Due_Date: req.body.Due_Date
+            Title,
+            Description,
+            Status,
+            Due_Date
         }, {
             where: {
                 id: req.params.id
@@ -58,6 +77,15 @@ class Controller {
             returning:true
         })
             .then(function(result) {
+                return Todo.findAll({
+                    where: {
+                        UserId: req.id
+                    },
+                    order: [['id', "ASC"]]
+                })
+            })
+            .then(function(result2) {
+                let result = result2
                 res.status(200).json(result)
             })
             .catch(function(err) {
@@ -73,14 +101,20 @@ class Controller {
                 return result.destroy()
             })
             .then(function(result1) {
-                res.status(200).json(data)
+                return Todo.findAll({
+                    where:{
+                        UserId: req.id
+                    },
+                    order: [['id', "ASC"]]
+                })
+            })
+            .then(function(result2) {
+                let result = result2
+                res.status(200).json(result)
             })
             .catch(function(err) {
-                console.log('dihapus')
                 next(err)
-                // res.status(404).json({
-                //     error: "Error Not Found"
-                // })
+                
             })
 
     }
