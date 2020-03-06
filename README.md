@@ -1,4 +1,4 @@
-**TODO**
+**FANCY TODO**
 -----------
 
 **Create Todo**
@@ -16,11 +16,12 @@
 *  **URL Params**
     None
 
-* **Data Params**
+* **Data Params**<br>
+  `{ "title" : "Eureka", "description" : "Archimedes", "status" : ["pending", "done"], "due-date" : "2020-08-08" }`<br>
   **Required**
   - `title` : string
   - `description` : string
-  - `status` :  string
+  - `status` :  string (pending/done)
   - `due_date` : date (YYYY-MM-DD)
 
 * **Success Response:**
@@ -50,67 +51,47 @@
 }`<br><br>
  
 * **Error Responses:**
+  * **Code:** 400 VALIDATION ERROR <br />
+    **Content:** <br>
+    `{
+    "message": [
+        "Due date must be today or later"
+    ]
+    }`
+    <br>
+    **OR**
+    `{
+    "message": [
+        "Title must be filled"
+    ]
+    }`
+
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** <br>
-    `{
-    "error": {
-        "name": "SequelizeValidationError",
-        "errors": [
-            {
-                "message": "Title must be filled",
-                "type": "Validation error",
-                "path": "title",
-                "value": "",
-                "origin": "FUNCTION",
-                "instance": {
-                    "id": null,
-                    "title": "",
-                    "description": "",
-                    "status": "pending",
-                    "due_date": "2020-09-09T00:00:00.000Z",
-                    "updatedAt": "2020-03-02T15:07:41.344Z",
-                    "createdAt": "2020-03-02T15:07:41.344Z"
-                },
-                "validatorKey": "notNull",
-                "validatorName": null,
-                "validatorArgs": [],
-                "original": {}
-            }
-        ]
-    }
-}`<br><br>
-    **OR**
-      <br>
-      `{
-        "err": {
-          "name": "SequelizeValidationError",
-          "errors": [
-              {
-                "message": "Due date must be today's date or later",
-                "type": "Validation error",
-                "path": "due_date",
-                "value": "2020-01-31T00:00:00.000Z",
-                "origin": "FUNCTION",
-                "instance": {
-                    "id": null,
-                    "title": "ngopi",
-                    "description": "rangka hari raya",
-                    "status": "pending",
-                    "due_date": "2020-01-31T00:00:00.000Z",
-                    "updatedAt": "2020-03-02T11:02:41.224Z",
-                    "createdAt": "2020-03-02T11:02:41.224Z"
-                },
-                "validatorKey": "beforeToday",
-                "validatorName": null,
-                "validatorArgs": [],
-                "original": {}
-              }
-          ]
-      },
-      "message": "SERVER ERROR"
-    }`
-
+    `RangeError [ERR_HTTP_INVALID_STATUS_CODE]: Invalid status code: undefined
+    at ServerResponse.writeHead (_http_server.js:248:11)
+    at ServerResponse._implicitHeader (_http_server.js:239:8)
+    at write_ (_http_outgoing.js:650:9)
+    at ServerResponse.end (_http_outgoing.js:760:5)
+    at ServerResponse.send (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/response.js:221:10)
+    at ServerResponse.json (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/response.js:267:15)
+    at errorHandler (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/middlewares/errorHandling.js:47:30)
+    at Layer.handle_error (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/layer.js:71:5)
+    at trim_prefix (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:315:13)
+    at /home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:275:10)
+    at /home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:635:15
+    at next (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:260:14)
+    at /home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:635:15
+    at next (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:260:14)
+    at authenticate (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/middlewares/authenticate.js:37:10)
+    at Layer.handle [as handle_request] (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:317:13)
+    at /home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:275:10)`
 <br>
 <hr>
 <br>
@@ -130,7 +111,7 @@
 *  **URL Params**
     None
 
-* **Data Params**
+* **Data Params**<br>
    None
 
 * **Success Response:**
@@ -176,60 +157,29 @@
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** 
     <br>
-    `{
-    "err": {
-        "name": "SequelizeDatabaseError",
-        "parent": {
-            "name": "error",
-            "length": 167,
-            "severity": "ERROR",
-            "code": "42703",
-            "position": "128",
-            "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\parser\\parse_relation.c",
-            "line": "3359",
-            "routine": "errorMissingColumn",
-            "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
-        },
-        "original": {
-            "name": "error",
-            "length": 167,
-            "severity": "ERROR",
-            "code": "42703",
-            "position": "128",
-            "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\parser\\parse_relation.c",
-            "line": "3359",
-            "routine": "errorMissingColumn",
-            "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
-        },
-        "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
-    },
-    "message": {
-        "name": "SequelizeDatabaseError",
-        "parent": {
-            "name": "error",
-            "length": 167,
-            "severity": "ERROR",
-            "code": "42703",
-            "position": "128",
-            "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\parser\\parse_relation.c",
-            "line": "3359",
-            "routine": "errorMissingColumn",
-            "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
-        },
-        "original": {
-            "name": "error",
-            "length": 167,
-            "severity": "ERROR",
-            "code": "42703",
-            "position": "128",
-            "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\parser\\parse_relation.c",
-            "line": "3359",
-            "routine": "errorMissingColumn",
-            "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
-        },
-        "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
-    }
-}`
+    `RangeError [ERR_HTTP_INVALID_STATUS_CODE]: Invalid status code: undefined
+    at ServerResponse.writeHead (_http_server.js:248:11)
+    at ServerResponse._implicitHeader (_http_server.js:239:8)
+    at write_ (_http_outgoing.js:650:9)
+    at ServerResponse.end (_http_outgoing.js:760:5)
+    at ServerResponse.send (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/response.js:221:10)
+    at ServerResponse.json (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/response.js:267:15)
+    at errorHandler (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/middlewares/errorHandling.js:47:30)
+    at Layer.handle_error (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/layer.js:71:5)
+    at trim_prefix (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:315:13)
+    at /home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:275:10)
+    at /home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:635:15
+    at next (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:260:14)
+    at /home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:635:15
+    at next (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:260:14)
+    at authenticate (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/middlewares/authenticate.js:37:10)
+    at Layer.handle [as handle_request] (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:317:13)
+    at /home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:275:10)`
 
 <br>
 <hr>
@@ -250,7 +200,7 @@
 *  **URL Params**
     `:id [integer]`
 
-* **Data Params**
+* **Data Params**<br>
    None
 
 * **Success Response:**
@@ -258,58 +208,44 @@
   * **Code:** 200 <br />
     **Content:** <br>
     `{
-    "todo": {
-        "id": 3,
-        "title": "beli baju",
-        "description": "rangka hari raya",
-        "status": "pending",
-        "due_date": "2020-05-31T00:00:00.000Z",
-        "createdAt": "2020-03-02T08:01:15.475Z",
-        "updatedAt": "2020-03-02T08:01:15.475Z"
-    },
-    "message": "Entry found"
-}`
+    "todo": [
+        {
+            "id": 15,
+            "title": "beli kue",
+            "description": "sajen",
+            "status": "pending",
+            "due_date": "2020-04-05T00:00:00.000Z",
+            "UserId": 27,
+            "createdAt": "2020-03-05T03:34:46.593Z",
+            "updatedAt": "2020-03-05T03:34:46.593Z",
+            "User": {
+                "id": 27,
+                "email": "maxwell.hamzah@gmail.com"
+            }
+        }
+    ],
+    "message": "Entry found",
+    "decoded": {
+        "id": 27,
+        "email": "maxwell.hamzah@gmail.com",
+        "iat": 1583508900
+    }
+  }`
  
 * **Error Responses:**
-
-  * **Code:** 404 ENTRY NOT FOUND <br />
+  * **Code:** 400 UNAUTHORIZED ACCESS <br />
     **Content:** <br>
     `{
-    "error": "Entry Not Found"
+    "message": "UNAUTHORIZED ACCESS"
     }`
 
   <br><br>
 
-  * **Code:** 500 INTERNAL SERVER ERROR <br />
+  * **Code:** 404 ENTRY NOT FOUND <br />
     **Content:** <br>
     `{
-    "error": {
-        "name": "SequelizeDatabaseError",
-        "parent": {
-            "name": "error",
-            "length": 167,
-            "severity": "ERROR",
-            "code": "42703",
-            "position": "128",
-            "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\parser\\parse_relation.c",
-            "line": "3359",
-            "routine": "errorMissingColumn",
-            "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
-        },
-        "original": {
-            "name": "error",
-            "length": 167,
-            "severity": "ERROR",
-            "code": "42703",
-            "position": "128",
-            "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\parser\\parse_relation.c",
-            "line": "3359",
-            "routine": "errorMissingColumn",
-            "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
-        },
-        "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"id\" = NaN;"
-    }
-}`
+    "message": "ENTRY NOT FOUND"
+    }`
 
 <br>
 <hr>
@@ -330,7 +266,8 @@
 *  **URL Params**
     `:id [integer]`
 
-* **Data Params**
+* **Data Params**<br>
+  `{ "title" : "Eureka", "description" : "Archimedes", "status" : ["pending", "done"], "due-date" : "2020-08-08" }`<br>
   **Required**
   - `title` : string
   - `description` : string
@@ -358,76 +295,47 @@
  
 * **Error Responses:**
 
-   * **Code:** 400 SEQUELIZE VALIDATION ERROR <br />
+  * **Code:** 400 UNAUTHORIZED ACCESS <br />
     **Content:** <br>
     `{
-    "error": "SequelizeValidationError",
-    "message": "Validation error: Due date must be today or later"
+    "message": "UNAUTHORIZED ACCESS"
     }`
 
-
-  <br><br>
+  <br>
 
   * **Code:** 404 ENTRY NOT FOUND <br />
     **Content:** <br>
     `{
-    "error": "Entry Not Found"
+    "message": "ENTRY NOT FOUND"
     }`
-  <br><br>
 
-  * **Code:** 500 DATABASE ERROR <br />
+  <br>
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** <BR>
-    `{
-    "error": {
-        "name": "SequelizeDatabaseError",
-        "parent": {
-            "name": "error",
-            "length": 170,
-            "severity": "ERROR",
-            "code": "22P02",
-            "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\utils\\adt\\numutils.c",
-            "line": "259",
-            "routine": "pg_strtoint32",
-            "sql": "UPDATE \"Todos\" SET \"title\"=$1,\"description\"=$2,\"status\"=$3,\"due_date\"=$4,\"updatedAt\"=$5 WHERE \"id\" = $6",
-            "parameters": [
-                "nyekareDIT",
-                "hari raya",
-                "pending",
-                "2020-09-02 00:00:00.000 +00:00",
-                "2020-03-03 09:33:14.760 +00:00",
-                null
-            ]
-        },
-        "original": {
-            "name": "error",
-            "length": 170,
-            "severity": "ERROR",
-            "code": "22P02",
-            "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\utils\\adt\\numutils.c",
-            "line": "259",
-            "routine": "pg_strtoint32",
-            "sql": "UPDATE \"Todos\" SET \"title\"=$1,\"description\"=$2,\"status\"=$3,\"due_date\"=$4,\"updatedAt\"=$5 WHERE \"id\" = $6",
-            "parameters": [
-                "nyekareDIT",
-                "hari raya",
-                "pending",
-                "2020-09-02 00:00:00.000 +00:00",
-                "2020-03-03 09:33:14.760 +00:00",
-                null
-            ]
-        },
-        "sql": "UPDATE \"Todos\" SET \"title\"=$1,\"description\"=$2,\"status\"=$3,\"due_date\"=$4,\"updatedAt\"=$5 WHERE \"id\" = $6",
-        "parameters": [
-            "nyekareDIT",
-            "hari raya",
-            "pending",
-            "2020-09-02 00:00:00.000 +00:00",
-            "2020-03-03 09:33:14.760 +00:00",
-            null
-        ]
-    }
-}`
-
+    `RangeError [ERR_HTTP_INVALID_STATUS_CODE]: Invalid status code: undefined
+    at ServerResponse.writeHead (_http_server.js:248:11)
+    at ServerResponse._implicitHeader (_http_server.js:239:8)
+    at write_ (_http_outgoing.js:650:9)
+    at ServerResponse.end (_http_outgoing.js:760:5)
+    at ServerResponse.send (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/response.js:221:10)
+    at ServerResponse.json (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/response.js:267:15)
+    at errorHandler (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/middlewares/errorHandling.js:47:30)
+    at Layer.handle_error (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/layer.js:71:5)
+    at trim_prefix (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:315:13)
+    at /home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:275:10)
+    at /home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:635:15
+    at next (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:260:14)
+    at /home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:635:15
+    at next (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:260:14)
+    at authenticate (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/middlewares/authenticate.js:37:10)
+    at Layer.handle [as handle_request] (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:317:13)
+    at /home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:275:10)`
 <br>
 <hr>
 <br>
@@ -447,7 +355,7 @@
 *  **URL Params**
     `:id [integer]`
 
-* **Data Params**
+* **Data Params**<br>
   None
 
 * **Success Response:**
@@ -460,44 +368,47 @@
  
 * **Error Responses:**
 
+  * **Code:** 400 UNAUTHORIZED ACCESS <br />
+    **Content:** <br>
+    `{
+    "message": "UNAUTHORIZED ACCESS"
+    }`
+
+  <br>
+
   * **Code:** 404 ENTRY NOT FOUND <br />
     **Content:** <br>
     `{
-    "error": "Entry Not Found"
+    "message": "ENTRY NOT FOUND"
     }`
-  <br><br>
+
+  <br>
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
-    **Content:** <br>
-    `{
-    "error": {
-        "name": "SequelizeDatabaseError",
-        "parent": {
-            "name": "error",
-            "length": 166,
-            "severity": "ERROR",
-            "code": "42703",
-            "position": "34",
-            "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\parser\\parse_relation.c",
-            "line": "3359",
-            "routine": "errorMissingColumn",
-            "sql": "DELETE FROM \"Todos\" WHERE \"id\" = NaN"
-        },
-        "original": {
-            "name": "error",
-            "length": 166,
-            "severity": "ERROR",
-            "code": "42703",
-            "position": "34",
-            "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\parser\\parse_relation.c",
-            "line": "3359",
-            "routine": "errorMissingColumn",
-            "sql": "DELETE FROM \"Todos\" WHERE \"id\" = NaN"
-        },
-        "sql": "DELETE FROM \"Todos\" WHERE \"id\" = NaN"
-    }
-}`
-
+    **Content:** <BR>
+    `RangeError [ERR_HTTP_INVALID_STATUS_CODE]: Invalid status code: undefined
+    at ServerResponse.writeHead (_http_server.js:248:11)
+    at ServerResponse._implicitHeader (_http_server.js:239:8)
+    at write_ (_http_outgoing.js:650:9)
+    at ServerResponse.end (_http_outgoing.js:760:5)
+    at ServerResponse.send (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/response.js:221:10)
+    at ServerResponse.json (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/response.js:267:15)
+    at errorHandler (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/middlewares/errorHandling.js:47:30)
+    at Layer.handle_error (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/layer.js:71:5)
+    at trim_prefix (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:315:13)
+    at /home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:275:10)
+    at /home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:635:15
+    at next (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:260:14)
+    at /home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:635:15
+    at next (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:260:14)
+    at authenticate (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/middlewares/authenticate.js:37:10)
+    at Layer.handle [as handle_request] (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:317:13)
+    at /home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/sandboxadmin/PROJECTS/HACKTIV8/PHASE2/todo-server/node_modules/express/lib/router/index.js:275:10)`
 <br>
 <hr>
 <br>
@@ -525,7 +436,8 @@
 *  **URL Params**
     None
 
-* **Data Params**
+* **Data Params**<br>
+  `{ "email" : "john_doe@sample.com", "password" : "johndoe1" }`<br>
   **Required**
   - `email` : string
   - `password` : string
@@ -551,16 +463,24 @@
 
   * **Code:** 400 SEQUELIZE VALIDATION ERROR<br />
     **Content:**<br>
-      `{
-    "error": "SequelizeValidationError",
-    "message": "Validation error: Please enter valid email format e.g. 'john_doe@domain.com'"
-    }`
-
-    **OR**
-
     `{
-    "error": "SequelizeValidationError",
-    "message": "Validation error: Passwords must be between 8-16 characters long"
+    "message": [
+        "email must be unique"
+    ]
+    }`
+    <br>
+    **OR**
+    `{
+    "message": [
+        "Please enter valid email format e.g. 'john_doe@domain.com'"
+    ]
+    }`
+    <br>
+    **OR**
+    `{
+    "message": [
+        "Passwords must be between 8-16 characters long"
+    ]
     }`
 
 <br>
@@ -582,7 +502,8 @@
 *  **URL Params**
     None
 
-* **Data Params**
+* **Data Params**<br>
+`{ "email" : "john_doe@sample.com", "password" : "johndoe1" }`<br>
   **Required**
   - `email` : string
   - `password` : string
@@ -599,14 +520,51 @@
 
 * **Error Responses:**
 
-  * **Code:** 401 WRONG EMAIL/PASSWORD<br />
+  * **Code:** 400 WRONG EMAIL/PASSWORD<br />
     **Content:**<br>
-      `{
-    "error": "Wrong email/password"
-    }`
-
-    **OR**
-
     `{
-    "error": "Wrong email/password"
+    "message": "WRONG EMAIL/PASSWORD"
     }`
+  <br>
+
+  * **Code:** 500 INTERNAL SERVER ERROR<br />
+    **Content:**<br>
+    `Cannot POST /users/signin1`
+
+<br>
+<hr>
+<br>
+
+**Google Signin**
+----
+  Login user using Google OAuth
+
+* **URL**
+
+  /users/googleSignin
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+    None
+
+* **Data Params**<br>
+  **Required**
+  - GMail Username
+  - GMail Passord
+
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**<br>
+    `{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJjcmlzdGlhbm9fcm9uYWxkb0BsaXZlcnBvb2xmYy51ayIsImlhdCI6MTU4MzIzNzgwOH0.eUjWk-QOFVss77WLfbbqFvt9rKuLNCNk4xEzCSiAdYk"
+    }`
+     
+<br>
+<hr>
+
+  

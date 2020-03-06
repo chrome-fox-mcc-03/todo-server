@@ -4,6 +4,7 @@ const { User } = require("../models")
 let token
 let payload
 function authenticate(req, res, next) {
+    console.log(">>> AUTHENTICATION <<<");
     try {
         token = req.headers.token
         payload = verifyToken(token)
@@ -18,15 +19,16 @@ function authenticate(req, res, next) {
             }
         })
             .then(response => {
-                console.log(`user found`);
+                console.log(`USER FOUND`);
                 console.log(response);
-                console.log(`the response's id is`);
+                console.log(`RESPONSE ID:`);
                 console.log(response[0].id);
                 if(response[0].id === payload.id) {
-                    console.log(`user authentication match!`)
+                    console.log(`AUTHENTICATION PASSED!`)
                     req.decoded = payload
                     next()
                 } else {
+                    console.log("AUTHENTICATION FAILED!");
                     throw new CustomError(400, "Unauthorized Access!")
                 }
             })

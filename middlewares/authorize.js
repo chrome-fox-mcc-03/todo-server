@@ -2,6 +2,7 @@ const { Todo } = require("../models")
 const  CustomError  = require("../helpers/errorModel.js")
 
 function authorizer(req, res, next) {
+    console.log(">>> AUTHORIZATION <<<");
     let todoId = +req.params.id
     let userId = req.decoded.id
 
@@ -15,12 +16,20 @@ function authorizer(req, res, next) {
 
     Todo.findByPk(todoId)
         .then(result => {
+            console.log(`UPON SEARCHING`);
             console.log(result);
-            if(result.UserId === userId) {
-                next()
+            if(result) {
+                if(result.UserId === userId) {
+                    console.log("AUTHORIZATION PASSED!");
+                    next()
+                } else {
+                    console.log("AUTHORIZATION FAILED!");
+                    throw new CustomError(400, "UNAUTHORIZED ACCESS")
+                }
             } else {
-                throw new CustomError(404, "Query not found")
+                throw new CustomError(404, "ENTRY NOT FOUND")
             }
+            
             
         })
         .catch(next)

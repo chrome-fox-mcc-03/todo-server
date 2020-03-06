@@ -5,6 +5,7 @@ const restdb = require("../helpers/thirdParty.js")
 class TodoController {
 
     static create(req, res, next) {
+        console.log(">>> CREATE TODO <<<");
         Todo.create({
             title: req.body.title,
             description: req.body.description,
@@ -13,7 +14,7 @@ class TodoController {
             UserId: req.decoded.id
         })
         .then(todo => {
-            console.log("entering create");
+            console.log("CREATE SUCCESS");
             console.log(todo);
 
             res.status(201).json(todo)
@@ -40,12 +41,12 @@ class TodoController {
             
         })
         .catch(err => {
-            // res.status(500).json({error:err})
             next(err)
         })
     }
 
     static findAll(req, res, next) {
+        console.log(">>> FIND ALL TODOS <<<");
         console.log(`req decoded is`);
         console.log(req.decoded);
         console.log(`the ID of decoded is ${req.decoded.id}`);
@@ -64,45 +65,42 @@ class TodoController {
             }
         })
             .then(todos => {
-                // console.log(`Todos are:`);
-                // console.log(todos);
-                
+                console.log("TODOS FOUND!");
                 res.status(200).json({todos:todos, message: "Here are the complete list", decoded:req.decoded})
             })
             .catch(err => {
-                // res.status(500).json({error:err})
-                console.log(`error reading all here`);
-                // console.log(err);
                 next(err)
             })
 
     }
 
     static findById(req, res, next) {
+        console.log(">>> FIND TODOS BY ID <<<");
         console.log(`req decoded is`);
         console.log(req.decoded);
         // console.log(`payload is`);
         // console.log(req.payload);
         Todo.findByPk(+req.params.id)
         .then(todo => {
-            console.log(`recovered todo is`);
+            console.log(`RECOVERED TODO: `);
             console.log(todo);
-            if(todo) {
-                res.status(200).json({todo:todo, message: "Entry found", decoded:req.decoded})
-            } else {
-                // res.status(404).json({error: "Entry Not Found"})
-                throw new CustomError(400, "Entry not found")
-            }
+            res.status(200).json({todo:todo, message: "Entry found", decoded:req.decoded})
+            // if(todo) {
+            //     res.status(200).json({todo:todo, message: "Entry found", decoded:req.decoded})
+            // } 
+            // else {
+            //     console.log(`BAD MOVE! NOT FOUND!`);
+            //     // res.status(404).json({error: "Entry Not Found"})
+            //     throw new CustomError(404, "ENTRY NOT FOUND")
+            // }
         })
         .catch(err => {
-            // console.log(err);
-            // res.status(500).json({error:err})
             next(err)
         })
     }
 
     static update(req, res, next) {
-        console.log(`updating`);
+        console.log(`>>>> UPDATE TODO BY ID <<<<`);
         console.log(req.params.id);
         console.log(`checking which user`);
         console.log(req.decoded);
@@ -123,13 +121,13 @@ class TodoController {
             }
         )
         .then(updated => {
-            console.log(`this is updated data`);
+            console.log(`UPDATED DATUM IS:`);
             console.log(updated);
             if(updated[0] === 0) {
                 // res.status(404).json({error: "Entry Not Found"})
-                throw new CustomError(400, "Entry not found")
+                throw new CustomError(404, "Entry not found")
             } else {
-
+                console.log("UPDATE SUCCESS");
                 console.log(`SEND UPDATE STATUS`);
                 res.status(200).json({todo:updated[1], message: "Entry updated"})
 
@@ -158,18 +156,19 @@ class TodoController {
     }
 
     static delete(req, res, next) {
+        console.log(">>>> DELETE TODO <<<<");
         Todo.destroy({
             where: {
                 id: +req.params.id
             }
         })
         .then(deleted => {
+            console.log("DELETE SUCCESS");
             if(deleted === 1) {
                 res.status(200).json({todo:deleted, message: "Delete Success"})
             } else {
-                throw new CustomError(400, "Entry not found")
+                throw new CustomError(404, "ENTRY NOT FOUND")
             }
-            
         })
         .catch(err => {
             next(err)

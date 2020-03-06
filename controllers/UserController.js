@@ -19,8 +19,8 @@ let passwordMatchFlag
 class UserController {
 
     static signup(req, res, next) {
-        console.log(`masuk signup`);
-        console.log(`req body`);
+        console.log(`>>> REGISTER <<<`);
+        console.log("CREDENTIALS:");
         console.log(req.body);
 
         User.create({
@@ -31,30 +31,20 @@ class UserController {
             // console.log(result);
             // userId = result.dataValues.id
             // emailAddress = result.dataValues.email
-
-            /* 
-            1. buat payload pake jwt.sign
-            2. kirim token pake res.status(201).json(token) //klo mau login
-            2a. 
-            */
            res.status(201).json({datum: result, message: "Signup Success. Please Signin to Continue"})
 
         })
         .catch(err => {
             // console.log(`error ketemu`);
             // console.log(err);
-            // if(err.name === "SequelizeValidationError") {
-            //     res.status(400).json({error:err.name, message:err.message})
-            // } else {
-            //     res.status(500).json({error:err})
-            // }
             next(err)
         })
 
     }
 
     static signin(req, res, next) {
-        console.log(`login credentials`);
+        console.log(`>>> LOGIN <<<`);
+        console.log("CREDENTIALS:");
         console.log(req.body);
         emailAddress =  req.body.email
         passcode = req.body.password
@@ -67,30 +57,31 @@ class UserController {
         .then(response => {
             console.log(`Here is the login response `);
             console.log(response);
+            
+            if(response) {
 
-            passwordMatchFlag = comparePassword(passcode, response.password)
+                passwordMatchFlag = comparePassword(passcode, response.password)
             // console.log(`does matching password success: ${passwordMatchFlag}`);
 
-            if (passwordMatchFlag && response) {
-                console.log(`Password match`);
-                payload = {
-                    id: response.dataValues.id,
-                    email: emailAddress
-                }
-                accessToken = generateToken(payload)
+                if (passwordMatchFlag && response) {
+                    console.log(`Password match`);
+                    payload = {
+                        id: response.dataValues.id,
+                        email: emailAddress
+                    }
+                    accessToken = generateToken(payload)
 
-                console.log(`generated token`);
-                console.log(accessToken);
-                req.headers.token = accessToken;
+                    console.log(`generated token`);
+                    console.log(accessToken);
+                    req.headers.token = accessToken;
                
-                // req.payload = payload
-                res.status(200).json({token: accessToken})
-
+                    // req.payload = payload
+                    res.status(200).json({token: accessToken})
+                } else {
+                    throw new CustomError(400, "WRONG PASSWORD/EMAIL")
+                }
             } else {
-                // console.log(`First error: `);
-                // console.log(response);
-                // res.status(401).json({error: "Wrong email/password"})
-                throw new CustomError(400, "Invalid email/password")
+                throw new CustomError(400, "WRONG PASSWORD/EMAIL")
             }
         })
         .catch(err => {
@@ -101,21 +92,22 @@ class UserController {
     }
 
     static googleSignin(req, res, next) {
+        console.log(`>>> GOOGLE LOGIN <<<`);
+        console.log("CREDENTIALS:");
         accessToken = req.headers.token
-        console.log(`access token for google is`);
         console.log(accessToken);
         googleClient.verifyIdToken({
             idToken: accessToken,
             audience: process.env.GOOGLE_CLIENT_ID
         })
         .then(ticket => {
-            console.log(`the ticket is`);
+            console.log(`TICKET FOUND!`);
             console.log(ticket);
             payload = ticket.getPayload();
             userId = payload['sub']
             emailAddress = payload.email
 
-            console.log(`google ticket's payload is`);
+            console.log(`TICKET PAYLOAD:`);
             console.log(payload);
 
             return User.findAll({
@@ -127,6 +119,8 @@ class UserController {
 
         })
         .then(result1 => {
+            console.log("RESULT 1 PAYLOAD");
+            console.log(result1);
             if(result1.length === 0) {
 
                 return User.create({
@@ -142,14 +136,14 @@ class UserController {
                 id: result2.id,
                 email: result2.email,
             }
-            console.log(`the result 2 payload is`);
+            console.log(`RESULT 2 PAYLOAD:`);
             console.log(payload);
 
             // accessToken = generateToken(payload)
             // console.log(`after result2, accessToken is`);
             // console.log(accessToken);
             // req.headers.token = accessToken
-            res.status(201).json({token: generateToken(payload)})
+            res.status(200).json({token: generateToken(payload)})
         })
         .catch(err => {
             next(err)
