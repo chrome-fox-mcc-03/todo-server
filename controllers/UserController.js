@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 const { User } = require('../models');
 const { generateToken } = require('../helpers/generateToken');
@@ -53,9 +53,6 @@ class UserController {
       .catch(next);
   }
 
-  static logout(req, res) {
-    res.send(`ini logout`);
-  }
 }
 
 module.exports = { UserController };
