@@ -54,7 +54,7 @@ class TodoController {
             due_date: req.body.due_date,
             UserId: req.thisUser.id
         }
-
+        console.log(request);
         Todo.create(request)
         .then(result => {
             res.status(201).json({
@@ -103,6 +103,9 @@ class TodoController {
             status: req.body.status,
             due_date: req.body.due_date
         }
+        console.log('-----------------------')
+        console.log(body);
+        console.log(id);
         Todo.findByPk(id)
         .then(result => {
             if (result === null) {

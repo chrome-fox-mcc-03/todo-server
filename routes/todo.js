@@ -7,6 +7,7 @@ const authorizator = require('../middlewares/authorize');
 router.use(authenticator);
 
 //my chosen api: public holiday, show any national holiday between today until due date
+// /todos
 router.get("/", TodoController.findAllTodo);
 router.get("/:id", TodoController.findOneTodo);
 
