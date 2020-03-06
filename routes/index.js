@@ -3,6 +3,7 @@ const controller = require('../controllers/todoController')
 const todoRouter = require('./todoRouter')
 const userRouter = require('./userRouter')
 const errorHandler = require('../helper/errorHandler')
+
 router.get('/', (req, res) => {
     res.send('home from router')
 })

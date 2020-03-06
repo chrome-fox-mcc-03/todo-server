@@ -4,11 +4,13 @@ const authentication = require('../middlewares/authentication')
 const authorization = require('../middlewares/authorization')
 
 
+
 router.use(authentication)
 
 router.get('/', controller.get)
 
-router.post('/:id', controller.add)
+
+router.post('/', controller.add)
 
 router.get('/:id', authorization, controller.getId)
 

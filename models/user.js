@@ -15,11 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         isEmail: {
           args: true,
           msg: 'Please insert your email'
-        },
-        // unique: {
-        //   args: false,
-        //   msg: 'Email address already in use!'
-        // }
+        }
       }
     },
     password: {
@@ -27,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         len: {
-          args: [5, 10],
+          args: [6, 10],
           msg: 'Password Must Be 6-10 character'
         }
       }

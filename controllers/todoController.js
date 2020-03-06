@@ -32,7 +32,12 @@ class Controller {
     }
 
     static get(req, res) {
-        Todo.findAll()
+        let UserId = req.decoded.id
+        Todo.findAll({
+            where:{
+                UserId: UserId
+            }
+        })
             .then((result) => {
                 res.status(200).json(result)
             })
