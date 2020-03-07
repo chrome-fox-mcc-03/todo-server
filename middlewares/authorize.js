@@ -11,7 +11,7 @@ function authorize (req, res, next) {
                 // res.status(200).json(result);
                 next()
             } else {
-                throw AppError(400, "Item owned by other user")
+                throw AppError(401, "Item owned by other user")
             }
         } else {
             throw AppError(404, "Item doesn't exist")

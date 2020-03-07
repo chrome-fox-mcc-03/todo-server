@@ -3,10 +3,10 @@ const { User } = require('../models/index');
 const AppError = require('../helper/myCustomError');
 
 function authenticate (req, res, next) {
-    let payload = getPayload(req.headers.token);
-    if (payload.name === 'JsonWebTokenError') {
+    if (!req.headers.token) {
         next(AppError(400, "Please login as valid user"));
     } else {
+        let payload = getPayload(req.headers.token);
         // res.status(200).json(payload);
         User.findOne({
             where: {
