@@ -10,6 +10,8 @@ router.post('/', TodoController.createTodo);
 router.get('/', TodoController.findAll);
 router.get('/:id', authorization, TodoController.findOne);
 router.put('/:id', authorization, TodoController.update);
+router.patch('/markdone/:id', authorization, TodoController.markDone)
+router.patch('/markundone/:id', authorization, TodoController.markUndone)
 router.delete('/:id', authorization, TodoController.delete);
 
 module.exports = router;

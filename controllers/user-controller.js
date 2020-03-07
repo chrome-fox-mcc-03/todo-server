@@ -72,6 +72,8 @@ class UserController {
         const myPayload = {};
         const client = new OAuth2Client(process.env.CLIENT_ID);
         const token = req.headers.token;
+        console.log(token);
+        
         client.verifyIdToken({
             idToken: token,
             audience: process.env.CLIENT_ID,  // Specify the CLIENT_ID of the app that accesses the backend

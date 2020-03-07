@@ -21,7 +21,8 @@ class TodoController {
         Todo.findAll({
             where: {
                 UserId: req.decoded.id
-            }
+            },
+            order: [['due_date']]
         })
             .then(todos => {
                 res.status(200).json(todos)
@@ -94,6 +95,42 @@ class TodoController {
             })
             .then((deleted) => {
                 res.status(200).json(deletedTodo)
+            })
+            .catch(err => {
+                next(err)
+            })
+    }
+
+    static markDone(req, res, next) {
+        Todo.update({
+            status: true
+        }, {
+            where: {
+                id: req.params.id
+            },
+            returning: true,
+            plain: true
+        })
+            .then((updatedTodo) => {
+                res.status(200).json(updatedTodo[1])
+            })
+            .catch(err => {
+                next(err)
+            })
+    }
+
+    static markUndone(req, res, next) {
+        Todo.update({
+            status: false
+        }, {
+            where: {
+                id: req.params.id
+            },
+            returning: true,
+            plain: true
+        })
+            .then((updatedTodo) => {
+                res.status(200).json(updatedTodo[1])
             })
             .catch(err => {
                 next(err)
