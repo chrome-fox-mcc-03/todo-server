@@ -49,21 +49,17 @@ class UserController {
   }
 
   static googleSignin(req, res, next) {
-    // console.log("============");
-    
     let obj = {}
-    const token = req.headers.token
+    const getToken = req.headers.token
     const client = new OAuth2Client(process.env.CLIENTID);
     client.verifyIdToken({
-      idToken: token,
+      idToken: getToken,
       audience: process.env.CLIENTID // Specify the CLIENT_ID of the app that accesses the backend
       // Or, if multiple clients access the backend:
       //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
     })
     .then((ticket) => {
       let payload = ticket.getPayload()
-      // console.log(payload);
-      
       obj.email = payload.email
       return User.findOne({
         where: {
@@ -84,14 +80,11 @@ class UserController {
       }
     })
     .then((user) => {
-      // console.log(user);
       let payload = {
         id: user.id,
         email: user.email
       }
-      // console.log(payload, 9999999999999999999999999999999999999);
       let atoken = token(payload)
-      
       res.status(200).json(atoken)
     })
     .catch(next)

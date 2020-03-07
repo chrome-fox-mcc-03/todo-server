@@ -42,7 +42,7 @@ class TodoController {
         next({name: 'Todo not found'})
       }
       else {
-        res.status(200).json({todo})
+        res.status(200).json(todo)
       }
     })
     .catch(next)

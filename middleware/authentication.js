@@ -2,12 +2,9 @@ const { verify } = require('../helper/jwt')
 const { User } = require('../models')
 
 function authentication(req, res, next) {
-  try {
-    console.log(req.headers, "hdgaksdhashashld");
-    
+  try {    
     if(req.headers.token) {
       const decoded = verify(req.headers.token)
-      console.log(decoded,"=======================");
       req.currentUserId = decoded.id
       User.findByPk(
         Number(req.currentUserId)
