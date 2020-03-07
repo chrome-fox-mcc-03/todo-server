@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "Adam1997",
-    "database": "db_fancytodo",
-    "host": "localhost",
+    "username": "mcc-6",
+    "password": null,
+    "database": "todo_adam_db",
+    "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
