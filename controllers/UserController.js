@@ -19,7 +19,11 @@ class UserController {
 
                 let token = generateToken(payload)
 
-                res.status(201).json(token)
+                let data = {
+                    token,
+                    user: payload
+                }
+                res.status(201).json(data)
             })
 
             .catch(err => {
@@ -40,7 +44,11 @@ class UserController {
                             email: result.email
                         }
                         const token = generateToken(payload)
-                        res.status(200).json(token)
+                        const data = {
+                            token,
+                            user: payload
+                        }
+                        res.status(200).json(data)
                     }
                     else {
                         next({
@@ -85,9 +93,7 @@ class UserController {
                                 const token = generateToken(payload)
                                 res.status(200).json({ token, message })
                             } else {
-                                res.status(400).json({
-                                    message: 'Email sudah terdaftar'
-                                })
+                                next({name: 'AlreadyRegistered'})
                             }
                         } else {
                             const newUser = {

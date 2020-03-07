@@ -11,12 +11,17 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notNull: {
           args: true,
-          msg: `Email can't be blank`
+          msg: `Email can't be blank`,
+          
         },
         isEmail: {
           args: true,
           msg: `You must enter an valid email address!`
         }
+      },
+      unique: {
+        args: true,
+        msg: 'Email address already in use!'
       }
     },
     password: {
