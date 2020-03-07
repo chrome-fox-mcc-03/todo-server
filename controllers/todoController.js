@@ -1,9 +1,11 @@
 const { Todo } = require('../models');
+const { gt } = require('sequelize').Sequelize.Op;
 
 class TodoController {
-	static findAll (req, res) {
+	static findAll (req, res, next) {
 		Todo.findAll({
-			where: { UserId: req.decode.id }
+			where: { UserId: req.decode.id },
+			order: [['due_date', 'ASC']]
 		})
 			.then(data => {
 				res.status(200).json({
@@ -64,7 +66,7 @@ class TodoController {
 			})
 	}
 
-	static update (req, res) {
+	static update (req, res, next) {
 		Todo.update({
 			title: req.body.title,
 			description: req.body.description,
@@ -75,6 +77,7 @@ class TodoController {
 			returning: true
 		})
 			.then(data => {
+				data = data[1][0];
 				res.status(200).json({
 					data
 				})
@@ -84,7 +87,7 @@ class TodoController {
 			})
 	}
 
-	static delete (req, res) {
+	static delete (req, res, next) {
 		Todo.destroy({
 			where: { id: parseInt(req.params.id) }
 		})
@@ -103,6 +106,17 @@ class TodoController {
 			.catch(err => {
 				next(err);
 			})
+	}
+
+	static getDueTodo (req, res, next) {
+		Todo.findAll({
+			where: { 
+				UserId: req.decode.id,
+				due_date: {
+					[gt]: new Date()
+				}
+			}
+		})
 	}
 }
 
