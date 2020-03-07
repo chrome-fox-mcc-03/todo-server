@@ -35,7 +35,7 @@ Add a new todo list
         "updatedAt": "2020-03-02T10:44:13.051Z",
         "createdAt": "2020-03-02T10:44:13.051Z"
     }
-}`
+  }`
 
 * **Error Response:**
   * **Code:** 400 <br/>
@@ -134,7 +134,7 @@ find one row from todo list by id
         "updatedAt": "2020-03-02T10:44:13.051Z",
         "createdAt": "2020-03-02T10:44:13.051Z"
     }
-}`
+  }`
 
 * **Error Response:**
   * **Code:** 404 <br/>
@@ -177,7 +177,7 @@ update one row from todo list by id
         "updatedAt": "2020-03-02T10:44:13.051Z",
         "createdAt": "2020-03-02T10:44:13.051Z"
     }
-}`
+  }`
 
 * **Error Response:**
   * **Code:** 400 <br/>
@@ -232,7 +232,7 @@ delete one row from todo list by id
         "updatedAt": "2020-03-02T10:44:13.051Z",
         "createdAt": "2020-03-02T10:44:13.051Z"
     }
-}`
+  }`
 
 * **Error Response:**
   * **Code:** 404 <br/>
@@ -245,3 +245,41 @@ delete one row from todo list by id
   * **Code:** 500 <br/>
   * **Content:** `{
     "error": "internal server error" }`
+
+## **Create countdown
+
+create countdown
+
+* **URL**
+
+  _https://countdownmail.com/api_
+
+* **Method**
+
+  `POST`
+
+* **URL Params**
+  **Required:**
+  
+  None
+
+* **Data Params**
+
+  None
+
+* **Success Response:**
+  * **Code:** 200 <br/>
+  * **Content:** `{
+    "status": "success",
+    "message": {
+        "code": "1j",
+        "src": "http://i.countdownmail.com/td.gif"
+    }
+  }`
+
+* **Error Response:**
+  * **Code:** 401 <br/>
+  * **Content:** `{
+    "status": "error",
+    "message": "Unauthorized"
+  }`

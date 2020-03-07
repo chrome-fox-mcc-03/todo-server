@@ -8,7 +8,8 @@ const countdownmail = axios.create({
 })
 
 class TodoController {
-    static create(req, res, next) {    
+    static create(req, res, next) {
+        let id;  
         let todo
         Todo.create({
             title: req.body.title,
@@ -19,6 +20,7 @@ class TodoController {
             countdown: ""
         })
             .then(result => {
+                id = result.id
                 todo = result
                 const date = `${
                     todo.due_date.getFullYear().toString().padStart(4, '0')}-${
@@ -46,10 +48,25 @@ class TodoController {
             .then(response => {
                 let dataCountdown = response.data.message.src
                 todo.countdown = dataCountdown
-                res.status(201).json({
-                    data: todo
+
+                return Todo.update({
+                    title: todo.title,
+                    description: todo.description,
+                    status: todo.status,
+                    due_date: todo.due_date,
+                    countdown: todo.countdown
+                }, {
+                    where: {
+                        id
+                    },
+                    returning: true
                 })
               })
+            .then(result => {
+                res.status(201).json({
+                    data: result
+                })
+            })
             .catch(err => {
                 console.log(err, "ini catch");
                 
