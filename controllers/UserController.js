@@ -9,7 +9,6 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID_AUTH, process.env.G
 class UserController {
     static register(req, res, next) {
         const { email, password } = req.body;
-        // console.log(email, password);
         if (!email || !password) {
             next(AppError(400, "Email & password is required"))
         }
@@ -46,19 +45,14 @@ class UserController {
             }
         })
         .then(result => {
-            // res.status(200).json(result);
             if (result) {
                 if (checkPass(password, result.password)) {
-                    //if password true
                     let payload = {
                         id : result.id,
                         email : result.email 
                     }
                     let token = getToken(payload)
-
                     res.status(200).json(token);
-                    // req.headers.token = token;
-                    // res.redirect("/todos")
                 } else {
                     throw AppError(400, "Wrong email/password")
                 }
@@ -69,10 +63,7 @@ class UserController {
         .catch(next);
     }
     static gAuth(req, res, next) {
-        // let accessToken = req.body.gAccessToken;
         let accessToken = req.header('gAccessToken')
-        // console.log(accessToken);
-        // res.status(200).json(accessToken);
         client.verifyIdToken({
             idToken: accessToken,
             audience: process.env.GOOGLE_CLIENT_ID_AUTH,
@@ -84,7 +75,6 @@ class UserController {
                 name: gPayload.name,
             }
             req.app.locals.payload = payload;
-            // res.status(200).json(payload);
             return User.findOne({
                 where: {
                     email: payload.email
@@ -93,13 +83,11 @@ class UserController {
         })
         .then(result => {
             if (result) {
-                //if google mail registered
                 let payload = {
                     id : result.id,
                     email : result.email 
                 }
                 let token = getToken(payload)
-                // return new Promise(token);
                 res.status(200).json({
                     id: result.id,
                     email: result.email,

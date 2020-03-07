@@ -20,5 +20,5 @@ app.use("/", router);
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-    console.log("Server jalan : " + PORT);
+    console.log("Server runs on port : " + PORT);
 });

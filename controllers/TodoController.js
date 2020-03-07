@@ -4,7 +4,6 @@ const { getHoliday, holidayBetween } = require('../helper/nextHoliday');
 
 class TodoController {
     static findAllTodo(req, res, next) {
-        // res.status(200).json(req.thisUser);
         Todo.findAll({
             where: {
                 UserId: req.thisUser.id
@@ -22,19 +21,13 @@ class TodoController {
         Todo.findByPk(id)
         .then(result => {
             if (result === null) {
-                throw new Sequelize.EmptyResultError("Item with id not found")
+                throw AppError(404, "Item with id not found")
             } else {
-                //for future: use session
                 req.todo = result.dataValues;
-                // res.status(200).json({
-                //     todo: result.dataValues
-                // });
                 return getHoliday();
             }
         })
         .then(response => {
-            // res.status(200).json(response.data);
-            // console.log(new Date().toDateString())
             let holidays = [];
             if (response.data.length > 0) {
                 holidays = holidayBetween(response.data, req.todo.due_date)
@@ -54,7 +47,6 @@ class TodoController {
             due_date: req.body.due_date,
             UserId: req.thisUser.id
         }
-        console.log(request);
         Todo.create(request)
         .then(result => {
             res.status(201).json({
@@ -64,14 +56,12 @@ class TodoController {
         .catch(next);
     }
     static deleteTodo(req, res, next) {
-        // console.log(req.params.id);
         let id = Number(req.params.id);
         Todo.findByPk(id)
         .then(result => {
             if (result === null) {
                 throw new Sequelize.EmptyResultError("Item with id not found")
             } else {
-                //for future: use session
                 req.app.locals.deleted = result.dataValues;
                 return Todo.destroy({
                     where: {
@@ -103,15 +93,11 @@ class TodoController {
             status: req.body.status,
             due_date: req.body.due_date
         }
-        console.log('-----------------------')
-        console.log(body);
-        console.log(id);
         Todo.findByPk(id)
         .then(result => {
             if (result === null) {
                 throw new Sequelize.EmptyResultError("Item with id not found")
             } else {
-                //for future: use session
                 return Todo.update(body, {
                     where: {
                         id: id

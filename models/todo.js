@@ -69,11 +69,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: "Todo"
   });
-  // Todo.addHook('beforeCreate', (todo, options) => {
-  //   todo.status = 'todo';
-  // });
   Todo.associate = function(models) {
-    // associations can be defined here
     Todo.belongsTo(models.User);
   };
   return Todo;

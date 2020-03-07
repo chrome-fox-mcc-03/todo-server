@@ -16,8 +16,6 @@ function errHandler(err, req, res, next) {
         });
     }
     else {
-        //500 generic error?
-        console.log(err);
         res.status(500).json({
             error: "Internal server error"
         })
