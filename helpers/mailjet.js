@@ -14,7 +14,7 @@ const emailSender = (payload) => {
           "To": [
             {
               "Email": payload.reciever,
-              "Name": `$${payload.reciever.split('@')[0]}`
+              "Name": `${payload.reciever.split('@')[0]}`
             }
           ],
           "Subject": "Greetings from FancyTodo",
