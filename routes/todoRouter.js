@@ -6,8 +6,8 @@ const authorization = require('../middlewares/authorization');
 router.use(authentication);
 
 router.get('/', TodoController.findAll);
-router.get('/:id', TodoController.findById);
 router.post('/', TodoController.create);
+router.get('/:id', TodoController.findById);
 
 router.use('/:id', authorization);
 

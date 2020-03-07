@@ -76,6 +76,7 @@ class UserController {
 
 		let email = '';
 		let name = '';
+		let isNewUser = false;
 
 		client.verifyIdToken({
 			idToken: token,
@@ -91,26 +92,18 @@ class UserController {
 			})
 			.then((result) => {
 				if (result) { // if email is exist
-					let payload = {
-						id: result.id,
-						email
-					}
-
-					let token = sign(payload);
-
-					res.status(200).json({
-						token,
-						name
-					});
-				} else { // if email is exist
+					return result;
+				} else { // if email does not exist
+					isNewUser = true
 					return User.create({
 						email,
 						password: 'qwe123',
 						name
-					})
+					});
 				}
 			})
 			.then((result) => {
+				let responseStatus = (isNewUser) ? 201 : 200;
 				if (result) {
 					let payload = {
 						id: result.id,
@@ -119,7 +112,7 @@ class UserController {
 					
 					let token = sign(payload);
 	
-					res.status(201).json({
+					res.status(responseStatus).json({
 						token,
 						name
 					});
