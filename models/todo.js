@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           customValidator(value) {
-            if(value === null ){
+            if(value === '' ){
               throw new Error("DO NOT LEAVE IT AT BLANK")
             }
           }

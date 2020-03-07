@@ -20,12 +20,6 @@ module.exports = function(err, req, res, next) {
                     res.status(500).json(err)
             }
         }
-      if(err) {
-          switch(err.message) {
-             default :
-                  message.push(err.message)
-                  res.status(400).json(message)
-          }
-      }  
+      
     
 }
