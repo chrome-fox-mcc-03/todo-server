@@ -17,7 +17,7 @@ module.exports = {
       })
       .catch(next)
   },
-  SignIn(req, res, next) {
+  signIn(req, res, next) {
     const { email, password } = req.body
 
     User.findOne({
