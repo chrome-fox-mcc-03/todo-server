@@ -13,7 +13,7 @@ class Controller{
             where: {
                 userId: req.decoded.id
             },
-            order: [['due_date', 'ASC']]
+            order: [['status', 'ASC'],['due_date', 'ASC']]
         })
             .then(todos => {
 
