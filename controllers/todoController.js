@@ -1,7 +1,11 @@
 const { Todo, Status, User } = require('../models')
+const axios = require('axios')
+const formatDate = require('../helpers/formatDate')
 
 class TodoController {
+  
   static create (req, res, next) {
+    let dataTodo
     let payload = {
       title: req.body.title,
       description: req.body.description,
@@ -17,7 +21,10 @@ class TodoController {
       .then(todo => {
         res.status(201).json(todo)
       })
-      .catch(next)
+      .catch(err => {
+        console.log(err)
+        res.status(500).json(err)
+      })
   }
 
   static findAll (req, res, next) {
@@ -44,6 +51,7 @@ class TodoController {
 
   static findOne (req, res, next) {
     let id = req.params.id
+    let datatodo
     Todo.findOne({
       where : {
         id : id,
@@ -60,10 +68,18 @@ class TodoController {
     })
       .then( todo => {
         if (todo) {
-          res.status(200).json(todo)
+          datatodo = todo
+          // res.status(200).json(todo)
+          return Status.findAll()
         } else {
           next({name : 'Not Found'})
         }
+      })
+      .then(statuses => {
+        res.status(200).json({
+          dataTodo: datatodo,
+          dataStatus: statuses
+        })
       })
       .catch(next)
   }
