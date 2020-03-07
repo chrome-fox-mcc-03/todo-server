@@ -8,7 +8,8 @@ module.exports = {
 
   verify(token) {
     try {
-      return jwt.verify(token, SECRET)
+      const decoded = jwt.verify(token, SECRET)
+      return decoded
     }
     catch (err) {
       throw err

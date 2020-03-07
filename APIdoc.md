@@ -47,7 +47,9 @@ http://localhost:3000
         password: ...
       }
     })
-      .done(({ data }) => {
+      .done(response => {
+        let token = response.token
+        let username = response.username
         ...
       })
       .catch(err => {

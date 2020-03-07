@@ -5,7 +5,6 @@ module.exports = {
   authentication(req, res, next) {
     const { token } = req.headers
     const decoded = verify(token)
-    console.log(decoded)
     if (decoded.message) next({
       status: 401,
       message: decoded.message

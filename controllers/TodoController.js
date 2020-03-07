@@ -7,17 +7,19 @@ class TodoController {
       where: {
         UserId: currentUserId,
         GroupId: null
-      }
+      },
+      order: [['createdAt', 'DESC']]
+    })
       .then(todos => {
         res.status(200).json(todos)
       })
       .catch(next)
-    })
   }
 
   static create (req, res, next) {
     const { title, description, status, due_date } = req.body
-    Todo.create({ title, description, status, due_date })
+    const UserId = req.currentUserId 
+    Todo.create({ title, description, status, due_date, UserId  })
       .then(() => res.status(201).json({ message: 'Create todo successful' }))
       .catch(next)
   }
@@ -25,7 +27,13 @@ class TodoController {
   static findByPk (req, res, next) {
     const { id } = req.params
     Todo.findByPk(id)
-      .then(todo => res.status(200).json(todo))
+      .then(todo => {
+        if(!todo) next({
+          status: 404,
+          message: 'No Todo found'
+        })
+        else res.status(200).json(todo)
+      })
       .catch(next) 
   }
 

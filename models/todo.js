@@ -23,7 +23,11 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     description: DataTypes.STRING,
-    status: DataTypes.BOOLEAN,
+    status: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    }
+      ,
     due_date: {
       type: DataTypes.DATE,
       validate: {

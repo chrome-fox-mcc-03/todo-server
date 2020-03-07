@@ -5,6 +5,6 @@ router.post('/', UserController.login)
 
 router.post('/register', UserController.register)
 
-// router.get('/googleLogin', UserController.googleLogin)
+router.post('/googleLogin', UserController.googleLogin)
 
 module.exports = router
