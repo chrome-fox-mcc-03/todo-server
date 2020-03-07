@@ -19,7 +19,6 @@
   },
   "homepage": "https://github.com/orionslg/todo-server#readme",
   "dependencies": {
-    "@googlemaps/google-maps-services-js": "^2.1.2",
     "axios": "^0.19.2",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
