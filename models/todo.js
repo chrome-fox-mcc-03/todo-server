@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
         isGreaterThanOtherField(value) {
           let insertedDate =  new Date(value)
           let currentDate = new Date()
-          if (insertedDate < currentDate) {
+          if (insertedDate.setHours(0,0,0,0) < currentDate.setHours(0,0,0,0)) {
             throw new Error('Date must be greater than today');
           }
         }  
