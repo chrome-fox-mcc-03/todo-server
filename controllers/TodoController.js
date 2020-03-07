@@ -4,14 +4,18 @@ const { Todo } = require('../models');
 
 class TodoController {
   static showAll(req, res, next) {
+    const id = req.loginId;
     Todo.findAll({
-      order: [['id', 'ASC']]
+      where: {
+        UserId: id
+      }
     })
       .then(todos => {
         res.status(200).json(todos);
       })
       .catch(next);
   }
+
   static createTodo(req, res, next) {
     let { title, description, status, due_date, UserId } = req.body;
     Todo.create({
@@ -26,9 +30,12 @@ class TodoController {
       })
       .catch(next);
   }
+
   static showTodoById(req, res, next) {
     let { id } = req.params;
-    let todoId = +id;
+    console.log('===>', id)
+    // let todoId = +id;
+    // console.log(todoId);
     Todo.findByPk(todoId)
       .then(result => {
         if (!result) {
@@ -43,6 +50,7 @@ class TodoController {
       })
       .catch(next);
   }
+
   static updateTodo(req, res, next) {
     let { title, description, status, due_date, UserId } = req.body;
     let updateId = +req.params.id;
