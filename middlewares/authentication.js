@@ -6,33 +6,28 @@ module.exports = {
         let {token} = req.headers
         let decoded = null
 
-        try{
-            decoded = jwt.verify(token,process.env.secretKey)
-            User.findOne({
-                where:{
-                    id:decoded.id,
-                    email:decoded.email
-                }
-            })
-            .then((result) => {
-                if(result) {
-                    req.headers.UserId = decoded.id
-                    next()
-                }else{
-                    const error = {
-                        status: 401,
-                        message:'Forbidden Access'
+        let {token} = req.headers
+        if (token) {
+            try{
+                const decoded = jwt.verify(token,process.env.SECRET)
+                User.findOne({
+                    where:{
+                        id:decoded.id,
+                        email:decoded.email
                     }
-                    throw error
-                }
-            })
-        }
-        catch(err) {
-            err = {
-                status:401,
-                message:'Forbidden Access'
+                })
+                .then((result) => {
+                    req.UserId = decoded.id
+                    next()
+                }).catch((err) => {
+                    next({status: 401,message:'Forbidden Access'})
+                });
             }
-            res.status(401).json({err:err.message})
+            catch(err) {
+                next({message:'forbidden access'})
+            }
+        } else {
+            next()
         }
     }
 }

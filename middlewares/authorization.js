@@ -3,18 +3,21 @@ const {Todo} = require('../models')
 
 module.exports = {
     authorization: function(req,res,next){
+        console.log(process.env.secretKey)
         let {id} = req.params
+        console.log(id)
         let {token} = req.headers
-        let decoded = null
-        
+        console.log(token)
+        let decoded = jwt.verify(token,process.env.secretKey)
+        // console.log(decoded)
         try{
-            decoded = jwt.verify(token,process.env.secretKey)
             Todo.findOne({
                 where:{
                     id
                 }
             })
             .then((result) => {
+                console.log(result)
                 if(result.dataValues.UserId == decoded.id) {
                     next()
                 }else{

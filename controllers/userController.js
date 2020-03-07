@@ -13,8 +13,7 @@ class UserController {
         })
         .then((result) => {
             let {id,email} = result.dataValues
-            let newResult = {id,email}
-            let token = signToken(newResult)
+            let token = signToken(id,email)
             req.headers.token = token
 
             const restdb = axios.create({
@@ -38,7 +37,7 @@ class UserController {
                 }
             })
 
-            res.status(201).json({newResult,token})
+            res.status(201).json({id,email,token})
         })
         .catch((err) => {
             next(err)
