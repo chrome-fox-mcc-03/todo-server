@@ -28,7 +28,9 @@ class TodoController {
     }
 
     static findAll(req,res,next) {
-        Todo.findAll()
+        Todo.findAll({
+            include:User
+        })
         .then((result) => {
             res.status(200).json({result})
         })
