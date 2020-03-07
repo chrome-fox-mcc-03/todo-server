@@ -38,6 +38,8 @@ class TodoController {
     }
 
     static create(req, res, next) {
+        console.log(req.body);
+        console.log(req.decoded);
         let input = {
             title: req.body.title,
             description: req.body.description,

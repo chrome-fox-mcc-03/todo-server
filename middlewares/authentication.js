@@ -14,8 +14,17 @@ module.exports = function(req, res, next) {
         }
       })
         .then(response => {
-          next()
+          if(response) {
+            next()
+          }
+          else {
+            next({
+              status: 401,
+              message: "Authentication failed! Please check your email"
+            })
+          }
         })
+
         .catch(err => {
           next(err)
         })
