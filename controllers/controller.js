@@ -1,4 +1,5 @@
 const { ToDo } = require('../models/index.js')
+
 class Controller {
     static read(req, res, next) {
         console.log('masuk read doang')
