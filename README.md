@@ -85,6 +85,45 @@
 
   * **Code:** 400 Bad Request <br />
     **Content:** `{ error : "ERROR 400 Bad Request: Username/Email/Password false" }`
+    ------
+**GOOGLE LOG IN**
+----
+  Sign in using OAuth 2, register a user if not found on database, log in if found on database
+
+* **URL**
+
+  /login
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   None
+
+* **Data Params**
+
+   None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+    ```json
+    JWT
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 500 Internal Server Error <br />
+
+  OR
+
+  * **Code:** 400 Bad Request <br />
+    **Content:** `{ error : "ERROR 400 Bad Request: Username/Email/Password false" }`
 ------
 **Show Todos**
 ----
@@ -103,6 +142,9 @@
    **Required:**
  
    None
+
+* **Headers**
+    `TOKEN`
 
 * **Data Params**
 
@@ -166,6 +208,9 @@
  
    None
 
+* **Headers**
+    `TOKEN`
+
 * **Data Params**
 
   `title=[string]`<br />
@@ -220,6 +265,9 @@
    **Required:**
  
    `id=[integer]`
+
+* **Headers**
+    `TOKEN`
 
 * **Data Params**
 
@@ -282,6 +330,9 @@
     `description=[string]`<br />
     `due_date=[date]`
 
+* **Headers**
+    `TOKEN`
+
 * **Success Response:**
 
   * **Code:** 200 <br />
@@ -336,6 +387,11 @@
  
    `id=[integer]`
 
+
+* **Headers**
+    `TOKEN`
+
+    
 * **Data Params**
 
     NONE
