@@ -65,7 +65,7 @@ class Controller {
             .then((result) => {
                 try {
                     sendEmail(result.email, finalResult.title);
-                    res.status(201).json(finalResult)
+                    res.status(201).json({ data: finalResult })
                 } catch (error) {
                     throw new ErrorModel(500, "Error sending mail");
                 }
@@ -80,7 +80,7 @@ class Controller {
         Todo.findByPk(todoId)
             .then((result) => {
                 if (result) {
-                    res.status(200).json(result);
+                    res.status(200).json({ data: result });
                 } else {
                     let error = new ErrorModel(400, "id not found!");
                     throw error;
