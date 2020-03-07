@@ -2,7 +2,8 @@ const { vertify } = require('../helper/HelperJwt')
 const { User, Project } = require('../models')
 module.exports = (req, res, next) => {
     try {
-        const decode = req.headers.token
+				const decode = req.headers.token
+				console.log(decode)
 				const payload = vertify(decode)
 				req.currentId = payload.id
         User.findOne({

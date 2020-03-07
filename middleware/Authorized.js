@@ -2,6 +2,7 @@ const { Todo } = require('../models')
 
 module.exports = (req, res, next) => {
   const { id } = req.params
+  console.log(id)
   Todo.findOne({
       where: {
         id

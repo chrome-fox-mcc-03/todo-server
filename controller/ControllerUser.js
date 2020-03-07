@@ -76,7 +76,7 @@ class ControllerUser {
       })
     }
     static loginGoogle(req, res, next) {
-      const data = ''
+      let data = ''
       client.verifyIdToken(
         {
           idToken: req.headers.token,
@@ -85,25 +85,26 @@ class ControllerUser {
       )
         .then(result => {
           data = result.payload
-          User.findOne({
+          console.log(data)
+          return User.findOne({
             where: {
               email: data.email
             }
           })
         })
-        .then(data => {
-          if(data) {
-            return data
+        .then(result => {
+          if(result) {
+            return result
           }else{
             return User.create({
-              where: {
+                username: data.email,
                 email: data.email,
                 password: process.env.PASSWORD_GOOGLE
-              }
             })
           }
         })
         .then(data => {
+
           let payload = 
           {
             id: data.id,

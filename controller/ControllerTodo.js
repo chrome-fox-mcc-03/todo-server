@@ -58,7 +58,6 @@ class ControllerTodo {
         })
     }
     static updateTodoUser (req, res, next) {
-      const { status } = req.body
       const { id } = req.params
       Todo.findOne({
             where: {
@@ -66,10 +65,11 @@ class ControllerTodo {
             }
           })
           .then(data => {
+            const status = !data.status
             if(data !== null) {
                 return Todo.update(
                   {
-                    status
+                    status: status
                   },
                   {
                     where: {
@@ -122,6 +122,31 @@ class ControllerTodo {
           res.status(200).json({note: 'delete succses'})
         })
         .catch(err => {
+          next(err)
+        })
+    }
+    static updateTodoUserAll(req, res, next) {
+      const {title ,  description,  due_date} = req.body
+      console.log(title)
+      const { id } = req.params
+      Todo.update({
+        title,
+        description,
+        due_date
+      },
+      {
+        where: {
+          id
+        },
+        returning: true
+      })
+        .then(data => {
+          res.status(200).json({
+            message: 'succsesUpdate'
+          })
+        })
+        .catch(err => {
+          console.log(err)
           next(err)
         })
     }

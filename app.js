@@ -14,6 +14,7 @@ app.use(cors())
 app.use(router)
 app.use(errorHandler)
 
+console.log(new Date().toDateString())
 
 app.listen(port, () => {
     console.log('Connected ' + port)
