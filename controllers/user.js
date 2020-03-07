@@ -58,16 +58,17 @@ class UserController {
     }
 
     static googleSignIn(req, res, next) {
-        let email
+        let payload
         console.log(client)
         client
             .verifyIdToken({
-                idToken : req.headers.access_token,
+                idToken : req.headers.token_google,
                 audience: CLIENT_ID
             })
-            .then(({payload}) => {
-                console.log('masuk payload')
-                email = payload.email
+            .then(ticket => {
+                // console.log('masuk payload')
+                payload = ticket.getPayload()
+                let email = payload.email
                 console.log(email)
                 return User
                     .findOne({
@@ -78,23 +79,34 @@ class UserController {
             })
             .then(user => {
                 if(user){
-                    let userGoogle ={
-                        id: user.id,
-                        email: user.email
-                    }
-                    let access_token = generateToken(userGoogle)
-                    res.status(200).json({access_token})
+                    console.log(user)
+                    return user
+                    // console.log('ini masuk do access_token awal')
+                    // let userGoogle ={
+                    //     id: user.id,
+                    //     email: user.email
+                    // }
+                    // console.log('ini pas kirim lagi')
+                    // let access_token = generateToken(userGoogle)
+                    // res.status(200).json({
+                    //     data: 'ok'
+                    // })
                 } else {
                     console.log('ga ketemu usernyaaaa')
                     console.log(email)
                      return User.create({
-                            email: email,
-                            password: 'kitten'
+                            name: payload.name,
+                            email: payload.email,
+                            password: process.env.PWD
                     })
                 }
             })
             .then(user => {
-                let access_token = generateToken(userGoogle)
+                console.log(user, 'INI USERRRR +++++++++++++++++++++++++++++++++')
+                let access_token = generateToken({
+                    id: user.id,
+                    email:user.email
+                })
                 res.status(201).json({access_token})
             })
             .catch(next)

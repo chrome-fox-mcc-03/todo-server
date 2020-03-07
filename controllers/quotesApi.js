@@ -5,8 +5,8 @@ module.exports = (req, res, next) => {
         method: 'get',
         url: 'https://quote-garden.herokuapp.com/quotes/random'
     })
-        .then(quote => {
-            const { quoteText, quoteAuthor } = quote
+        .then(({data}) => {
+            const { quoteText, quoteAuthor } = data
             res.status(200).json({
                 quoteText,
                 quoteAuthor
