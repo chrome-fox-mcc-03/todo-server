@@ -28,6 +28,6 @@ module.exports = function authentication(req, res, next){
         })
     }
     catch(err){
-        throw (authenError)
+        throw (err)
     }
 }

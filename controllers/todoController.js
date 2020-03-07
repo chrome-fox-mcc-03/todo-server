@@ -7,7 +7,8 @@ class Controller {
         Todo.findAll({
             attributes:{
                 exclude: ['createdAt', 'updatedAt']
-            }
+            },
+            order: ['id']
         })
         .then(todos => res.status(200).json(todos))
         .catch(err => next(err))

@@ -3,21 +3,27 @@
 module.exports = function(err, req, res, next){
     switch(err.name){
         case "Error":
-            if (err.message === 'Not found') res.status(404).send('ERROR 404: Data not found')
+            if (err.message === 'Not found') res.status(404).json({error:'ERROR 404', msg:'Data not found'})
             break
         case "EmailError":
+            res.status(500).json({msg:'Server error!', error:'ERROR 500' })
+            break
         case "SequelizeConnectionError":
-            res.status(500).send('ERROR 500: Server error!')
+            res.status(500).json({msg:'Server error!', error:'ERROR 500' })
             break
         case "SequelizeValidationError":
+            res.status(400).json({error:`ERROR 400 Bad Request`, msg: `${err.message}`})
+            break
         case "SequelizeDatabaseError":
+            res.status(400).json({error:`ERROR 400 Bad Request`, msg: `${err.message}`})
+            break
         case "LoginError":
-            res.status(400).send(`ERROR 400 Bad Request: ${err.message}`)
+            res.status(400).json({error:`ERROR 400 Bad Request`, msg: `${err.message}`})
             break
         case "SequelizeUniqueConstraintError":
-            res.status(400).send(`ERROR 400 Bad Request: ${err.message}`)
+            res.status(400).json({error:`ERROR 400 Bad Request`, msg: `${err.message}`})
             break
         case "Unauthorized":
-            res.status(401).send(`ERROR 401 Unauthorized: ${err.message}`)
+            res.status(401).json({error:`ERROR 401 Unauthorized`, msg:`${err.message}`})
     }
 }
