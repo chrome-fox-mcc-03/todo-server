@@ -199,7 +199,7 @@ Todo is a simple API allowing consumers to view his/her todo list and edit in th
                 "Database Error!"
             ]   
     
-### Update Todo By Id [PUT]
+### Update Todo By Id [PATCH]
 
 + Request  (application/x-www-form-urlencoded)
 
@@ -212,8 +212,7 @@ Todo is a simple API allowing consumers to view his/her todo list and edit in th
             {
                 "title": "belajar api",
                 "description": "belajar bikin doc api",
-                "status": false,
-                "due_date": "2020-03-03"
+                "status": false
             }
             
 + Response 200 
