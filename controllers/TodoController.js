@@ -108,6 +108,37 @@ class Controller {
       next(err);
     }
   }
+
+  static async updateStatus(req, res, next) {
+    try {
+      const { status } = req.body;
+      const todo = await Todo.update({
+        status
+      }, {
+        where: { id: req.params.id },
+        returning: true,
+      });
+
+      if (todo[0] === 1) {
+        const data = todo[1][0];
+        const payload = {
+          status: data.status,
+        };
+
+        const message = `Success updating todo ${req.params.id}`;
+        res.status(200).json({ payload, message });
+      } else {
+        const error = {
+          status: 404,
+          message: 'Todo not found',
+        }
+        next(error);
+      }
+
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 module.exports = Controller;

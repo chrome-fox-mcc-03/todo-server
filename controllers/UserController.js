@@ -90,7 +90,7 @@ class Controller {
           email,
           password: process.env.DEFAULT_PASSWORD,
         });
-        gLogin(newUser);
+        gLogin(newUser);  
       }
       
     } catch (err) {
