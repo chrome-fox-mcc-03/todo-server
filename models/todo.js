@@ -85,6 +85,11 @@ module.exports = (sequelize, DataTypes) => {
           if (todo.due_date === "") {
             todo.due_date = addOneDay();
           }
+        },
+        beforeUpdate: (todo, options) => {
+          if (todo.due_date === "") {
+            todo.due_date = addOneDay();
+          }
         }
       },
       sequelize,
