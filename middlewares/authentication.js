@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
     const { id, email } = verifyToken(token)
 
     User.findOne({
-      where: { id: id || null, email }
+      where: { id, email }
     })
       .then(data => {
         if (data) {
