@@ -7,7 +7,8 @@ class TodoController {
         Todo.findAll({
             where: {
                 UserId: req.decoded.id
-            }
+            },
+            order: ["due_date"]
         })
             .then(todos => {
                 res.status(200).json({todos})
@@ -38,8 +39,6 @@ class TodoController {
     }
 
     static create(req, res, next) {
-        console.log(req.body);
-        console.log(req.decoded);
         let input = {
             title: req.body.title,
             description: req.body.description,
@@ -116,7 +115,5 @@ class TodoController {
     }
 
 }
-
-TodoController.getQuotes()
 
 module.exports = TodoController
