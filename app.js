@@ -8,6 +8,7 @@ const app = express()
 const router = require("./routes/index.js")
 const errorHandler = require("./middlewares/errorHandling.js")
 const cors = require("cors")
+const PORT = process.env.PORT || 4000
 
 // app.set("view engine", "ejs");
 app.use(cors());
@@ -16,6 +17,6 @@ app.use(express.json())
 app.use(router)
 app.use(errorHandler)
 
-app.listen(process.env.PORT, () => {
-    console.log(`Listening on ${process.env.PORT}`);
+app.listen(PORT, () => {
+    console.log(`Listening on ${PORT}`);
 })
