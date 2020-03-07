@@ -1,8 +1,9 @@
-const { Todo } = require('../models/index')
+const { Todo } = require('../models/index');
 
 class TodoController {
     static create(req, res, next) {   
-             
+        // console.log(`masuk`);
+        
         Todo.create({
             title: req.body.title,
             description: req.body.description,
@@ -19,22 +20,17 @@ class TodoController {
     }
 
     static view(req, res, next) {
-        // console.log(`masuk,`);
-        
         Todo.findAll({
             where: {
                 UserId : req.decoded.id
             }
         })
         .then(result => {
-            // console.log(result);
-            
-            res.status(200).json(result);
+            res.status(201).json(result);
         })
         .catch(error => {
-            // console.log(error,'iiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
             
-            next(error);
+            next({ error });
         })
     }
 
@@ -47,8 +43,7 @@ class TodoController {
             }
         })
         .then(result => {     
-            // console.log(result);
-                   
+            // console.log(result); 
             if(result.length > 0) {
                 res.status(200).json(result);
             } else {
@@ -62,7 +57,6 @@ class TodoController {
 
     static updateById(req, res, next) {
         // console.log(`masokkkkkk`);
-        
         let { title, description, status, due_date } = req.body;
         let id = req.params.id;
         Todo.update( { title, description, status, due_date }, { where: { id }, returning: true})

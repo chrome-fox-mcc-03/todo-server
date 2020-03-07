@@ -1,6 +1,5 @@
 const { Todo } = require('../models/index');
 
-
 module.exports = (req, res, next) => {
     Todo.findOne({
         where: {

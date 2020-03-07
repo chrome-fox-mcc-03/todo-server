@@ -1,6 +1,6 @@
 # todo-server
 
-CREATE LIST
+CREATE NEW TODO
 ----
   Return JSON data of created list
 
@@ -24,10 +24,7 @@ CREATE LIST
 
 * **Data Params**
 
-  title = [string],
-  description = [string],
-  status = [boolean],
-  due_date = [date]
+  id = [integer], title = [string], description = [string], status = [boolean], due_date = [date], createdAt = [date], updatedAt = [date]
 
 * **Success Response:**
   
@@ -44,8 +41,13 @@ CREATE LIST
  
 * **Error Response:**
 
-  * **Code:** 400 VALIDATION ERROR <br />
-    **Content:** `{ error : "validation errors" }`
+  * **Code:** 400 BAD REQUEST<br />
+    **Content:** `{ error : "title cannot be empty" }`
+  * OR
+  
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ error : "date inputted should be at least starting from now" }`
+
 
 SHOW LIST
 ----
@@ -63,7 +65,7 @@ SHOW LIST
 
    **Required:**
  
-   none
+   id = [integer]
 
    **Optional:**
   
@@ -71,7 +73,7 @@ SHOW LIST
 
 * **Data Params**
 
-  none
+   id = [integer], title = [string], description = [string], status = [boolean], due_date = [date], createdAt = [date], updatedAt = [date]
 
 * **Success Response:**
   
@@ -88,9 +90,8 @@ SHOW LIST
  
 * **Error Response:**
 
-  * **Code:** 400 INTERNAL SERVER ERROR <br />
-    **Content:** `{ error : "internal server error" }`
-
+  * **Code:** 401 <br />
+    **Content:** `{ error : "you must login first" }`
 
 SHOW LIST BY ID
 ----
@@ -116,7 +117,7 @@ SHOW LIST BY ID
 
 * **Data Params**
 
-  none
+   id = [integer], title = [string], description = [string], status = [boolean], due_date = [date], createdAt = [date], updatedAt = [date]
 
 * **Success Response:**
   
@@ -134,7 +135,7 @@ SHOW LIST BY ID
 * **Error Response:**
 
   * **Code:** 404 ERROR NOT FOUND <br />
-    **Content:** `{ error : "not found" }`
+    **Content:** `{ error : "id todo not found" }`
 
 EDIT DATA BY ID
 ----
@@ -152,7 +153,7 @@ EDIT DATA BY ID
 
    **Required:**
  
-   id=[integer]
+   id = [integer], title = [string], description = [string], status = [boolean], due_date = [date]
 
    **Optional:**
   
@@ -160,10 +161,7 @@ EDIT DATA BY ID
 
 * **Data Params**
   
-  title = [string],
-  description = [string],
-  status = [boolean],
-  due_date = [date]
+   id = [integer], title = [string], description = [string], status = [boolean], due_date = [date], createdAt = [date], updatedAt = [date]
 
 * **Success Response:**
   
@@ -181,7 +179,7 @@ EDIT DATA BY ID
 * **Error Response:**
 
   * **Code:** 404 ERROR NOT FOUND <br />
-    **Content:** `{ error : "not found" }`
+    **Content:** `{ error : "id todo not found" }`
 
 
 DELETE DATA BY ID
@@ -218,5 +216,5 @@ DELETE DATA BY ID
 * **Error Response:**
 
   * **Code:** 404 ERROR NOT FOUND <br />
-    **Content:** `{ error : "not found" }`
+    **Content:** `{ error : "id todo not found" }`
     
