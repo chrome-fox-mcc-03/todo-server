@@ -8,6 +8,8 @@ module.exports = function(req, res, next){
     try {
         // const access_token = req.headers.access_token
         const todo_id = req.params.id
+        console.log(todo_id, 'TODO ID');
+        
         Todo.findAll({
             include: [ User ],
             where: {
@@ -15,7 +17,6 @@ module.exports = function(req, res, next){
             }
         })
         .then(result => {
-
             if (result[0].dataValues.User.id == req.headers.userId) {
                 next()
             } else {
@@ -25,22 +26,6 @@ module.exports = function(req, res, next){
                 }
                 throw error
             }
-
-            //
-            // const todoBelongsTo = result[0].dataValues.User
-
-            // const decoded_token = jwt.verify(access_token, process.env.SECRET)
-            // const {id, email} = decoded_token.id
-
-            // if (Number(todoBelongsTo.dataValues.id) !== Number(id) && todoBelongsTo.email !== email) {
-            //     const error = {
-            //         status : 401,
-            //         message : `You have no rights to this property, access denied!`
-            //     }
-            //     throw error
-            // } else {
-            //     next()
-            // }
             
         })
         .catch(err => {

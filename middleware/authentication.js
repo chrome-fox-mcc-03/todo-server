@@ -10,6 +10,7 @@ module.exports = function(req, res, next){
         
         const decoded_token = jwt.verify(access_token, process.env.SECRET);
         const {id, email} = decoded_token.id
+        console.log(id, email, 'decoded');
         
         User.findOne({
             where: {

@@ -4,11 +4,11 @@ const { OAuth2Client } = require('google-auth-library')
 const client_id = process.env.G_CLIENT_ID
 const client = new OAuth2Client(client_id)
 
-console.log(process.env);
+// console.log(process.env);
 
 
 class UserController {
-    static register(req, res){
+    static register(req, res, next){
         const {email, password} = req.body
         User.create({
             email: email,
@@ -19,11 +19,12 @@ class UserController {
             res.status(201).json({user_id : id, user_email : email})
         })
         .catch (err => {
-            res.status(500).json(err)
+            // res.status(500).json(err)
+            next(err)
         })
     }
 
-    static login(req, res){
+    static login(req, res, next){
         const {email} = req.body
         
         User.findOne({
@@ -70,12 +71,15 @@ class UserController {
             
         })
         .catch(err => {
-            res.status(err.status).json({"Error message":err.msg})
+            // res.status(err.status).json({"Error message":err.msg})
+            next(err)
         })
     }
 
     static loginGoogle(req, res, next){
         let data = ''
+        // console.log(req.headers.token);
+        
         client.verifyIdToken(
             {
                 idToken: req.headers.token,
@@ -93,7 +97,7 @@ class UserController {
             })
         })
         .then( userFound => {
-            console.log(process.env.PASSWORD_GOOGLE);
+            // console.log(process.env.PASSWORD_GOOGLE);
             
             if(userFound){
                 return userFound
@@ -105,17 +109,21 @@ class UserController {
             }
         })
         .then(userCreated => {
-            console.log(userCreated);
+            // console.log(userCreated);
             let payload = {
                 id: userCreated.id,
                 email: userCreated.email
             }
 
-            let token = signToken(payload)
-            res.status(200).json(token)
+            let access_token = signToken(payload)
+            res.status(200).json(
+                {
+                    'access_token':access_token
+                })
         })
         .catch(err => {
-            throw err
+            // throw err
+            next(err)
         })
 
     }
