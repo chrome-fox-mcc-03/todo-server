@@ -13,7 +13,11 @@ class UserController {
     }
     User.create(payload)
       .then( user => {
-        res.status(201).json(user)
+        let dataUser = {
+          id : user.id,
+          email: user.email
+        }
+        res.status(201).json(dataUser)
       })
       .catch(next)
   }

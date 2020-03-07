@@ -14,7 +14,7 @@ module.exports = (req, res, next) => {
         }
       } else {
         next ({
-          name : 'Not Authorized'
+          name : 'Not Found'
         })
       }
     })

@@ -50,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         isAfter: {
           args : `${new Date().toLocaleDateString()}`,
-          msg : 'Date is expired'
+          msg : 'you cannot created data with date that less than current date'
         }
       }
     }, 

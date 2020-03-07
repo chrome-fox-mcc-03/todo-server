@@ -113,6 +113,12 @@
 
   `GET`
   
+* **Headers**
+
+  **Required:**
+
+  token
+
 *  **URL Params**
 
    **Required:**
@@ -225,6 +231,13 @@
 
   `GET`
   
+* **Headers**
+
+  **Required:**
+
+  token
+
+
 *  **URL Params**
 
    **Required:**
@@ -320,6 +333,12 @@
 * **Method:**
 
   `POST`
+
+* **Headers**
+
+  **Required:**
+
+  token
 
 *  **URL Params**
 
@@ -439,6 +458,12 @@
 
   `DELETE`
   
+* **Headers**
+
+  **Required:**
+
+  token
+
 *  **URL Params**
 
    **Required:**
@@ -533,9 +558,9 @@
 
   ```
   {
-    name : string,
-    email: string,
-    password: string
+    name : required string,
+    email: required string,
+    password: required string
   }
   ```
 
@@ -547,8 +572,7 @@
     {
       id: 1,
       name: "Ipul",
-      email: "ipul@gmail.com",
-      password: "$2a$10$hArZ4asLLuOtlqKG.0grkuCJq72rSf24MTV5IysBHv6P.k7boG9V.",
+      email: "ipul@gmail.com"
       updatedAt: "2020-03-02T09:49:06.087Z",
       createdAt: "2020-03-02T09:49:06.087Z"
     }

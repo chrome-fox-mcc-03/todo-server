@@ -56,7 +56,7 @@ module.exports = (sequelize, DataTypes) => {
           if (value.length >= 8) {
             next()
           } else {
-            next('Minimal 8 Character')
+            next('minimum password length is 8 character')
           }
         }
       }

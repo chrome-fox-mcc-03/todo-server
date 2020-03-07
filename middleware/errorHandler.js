@@ -47,7 +47,7 @@ module.exports = (err, req, res, next) => {
     status = 401
     errObj = {
       message : 'NOT AUTHORIZED',
-      errors : ['You are not authorized to view this page.']
+      errors : ['You are not authorized to access this action']
     }
   } else if (err.name === 'Invalid email/password') {
     status = 400
