@@ -89,7 +89,7 @@ class Controller{
             title: req.body.title,
             description: req.body.description,
             status: req.body.status,
-            due_date: req.body.due_date,
+            // due_date: req.body.due_date,
             userId: req.decoded.id
         },{
             where: {
@@ -111,7 +111,6 @@ class Controller{
                         <h3>Title: ${req.body.title} </h3>
                         <h3>Description: ${req.body.description} </h3>
                         <h3>Status: ${status} </h3>
-                        <h3>Due Date: ${req.body.due_date} </h3>
                         `, 
                         "company": "TodosApp Inc", 
                         "sendername": "TodosApp customer support"
