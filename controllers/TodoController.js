@@ -17,7 +17,15 @@ class TodoController {
   }
 
   static createTodo(req, res, next) {
-    let { title, description, status, due_date, UserId } = req.body;
+    let UserId = req.loginId;
+    let { title, description, status, due_date } = req.body;
+
+    if (!status) {
+      status = false;
+    } else {
+      status = true;
+    }
+
     Todo.create({
       title,
       description,
