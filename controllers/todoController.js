@@ -21,7 +21,10 @@ class Controller {
             due_date: req.body.due_date,
             user_id: req.decoded.id
         })
-        .then(newTodo => res.status(201).json(newTodo))
+        .then(newTodo => {
+            res.status(201).json(newTodo)
+            calendarInsert()
+        })
         .catch(err => next(err))
     }
 
