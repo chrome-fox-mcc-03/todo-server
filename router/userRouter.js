@@ -10,7 +10,4 @@ router.post('/register', UserController.register);
 // login
 router.post('/login', UserController.login);
 
-// logout
-router.post('/logout', UserController.logout);
-
 module.exports = { userRouter: router };
