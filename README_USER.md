@@ -69,7 +69,7 @@ SIGN IN
 
 * **Success Response:**
   
-  * **Code:** 200 <br />
+  * **Code:** 201 <br />
     **Content:** {
     token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyZGExQG1haWwuY29tIiwiaWQiOjEyLCJpYXQiOjE1ODMzMTE2MDZ9.t5qKOtXlnrfYQjovHZKRNkN8OtFWOARf2Mfoh18iXW0
 }
@@ -107,7 +107,7 @@ GOOGLE SIGN IN
 
 * **Success Response:**
   
-  * **Code:** 200 <br />
+  * **Code:** 201 <br />
     **Content:** {
     token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyZGExQG1haWwuY29tIiwiaWQiOjEyLCJpYXQiOjE1ODMzMTE2MDZ9.t5qKOtXlnrfYQjovHZKRNkN8OtFWOARf2Mfoh18iXW0
 }

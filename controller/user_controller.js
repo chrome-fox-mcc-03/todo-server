@@ -61,7 +61,7 @@ class UserController {
                             id: result.id
                         }
                         let token = generateToken(data)
-                        res.status(200).json({token});
+                        res.status(201).json({token});
                     } else {
                         next({
                             status: 400,
@@ -109,7 +109,7 @@ class UserController {
                     email: result.email
                 }
                 let token = generateToken(data)
-                res.status(200).json({ token });
+                res.status(201).json({ token });
             } else {                
                 return User.create({
                     email: googleAccount,
