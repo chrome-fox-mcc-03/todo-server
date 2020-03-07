@@ -115,7 +115,7 @@ class Controller {
                 return Todo.findByPk(todoId)
             })
             .then((result) => {
-                res.status(200).json(result);
+                res.status(200).json({ data: result });
             })
             .catch(next);
     }
@@ -138,7 +138,7 @@ class Controller {
                 }
             })
             .then((result) => {
-                res.status(200).json(deleted);
+                res.status(200).json({ data: deleted });
             })
             .catch(next);
     }
