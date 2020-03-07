@@ -9,10 +9,10 @@ router.get('/weather', (req, res, next) => {
     url: 'https://www.metaweather.com/api/location/1047378/',
     method: 'GET',
   })
-    .then(weather => {
-      let tommorowWeather = weather.consolidated_weather[1]
-      console.log(tommorowWeather)
-      res.status(200).json({ tommorowWeather })
+    .then(({data}) => {
+      let tommorowWeather = data.consolidated_weather[1]
+      // console.log(data)
+      res.status(200).json(tommorowWeather)
     })
     .catch(next)
 })

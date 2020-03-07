@@ -3,7 +3,6 @@ module.exports =
     let status = 500
     let errors = []
     
-    console.log(err, "consolog errooorrrrrrrrrrrrrrrrrrrrr")
     if(err.name === 'SequelizeValidationError' || 
        err.name === 'SequelizeUniqueConstraintError') {
       status = 400
@@ -12,7 +11,6 @@ module.exports =
       status = 401
       errors.push('Please login first')
     } else {
-      status = err.status
       errors.push(err.message)
     }
 
