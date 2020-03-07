@@ -79,7 +79,8 @@ module.exports = {
           email: data.dataValues.email
          })
         res.status(200).json({
-          token
+          token,
+          message: `Success login as ${data.dataValues.email}`
         })
       })
       .catch(next)

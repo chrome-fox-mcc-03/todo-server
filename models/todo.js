@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   class Todo extends sequelize.Sequelize.Model {
-    static associate(models){
+    static associate(models) {
       Todo.belongsTo(models.User)
     }
   }
@@ -53,6 +53,20 @@ module.exports = (sequelize, DataTypes) => {
     GroupId: {
       type: DataTypes.INTEGER
     }
-  },{ sequelize })
+  }, {
+    sequelize,
+    validate: {
+      checkDueDate(next) {
+        if (new Date(this.due_date) < new Date()) {
+          next({
+            status: 400,
+            message: 'due date cannot passed than today'
+          })
+        } else {
+          next()
+        }
+      }
+    }
+  })
   return Todo;
 };

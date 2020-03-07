@@ -4,16 +4,23 @@ module.exports = {
   createTodo(req, res, next) {
     const { id } = req.decoded
     const { title, description, due_date } = req.body
-    Todo.create({
-      title, description, due_date, UserId: id
-    })
-      .then(data => {
-        res.status(201).json({
-          data,
-          message: 'success create ToDo'
-        })
+    if (due_date === 'Invalid Date') {
+      next({
+        status: 400,
+        message: due_date
       })
-      .catch(next)
+    } else {
+      Todo.create({
+        title, description, due_date, UserId: id
+      })
+        .then(data => {
+          res.status(201).json({
+            data,
+            message: 'success create ToDo'
+          })
+        })
+        .catch(next)
+    }
   },
   findAllTodo(req, res, next) {
     const { id } = req.decoded
@@ -32,10 +39,10 @@ module.exports = {
   },
   updateTodo(req, res, next) {
     const { id } = req.params
-    const { title, description, due_date } = req.body
+    const { title, description, due_date, status } = req.body
 
     Todo.update({
-      title, description, due_date
+      title, description, due_date, status
     }, {
       where: { id },
       returning: true
@@ -67,11 +74,11 @@ module.exports = {
     Todo.findOne({
       where: { id }
     })
-    .then(data => {
-      res.status(200).json({
-        data: data.dataValues
+      .then(data => {
+        res.status(200).json({
+          data: data.dataValues
+        })
       })
-    })
-    .catch(next)
+      .catch(next)
   }
 }
