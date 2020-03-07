@@ -1,7 +1,7 @@
 module.exports = (err, req, res, next) => {
   let status = 500
   let message = 'Internal Server Error'
-
+  
   if (err.name === 'SequelizeUniqueConstraintError') {
     status = 400
     message = 'Email already in use'
