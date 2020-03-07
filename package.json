@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "NODE_ENV=development nodemon app.js"
+    "dev": "NODE_ENV=development nodemon app.js",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -27,7 +28,8 @@
     "jsonwebtoken": "^8.5.1",
     "node-mailjet": "^3.3.1",
     "pg": "^7.18.2",
-    "sequelize": "^5.21.5"
+    "sequelize": "^5.21.5",
+    "sequelize-cli": "^5.5.1"
   },
   "devDependencies": {
     "dotenv": "^8.2.0"
