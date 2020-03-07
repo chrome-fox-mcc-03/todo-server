@@ -10,5 +10,6 @@ todoRouters.post('/', TodoController.create)
 todoRouters.get('/:id', TodoController.findByPk)
 todoRouters.put('/:id', authorization, TodoController.update)
 todoRouters.delete('/:id', authorization, TodoController.destroy)
+todoRouters.get('/quotes', authorization, TodoController.getQuotes);
 
 module.exports = todoRouters

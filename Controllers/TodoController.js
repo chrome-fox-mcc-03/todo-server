@@ -1,4 +1,5 @@
 const { Todo } = require('../models/index.js')
+const quotes = require('../helpers/randomquotes')
 
 class TodoController {
 
@@ -106,6 +107,14 @@ class TodoController {
             })
     }
 
+    static getQuotes(req, res, next) {
+        let QOTD = quotes()
+        console.log("quotes is arrived");
+        return QOTD
+    }
+
 }
+
+TodoController.getQuotes()
 
 module.exports = TodoController

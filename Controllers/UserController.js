@@ -69,7 +69,6 @@ class UserController {
                 return User.findOne({
                     where: { email }
                 })
-                console.log("ketemu user lama");
             })
 
             .then(result => {
