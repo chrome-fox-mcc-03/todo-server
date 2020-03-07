@@ -8,7 +8,9 @@ const express = require('express')
 const router = require('./routes')
 const app = express()
 app.listen(process.env.PORT, () => console.log(`listening to port ${process.env.PORT}`))
+
 generateToken()
+
 app.use(cors())
 app.use(express.urlencoded({ extended:false }))
 app.use(express.json())

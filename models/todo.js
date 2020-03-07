@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notNull: {
           msg: 'Title must not null'
+        },
+        len: {
+          args: [3],
+          msg: 'Title must at least 5 character'
         }
       }
     },
@@ -22,6 +26,10 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notNull: {
           msg: 'Descriptions must not null'
+        },
+        len: {
+          args: [5],
+          msg: 'Descriptions must at least 5 character'
         }
       }
     },

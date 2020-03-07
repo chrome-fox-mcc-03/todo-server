@@ -55,36 +55,37 @@ class UserController {
     static googleLogin(req, res, next) {
         let id_token = req.body.id_token
         const client = new OAuth2Client(process.env.CLIENT_ID_LOGIN);
+        let emailGoogle;
         client.verifyIdToken({
             idToken: id_token,
             audience: process.env.CLIENT_ID_LOGIN
         })
             .then(response => {
-                const emailGoogle = response.payload.email
-                User.findOne({
+                emailGoogle = response.payload.email
+                return User.findOne({
                     where: {
                         email:emailGoogle
                     }
                 })
-                .then(user => {
-                    if(user) {                        
-                        return user
-                    }
-                    else {
-                        return User.create({
-                            email: emailGoogle,
-                            password: 'password'
-                        })
-                    }
-                })
-                .then(response => {
-                    let payload = {
-                        id: response.id,
-                        email: response.email
-                    }
-                    let token = getToken(payload)
-                    res.status(201).json(token)
-                })
+            })
+            .then(user => {
+                if(user) {                        
+                    return user
+                }
+                else {
+                    return User.create({
+                        email: emailGoogle,
+                        password: 'password'
+                    })
+                }
+            })
+            .then(response => {
+                let payload = {
+                    id: response.id,
+                    email: response.email
+                }
+                let token = getToken(payload)
+                res.status(201).json(token)
             })
             .catch(err => {
                 next(err)
