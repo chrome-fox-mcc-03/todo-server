@@ -7,7 +7,7 @@ router.use(authentication)
 
 router.post('/', ControllerTodo.create)
 
-router.get('/', authorization, ControllerTodo.findAll)
+router.get('/', ControllerTodo.findAll)
 
 router.get('/:id', ControllerTodo.findOne)
 

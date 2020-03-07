@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
 
   class User extends sequelize.Sequelize.Model {}
   User.init({
-    email: {
+    email: { // tambahin 
       type: DataTypes.STRING,
       allowNull: false,
       validate: {

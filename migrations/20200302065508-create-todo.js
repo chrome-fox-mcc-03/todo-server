@@ -31,6 +31,10 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      countdown: {
+        allowNull: false,
+        type: Sequelize.STRING,
       }
     });
   },
