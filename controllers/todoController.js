@@ -3,6 +3,7 @@ const { User } = require('../models');
 const ErrorModel = require('../helpers/error');
 const axios = require('axios');
 const sendEmail = require('../helpers/nodemailer');
+const quoteApi = require('../helpers/quotesAPI');
 
 const zomato = axios.create({
     baseURL: 'https://developers.zomato.com/api/v2.1',
@@ -14,15 +15,37 @@ const zomato = axios.create({
 class Controller {
     static findAll(req, res, next) {
         const userId = req.decoded.id;
+        let data;
+        let response;
         Todo.findAll({
             where: {
                 UserId: userId
-            }
+            },
+            order: [
+                ['status', 'DESC'],
+                ['due_date', 'ASC']
+            ]
         })
             .then((result) => {
-                res.status(200).json(result);
+                data = result;
+                return quoteApi();
             })
-            .catch(next);
+            .then((result) => {
+                result = result.data.map(el => {
+                    return el.content.rendered
+                })
+                let quotesNum = result.length;
+                let ran = Math.floor(Math.random() * quotesNum);
+                response = {
+                    data,
+                    quotes: [result[ran]]
+                }
+                res.status(200).json(response);
+            })
+            .catch((err) => {
+                console.log(err);
+                next(err);
+            });
     }
 
     static create(req, res, next) {
@@ -69,6 +92,7 @@ class Controller {
     static put(req, res, next) {
         let todoId = req.params.id;
         let data = {
+            id: todoId,
             title: req.body.title,
             description: req.body.description,
             status: req.body.status,

@@ -38,10 +38,12 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'Please enter due date'
         },
         customValidator(value) {
-          let now = new Date();
-          let date = new Date(value);
-          if (date == "invalid date" || date < now) {
-            throw new Error("due_date must be greater than now!");
+          if (!this.id) {
+            let now = new Date();
+            let date = new Date(value);
+            if (date == "invalid date" || date < now) {
+              throw new Error("due_date must be greater than now!");
+            }
           }
         }
       }
@@ -61,7 +63,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     hooks: {
       beforeValidate: (data, options) => {
-        if (!data.status) {
+        if (data.status != "done") {
           data.status = "pending";
         }
       }
