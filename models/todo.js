@@ -63,7 +63,14 @@ module.exports = (sequelize, DataTypes) => {
             message: 'due date cannot passed than today'
           })
         } else {
-          next()
+          if (this.due_date === '') {
+            next({
+              status: 400,
+              message: 'due date cannot be empty'
+            })
+          } else {
+            next()
+          }
         }
       }
     }

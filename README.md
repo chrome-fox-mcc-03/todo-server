@@ -1,6 +1,6 @@
 # todo-server
 
-**Register**
+**Sign Up**
 ----
   
 * **URL**
@@ -57,7 +57,7 @@
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** `{ message: "Internal Server Error" }`
 
-**Login**
+**Sign In**
 ----
   
 * **URL**
@@ -90,7 +90,7 @@
     ```javascript
     {
       token: <token>,
-      message: "success login as ${username}"
+      message: "success login as <username>"
     }
     ```
  
@@ -155,6 +155,11 @@
   OR
 
   * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ message: "Invalid Date" }`
+
+  OR
+
+  * **Code:** 400 BAD REQUEST <br />
     **Content:** `{ message: "due date cannot be empty" }`
 
   OR
@@ -195,23 +200,7 @@
     {
       data: "data": [
         {
-            id: 5,
-            title: "puasa full gk bolong bolong",
-            description: "puasa harus full jangan mampir ke warteg",
-            status: false,
-            due_date: "2020-03-03T16:35:19.171Z",
-            UserId: 5,
-            GroupId: null,
-            createdAt: "2020-03-03T16:35:19.171Z",
-            updatedAt: "2020-03-03T16:35:19.171Z",
-            User: {
-                id: 5,
-                username: "user",
-                email: "user@mail.com",
-                password: "$2a$10$xpb6EM68AqYdRAByKQ/cVeq4ritqH9EJIyNSxI52o0sIzklA9rY7q",
-                createdAt: "2020-03-03T16:35:19.141Z",
-                updatedAt: "2020-03-03T16:35:19.141Z"
-            }
+          <list todo>
         }
       ]
     }
@@ -263,22 +252,6 @@
     **Content:** 
     ```javascript
     {
-    "data": [
-      1,
-      [
-        {
-          "id": 5,
-          "title": "puasa full gk bolong bolong",
-          "description": "puasa harus full jangan mampir ke warteg siang siang",
-          "status": false,
-          "due_date": "2020-03-03T16:35:19.171Z",
-          "UserId": 5,
-          "GroupId": null,
-          "createdAt": "2020-03-03T16:35:19.171Z",
-          "updatedAt": "2020-03-03T16:43:23.199Z"
-        }
-      ]
-    ],
       "message": "success update Todo"
     }
     ```
@@ -334,6 +307,80 @@
 
   * **Code:** 200 <br />
     **Content:** `{ message: "success delete todo" }`
+ 
+* **Error Response:**
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** `{ message: "Internal Server Error" }`
+
+**Find One todo**
+----
+  
+* **URL**
+
+  `http://localhost:3000/todo/:id`
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+    **Required:**
+ 
+   `id=[integer]`
+
+* **Data Params**
+
+    None
+
+*  **URL headers**
+
+    **Required:**
+
+    `token=[string]`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{ data: <data by id> }`
+ 
+* **Error Response:**
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** `{ message: "Internal Server Error" }`
+
+**Wheather Api**
+----
+  
+* **URL**
+
+  `http://localhost:3000/api/weather?city=`
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+    **Required:**
+ 
+   `city=[string]`
+
+* **Data Params**
+
+    None
+
+*  **URL headers**
+
+    **Required:**
+
+    `token=[string]`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{ data: <data weather> }`
  
 * **Error Response:**
 

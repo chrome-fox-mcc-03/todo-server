@@ -3,7 +3,7 @@ const { hashPassword } = require('../helpers')
 
 module.exports = (sequelize, DataTypes) => {
   class User extends sequelize.Sequelize.Model {
-    static associate(models){
+    static associate(models) {
       User.hasMany(models.Todo)
       User.hasMany(models.GroupUser)
     }
@@ -56,13 +56,13 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     }
-  }, { 
+  }, {
     sequelize,
     hooks: {
       beforeCreate: (user, opt) => {
         user.password = hashPassword(user.password)
       }
     }
-   })
+  })
   return User;
 };

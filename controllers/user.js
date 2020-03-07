@@ -10,9 +10,8 @@ module.exports = {
     User.create({
       username, email, password
     })
-      .then(data => {
+      .then(_ => {
         res.status(201).json({
-          data,
           message: 'success register'
         })
       })
@@ -74,10 +73,10 @@ module.exports = {
         }
       })
       .then(data => {
-        const token = createToken({ 
+        const token = createToken({
           id: data.dataValues.id,
           email: data.dataValues.email
-         })
+        })
         res.status(200).json({
           token,
           message: `Success login as ${data.dataValues.email}`

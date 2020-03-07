@@ -13,9 +13,8 @@ module.exports = {
       Todo.create({
         title, description, due_date, UserId: id
       })
-        .then(data => {
+        .then(_ => {
           res.status(201).json({
-            data,
             message: 'success create ToDo'
           })
         })
@@ -47,9 +46,8 @@ module.exports = {
       where: { id },
       returning: true
     })
-      .then(data => {
+      .then(_ => {
         res.status(200).json({
-          data,
           message: 'success update Todo'
         })
       })

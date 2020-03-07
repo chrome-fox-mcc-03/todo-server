@@ -3,7 +3,6 @@ const axios = require('axios')
 module.exports = {
   weatherApi(req, res, next) {
     const { city } = req.query
-    console.log(city)
 
     axios({
       method: 'get',
