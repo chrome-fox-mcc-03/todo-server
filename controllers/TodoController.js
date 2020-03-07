@@ -1,4 +1,5 @@
-const { Todo } = require('../models');
+const { Todo, User } = require('../models');
+const mailjet = require('../helpers/mailjet');
 
 class Controller {
   static async create(req, res, next) {
@@ -11,6 +12,15 @@ class Controller {
         due_date,
         userId: req.decoded.id,
       });
+
+      const user = await User.findOne({
+        where: { id: req.decoded.id }
+      })
+      const payload = {
+        reciever: user.email,
+        task: newTask.title,
+      }
+      await mailjet(payload);
       res.status(201).json(newTask);
     } catch (err) {
       next(err);
@@ -22,8 +32,7 @@ class Controller {
       const todos = await Todo.findAll({
         where: {
           userId: req.decoded.id,
-        }
-      });
+        }});
       if (todos.length) {
         res.status(200).json(todos);
       } else {
