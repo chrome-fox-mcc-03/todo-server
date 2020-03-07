@@ -1,4 +1,5 @@
-module.exports = function (date) {
+module.exports = function formatDate (date) {
+  console.log(date, '>>>>>>>>>>>>============<<<<<<<<<<<<')
   var d = date
   var mm = d.getMonth() + 1;
   var dd = d.getDate();

@@ -1,10 +1,12 @@
 const axios = require('axios')
 
+const formatDate = require('../helpers/formatDate')
+
 class GoogleCalenderController {
   static addEvent (req, res, next) {
     let payload = {
-      start_date : new Date(),
-      end_date : req.body.due_date,
+      start_date : formatDate(new Date()),
+      end_date : formatDate(new Date(req.body.due_date)),
       title : req.body.title,
       description : req.body.description
     }
@@ -15,27 +17,26 @@ class GoogleCalenderController {
         key: process.env.KEY_GOOGLE_CALENDER,
       },
       headers: {
+        "Accept": 'application/json',
         "Content-Type" : 'application/json',
         Authorization: `Bearer ${process.env.ACCESS_TOKEN}`
       },
       data: {
         "end": {
-          "date": "2020-03-10"
+          "date": payload.end_date
         },
         "start": {
-            "date": "2020-03-08"
+            "date": payload.start_date
         },
-        "description": "HARI SABTU",
-        "summary": "TESTING",
+        "description": payload.description,
+        "summary": payload.title,
         "colorId": 10
         }
     })
       .then(response => {
         res.status(201).json(response.data)
       })
-      .catch(err => {
-        console.log(err)
-      })
+      .catch(next)
   }
 }
 
