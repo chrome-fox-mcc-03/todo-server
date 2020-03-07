@@ -32,7 +32,7 @@ class UserController {
         const password = req.body.password
         User.findOne({ where: { email } })
             .then(result => {
-                if (result.id) {
+                if (result) {
                     const pw = decryptPassword(password, result.password)
                     if (pw) {
                         const payload = {
@@ -61,7 +61,6 @@ class UserController {
     }
 
     static googleLogin(req, res, next) {
-        console.log(req.body.id_token)
         const { id_token } = req.body
         client
             .verifyIdToken({
@@ -69,9 +68,7 @@ class UserController {
                 audience: process.env.CLIENT_ID
             })
             .then(result => {
-                console.log(result.payload)
                 const { email } = result.payload
-                // cek dah ada pa belom, kalo udah ada
                 User.findOne({ where: { email } })
                     .then(user => {
                         if (user) {
@@ -79,9 +76,7 @@ class UserController {
                                 process.env.GOOGLE_PASSWORD,
                                 user.password
                             )
-                                // sebelumnya sudah register menggunakan google auth
                             if (isGoogleAuth) {
-                                // generate token terus login berhasil
                                 const payload = {
                                     id: user.id,
                                     email: user.email
@@ -95,7 +90,6 @@ class UserController {
                                 })
                             }
                         } else {
-                            // kita register disini
                             const newUser = {
                                 email,
                                 password: process.env.GOOGLE_PASSWORD
@@ -117,7 +111,7 @@ class UserController {
                     .catch(next)
             })
             .catch(err => {
-                console.log(err)
+                next(err)
             })
     }
 }

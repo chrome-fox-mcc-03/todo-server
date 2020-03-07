@@ -71,6 +71,31 @@ class TodoController {
 
     }
 
+    static updateStatus(req, res, next) {
+        let status = true
+        if(req.body.status === 'true') {
+            status = false
+        }
+        let input = {
+            status
+        }
+        let id = req.params.id
+        Todo.findByPk(id).then(todo => {
+            if (todo) {
+                Todo.update(input, { where: { id }, returning: true })
+                    .then(result => {
+                        res.status(200).json({ msg: 'Todo updated.', data: result[1][0] })
+                    })
+                    .catch(err => {
+                        next(err)
+                    })
+            } else {
+                next({ name: '404NotFound' })
+            }
+        })
+
+    }
+
     static delete(req, res, next) {
         let id = req.params.id
         Todo.findByPk(id)
