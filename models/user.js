@@ -17,11 +17,20 @@ module.exports = (sequelize, DataTypes) => {
         isEmail: {
           args: true,
           msg: `You must enter an valid email address!`
-        }
-      },
-      unique: {
-        args: true,
-        msg: 'Email address already in use!'
+        },
+        isUnique(value, next) {
+          User.findOne({ where: { email: value } })
+              .then(result => {
+                  if (result) {
+                      next('User already exist')
+                  } else {
+                      next()
+                  }
+              })
+              .catch(err => {
+                  next(err)
+              })
+      }
       }
     },
     password: {
