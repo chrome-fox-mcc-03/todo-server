@@ -33,6 +33,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, 
   {
+    hooks: {
+      beforeCreate: (todo, options) => {
+        todo.status = false
+      }
+    },
     sequelize
   })
   

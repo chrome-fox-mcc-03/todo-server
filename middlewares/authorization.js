@@ -19,6 +19,7 @@ module.exports = function(req, res, next) {
                     })
                 }
             }
+            
             else {
                 next({
                     status: 404,

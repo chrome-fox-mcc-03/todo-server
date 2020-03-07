@@ -69,7 +69,6 @@ class UserController {
                 return User.findOne({
                     where: { email }
                 })
-                console.log("ketemu user lama");
             })
 
             .then(result => {
@@ -83,7 +82,6 @@ class UserController {
                     }
 
                     token = generateToken(payload);
-
                     return new Promise((resolve, reject) => {
                         resolve({token})
                     })
@@ -99,6 +97,7 @@ class UserController {
                 if(response.token) {
                     res.status(200).json(response.token);
                 }
+
                 else {
                     let payload = {
                         id: response.id,
