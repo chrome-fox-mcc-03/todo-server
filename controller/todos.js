@@ -48,8 +48,28 @@ class Controller {
                 else return Todo.update({
                     title : req.body.title,
                     description : req.body.description,
-                    status : req.body.status,
                     due_date : req.body.due_date
+                },{
+                    where : {id:req.params.id}
+                })
+            })
+            .then(data=> {
+                res.status(200).json({data})
+            })
+            .catch(err=> {
+                next(err)
+            })
+    }
+    static patch(req, res, next){
+        Todo.findOne({
+            where: {id:req.params.id}
+        })
+            .then(data => {
+                if (data == null) {
+                    throw ({name : 'empty'})
+                }
+                else return Todo.update({
+                    status : true
                 },{
                     where : {id:req.params.id}
                 })

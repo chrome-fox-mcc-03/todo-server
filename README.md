@@ -313,3 +313,53 @@
     **Content:** `{ message : "Internal server error" }`
 
 ---
+
+**Google Sign In**
+----
+  Login a user using google sign in.
+
+* **URL**
+
+  /google
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+
+    **Required**
+
+    None
+
+* **Data Params**
+
+    None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+    ```json
+    {
+      "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNTgwODI2MTk1fQ.h56et9F8Iby0BNgLIG6e5wvGtRC6oRDvpxHf8WO4rWs" 
+    }
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 400 Not Found <br />
+    **Content:** `{ message : "Email/Password Invalid" }`
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** `{ message : "Internal server error" }`
+
+---
+
+**Third Party API**
+----
+  Third party API that I used.
+
+* **URL**
+
+  https://api.adviceslip.com/advice
