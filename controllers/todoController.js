@@ -62,7 +62,11 @@ class TodoController {
 
     static updateById(req,res,next) {
         let {id} = req.params
-        let {title,description,status,due_date} = req.body
+        let {title,description,due_date} = req.body
+        let status = null
+        if(!req.body.status){
+            status = false
+        }
         Todo.update({
             title,description,status,due_date
         },{where:{
@@ -89,7 +93,8 @@ class TodoController {
         Todo.findAll({
             where:{
                 id
-            }
+            },
+            include:User
         })
         .then((result) => {
             if(result.length < 1) {
