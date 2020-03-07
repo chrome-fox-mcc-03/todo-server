@@ -8,7 +8,17 @@ module.exports = (sequelize, DataTypes) => {
   
   class User extends Model{}
   User.init({
-    email: DataTypes.STRING,
+    email: {
+      type : DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        isEmail: true
+      },
+      unique: {
+        args: true,
+        msg: 'Email address already in used!'
+      }
+    }, 
     password: DataTypes.STRING
   }, {
     hooks:{
