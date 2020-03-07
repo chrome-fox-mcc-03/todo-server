@@ -4,7 +4,7 @@ class Controller {
     static read(req, res, next) {
         console.log('masuk read doang')
         // console.log(req.decoded)
-        ToDo.findAll({where: {UserId: req.decoded.id}})
+        ToDo.findAll({where: {UserId: req.decoded.id}, order: [['createdAt', 'DESC']]})
             .then(todos => res.status(200).json(todos))
             .catch(err => next(err))
     }
