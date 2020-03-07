@@ -1,7 +1,7 @@
 const fs = require('fs');
 const readline = require('readline');
 const { google } = require('googleapis');
-const SCOPES = ['https://www.googleapis.com/auth/calendar'];
+const SCOPES = ['https://www.googleapis.com/auth/youtube'];
 const TOKEN_PATH = 'token.json';
 // Load client secrets from a local file.
 
@@ -84,12 +84,13 @@ function create(event) {
             );
             return;
           }
+          console.log(event)
           console.log('Event created: %s', event.data.htmlLink);
         }
       );
     }
 }
-function show() {
+function generateToken() {
     try {
         authorize(listEvents);
       } catch (err) {
@@ -99,16 +100,14 @@ function show() {
         const calendar = google.calendar({version: 'v3', auth});
         calendar.events.list({
           calendarId: 'primary',
-          timeMin: (new Date()).toISOString(),
-          maxResults: 10,
-          singleEvents: true,
-          orderBy: 'startTime',
         }, (err, res) => {
+          // console.log(res);
+          
         });
     }
 }
 
 module.exports = {
     create,
-    show
+    generateToken
 } 

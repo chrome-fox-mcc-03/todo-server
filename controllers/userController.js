@@ -68,14 +68,7 @@ class UserController {
                 })
                 .then(user => {
                     if(user) {                        
-                        if(comparePassword('password', user.password)) {
-                            let payload = {
-                                id: user.id,
-                                email: user.email
-                            }
-                            let token = getToken(payload)
-                            res.status(200).json(token)
-                        }
+                        return user
                     }
                     else {
                         return User.create({

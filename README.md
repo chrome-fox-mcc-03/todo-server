@@ -20,7 +20,6 @@
       Content-Type: "application/json"
     ```
 
-
     **Request Body**<br>
     **Required:**
  
@@ -39,7 +38,7 @@
  
 * **Error Response:**
 
-  * **Code:** 500  <br />
+  * **Code:** 400  <br />
     **Content:** `{ error : "Field must not null" }`
 
 
@@ -97,8 +96,12 @@
  
 * **Error Response:**
 
-  * **Code:** 500  <br />
+  * **Code:** 404  <br />
     **Content:** `{ error : "Todo Not Found" }`
+  or
+  * **Code:** 500  <br />
+    **Content:** `{ error : "Internal Server Error" }`
+  
 
 **Update TODO**
 
@@ -148,8 +151,11 @@
  
 * **Error Response:**
 
-  * **Code:** 500  <br />
+  * **Code:** 404  <br />
     **Content:** `{ error : "Todo Not Found" }`
+  OR
+  * **Code:** 500  <br />
+    **Content:** `{ error : "Internal Server Error" }`
 
 **Delete TODO**
 
@@ -181,5 +187,86 @@
  
 * **Error Response:**
 
-  * **Code:** 500  <br />
+  * **Code:** 404  <br />
     **Content:** `{ error : "Todo Not Found" }`
+
+**Create USER**
+  
+  REGISTER USER TO DATABASE
+
+* **URL**
+
+  ```
+  /signup
+  ```
+* **Method:**
+
+  `POST`
+   
+* **Data Params**
+    **Request Header**<br>
+    ```
+      Content-Type: "application/json"
+    ```
+
+    **Request Body**<br>
+    **Required:**
+ 
+   ```
+    email=[string]
+    password=[string]
+   ```
+   
+
+* **Success Response:**
+
+  * **Code:** 201 <br />
+    **Content:** `{ id : 1, email : 'email@gmail.com', password: 'hashedPasswordHere'}`
+ 
+* **Error Response:**
+
+  * **Code:** 400  <br />
+    **Content:** `{ error : "Field must not null" }`
+
+**Login USER**
+  
+  Login User
+
+* **URL**
+
+  ```
+  /signin
+  ```
+* **Method:**
+
+  `POST`
+   
+* **Data Params**
+    **Request Header**<br>
+    ```
+      Content-Type: "application/json"
+    ```
+
+    **Request Body**<br>
+    **Required:**
+ 
+   ```
+    email=[string]
+    password=[string]
+   ```
+   
+
+* **Success Response:**
+
+  * **Code:** 201 <br />
+    **Content:** `{ (Jason Web Token Here) }`
+ 
+* **Error Response:**
+
+  * **Code:** 400  <br />
+    **Content:** `{ error : "Field must not null" }`
+
+  * **Code:** 401  <br />
+    **Content:** `{ error : "Password or Email Invalid" }`
+
+  

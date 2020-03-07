@@ -6,7 +6,7 @@ class TodoController {
             where: {
                 UserId: req.decode.id
             },
-            order: ['id']
+            order: ['due_date']
         })
             .then(data => {
                 res.status(200).json(data)
@@ -89,15 +89,23 @@ class TodoController {
     }
 
     static delete(req, res, next) {
+        
         Todo.findByPk(+req.params.id)
             .then(data => {
                 if(data) {
-                    res.status(200).json({message: `SUCCESS DELETE TODO`})
+                    return Todo.destroy({
+                        where: {
+                            id: +req.params.id
+                        }
+                    })
                 }
                 else next({
                     status: 404,
                     message: 'TODO not found'
                 })
+            })
+            .then(response => {
+                res.status(200).json({message: `SUCCESS DELETE TODO`})
             })
             .catch(next)
     }
