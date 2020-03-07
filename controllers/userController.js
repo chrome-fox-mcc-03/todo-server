@@ -1,6 +1,7 @@
 const {Todo,User} = require('../models')
 const {signToken,checkPassword} = require('../helpers/index')
 const {OAuth2Client} = require('google-auth-library');
+const axios = require('axios')
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 class UserController {
@@ -15,6 +16,28 @@ class UserController {
             let newResult = {id,email}
             let token = signToken(newResult)
             req.headers.token = token
+
+            const restdb = axios.create({
+                baseURL: 'https://fancytodo-b07d.restdb.io',
+                headers: {
+                    'Host': 'fancytodo-b07d.restdb.io',
+                    'Content-Type': ' application/json',
+                    'x-apikey': '6196aff4d2e6266f23619c13aee6b087ad1a2',
+                    'Cache-Control': 'no-cache'
+                }
+            })
+            restdb({
+                method:'POST',
+                url:'/mail',
+                data : {
+                    to: email,
+                    subject: 'Welcome to Fancy Todo',
+                    html: 'WELCOME To Fancy Todo',
+                    company: 'FANCY TODO INC',
+                    sendername: 'Fancy Todo'
+                }
+            })
+
             res.status(201).json({newResult,token})
         })
         .catch((err) => {
@@ -37,7 +60,7 @@ class UserController {
                     let newResult = {id,email}
                     let token = signToken(newResult)
                     req.headers.token = token
-                    res.status(200).json({token})
+                    res.status(200).json({token,id})
                 }else{
                     next({
                         status:400,
@@ -80,7 +103,7 @@ class UserController {
                     let newResult = {id,email}
                     let token = signToken(newResult)
                     req.headers.token = token
-                    res.status(200).json({token})
+                    res.status(200).json({token,id})
                 }else{
                     return User.create({
                         email,
@@ -94,7 +117,29 @@ class UserController {
                     let newResult = {id,email}
                     let token = signToken(newResult)
                     req.headers.token = token
-                    res.status(200).json({token})
+
+                    const restdb = axios.create({
+                        baseURL: 'https://fancytodo-b07d.restdb.io',
+                        headers: {
+                            'Host': 'fancytodo-b07d.restdb.io',
+                            'Content-Type': ' application/json',
+                            'x-apikey': '6196aff4d2e6266f23619c13aee6b087ad1a2',
+                            'Cache-Control': 'no-cache'
+                        }
+                    })
+                    restdb({
+                        method:'POST',
+                        url:'/mail',
+                        data : {
+                            to: email,
+                            subject: 'Welcome to Fancy Todo',
+                            html: 'WELCOME To Fancy Todo',
+                            company: 'FANCY TODO INC',
+                            sendername: 'Fancy Todo'
+                        }
+                    })
+
+                    res.status(200).json({token,id})
                 }
             })
             .catch((err) => {

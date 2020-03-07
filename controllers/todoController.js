@@ -1,9 +1,17 @@
 const {Todo,User} = require('../models')
+const {decodeToken} = require('../helpers/index')
 
-class Controller {
+
+class TodoController {
     static create(req,res,next) {
-        let {title,description,status,due_date} = req.body
-        let {UserId} = req.headers
+        let {title,description,due_date} = req.body
+        let {token} = req.headers
+        let data = decodeToken(token)
+        let UserId = data.id
+        let status = null
+        if(!status) {
+            status = false
+        }
         Todo.create({
             title,
             description,
@@ -30,7 +38,12 @@ class Controller {
     }
 
     static findById(req,res,next) {
-        Todo.findByPk(req.params.id)
+        // id user
+        Todo.findAll({
+            where:{
+                UserId:req.params.id
+            }
+        })
         .then((result) => {
             if(result == null) {
                 next({
@@ -99,4 +112,4 @@ class Controller {
     }
 }
 
-module.exports = Controller
+module.exports = TodoController

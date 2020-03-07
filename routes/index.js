@@ -4,7 +4,7 @@ const UserController = require('../controllers/userController')
 const {authentication} = require('../middlewares/authentication')
 const {authorization} = require('../middlewares/authorization')
 
-router.post('/todos',authentication,TodoController.create)
+router.post('/todos',TodoController.create)
 
 router.get('/todos',TodoController.findAll)
 router.get('/todos/:id',TodoController.findById)

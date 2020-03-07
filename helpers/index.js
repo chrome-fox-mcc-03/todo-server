@@ -17,8 +17,13 @@ function checkPassword(password,passwordDb){
     return bcrypt.compareSync(password, passwordDb);
 }
 
+function decodeToken(token) {  
+    return jwt.verify(token,process.env.secretKey)
+}
+
 module.exports = {
     encrypt,
     signToken,
-    checkPassword
+    checkPassword,
+    decodeToken
 }
