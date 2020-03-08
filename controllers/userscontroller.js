@@ -17,7 +17,7 @@ class Controller {
             .then(user => {
                 let token = createToken(user)
                 let arr = [user, token]
-                return res.status(201).json(arr)
+                return res.status(201).json({token: token})
             })
             .catch(err => next(err))
     }
@@ -34,7 +34,7 @@ class Controller {
                     throw { status: 400, customName: 'Email/pass does not match'}
                 } else {
                     let token = createToken(user) 
-                    return res.status(200).json({user: user.email, token: token})
+                    return res.status(200).json({token: token})
                 }
             })
             .catch(err => next(err))
@@ -58,7 +58,7 @@ class Controller {
             if(user) {
                 let token = createToken(user)
                 console.log('user existed')
-                return res.status(200).json({user: user.email, googleSignIn: true, token: token})
+                return res.status(200).json({googleSignIn: true, token: token})
             }
             else {
                 console.log(user)
@@ -70,7 +70,7 @@ class Controller {
         .then(user => {
             let token = createToken(user)
             console.log('User created through Google')
-            return res.status(201).json({user: user.email, googleSignIn: true, token: token})
+            return res.status(201).json({googleSignIn: true, token: token})
         })
         .catch(err => next(err))
     }

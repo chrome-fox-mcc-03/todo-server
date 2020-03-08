@@ -1,12 +1,16 @@
 # todo-server
-# Routes:
+## Routes:
+
+#### /**todos** 
 
 **GET /todos**
 
 Request header:
 
 ```
--none-
+{ 
+"token": userToken
+}
 ```
 
 Request body:
@@ -19,6 +23,7 @@ Response:
 
 ```
 [/** Contents of your to-do database here*/]
+// Will be ordered by createdAt key, descending.
 
 ```
 
@@ -28,7 +33,8 @@ Request header:
 
 ```
 { 
-"Content-Type": "application/json"
+"Content-Type": "application/json",
+"token": userToken
 }
 ```
 
@@ -59,7 +65,9 @@ Response:
 Request header:
 
 ```
--none-
+{ 
+"token": userToken
+}
 ```
 
 Request parameters:
@@ -82,7 +90,8 @@ Request header:
 
 ```
 { 
-"Content-Type": "application/json"
+"Content-Type": "application/json",
+"token": userToken
 }
 ```
 
@@ -119,7 +128,9 @@ Response:
 Request header:
 
 ```
--none-
+{ 
+"token": userToken
+}
 ```
 
 Request parameters:
@@ -135,3 +146,75 @@ Response:
 	// Object to-do where the id is equal to the id you requested to delete
 }
 ```
+
+#### /users
+
+##### POST /users/register
+
+Request header:
+
+```
+-none-
+```
+
+Request body: 
+
+```
+{
+	"email": // insert valid email here,
+	"password": //password, must be at least 3 letters
+}
+```
+
+Response:
+
+```
+{
+	token: //your access token
+}
+```
+
+##### POST /users/login
+
+Request header:
+
+```
+-none-
+```
+
+Request body:
+
+```
+{
+	"email": // insert valid existing email here,
+	"password": //password, must match database password
+}
+```
+
+Response:
+
+```
+{
+	token: //your access token
+}
+```
+
+##### POST  /users/googleSignIn
+
+Request header:
+
+```
+{
+	"token": //google token of your google account
+}
+```
+
+Response:
+
+```
+{
+	"googleSignIn": true, //Just something to make our job easier
+	"token": //your access token
+}
+```
+
