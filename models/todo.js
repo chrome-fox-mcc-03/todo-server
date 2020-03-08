@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         wrongDate(value) {
           if (new Date(value) < Date.now()) {
-            throw new Error('You entered wrong date!');
+            throw new Error(`You can't enter a date before today`);
           }
         }
       }
