@@ -40,10 +40,7 @@ class TodoController {
   }
 
   static showTodoById(req, res, next) {
-    let { id } = req.params;
-    console.log('===>', id)
-    // let todoId = +id;
-    // console.log(todoId);
+    const todoId = +req.params.id
     Todo.findByPk(todoId)
       .then(result => {
         if (!result) {
@@ -60,37 +57,32 @@ class TodoController {
   }
 
   static updateTodo(req, res, next) {
-    let { title, description, status, due_date, UserId } = req.body;
-    let updateId = +req.params.id;
-
-    Todo.update(
-      { title, description, status, due_date, UserId },
-      {
-        where: {
-          id: updateId
-        },
-        returning: true
-      }
-    )
-      .then(result => {
-        res.status(201).json(result);
-      })
-      .catch(next);
+    let id = +req.body.id
+    const payload = {
+      title: req.body.title,
+      description: req.body.title,
+      status: req.body.status,
+      due_date: req.body.due_date
+    }
+    Todo.update(payload, {
+      where: {
+        id
+      },
+      returning: true
+    }).then(result => {
+      res.status(201).json(result[1][0]);
+    }).catch(next);
   }
   static deleteTodo(req, res, next) {
     let deleteId = +req.params.id;
     Todo.findByPk(deleteId)
       .then(result => {
-        return Promise.all([
-          result,
-          Todo.destroy({
-            where: {
-              id: result.id
-            }
-          })
-        ]);
+        return Todo.destroy({
+          where: {
+            id: result.id
+          }
+        });
       })
-
       .then(deleted => {
         if (!deleted) {
           // 404
@@ -99,7 +91,7 @@ class TodoController {
             message: `Not Found`
           });
         } else {
-          res.send(200).json(deleted[0]);
+          res.status(200).json(deleted);
         }
       })
       .catch(next);
