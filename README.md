@@ -11,6 +11,11 @@ Add a new todo list
 
   `POST`
 
+* **Headers**
+  **Required:**
+
+  `token`
+
 * **URL Params**
   **Required:**
 
@@ -25,7 +30,9 @@ Add a new todo list
 
 * **Success Response:**
   * **Code:** 201 <br/>
-  * **Content:** `{
+  * **Content:** 
+  ```javascript
+  {
     "Todo": {
         "id": 21,
         "title": "go home",
@@ -35,22 +42,32 @@ Add a new todo list
         "updatedAt": "2020-03-02T10:44:13.051Z",
         "createdAt": "2020-03-02T10:44:13.051Z"
     }
-  }`
+  }
+  ```
 
 * **Error Response:**
   * **Code:** 400 <br/>
-  * **Content:** `{
-    "error": "validation error" }`
+  * **Content:** 
+  ```javascript
+  {
+    "error": "validation error" 
+  }
+  ```
 
     OR
 
 * **Error Response:**
   * **Code:** 500 <br/>
-  * **Content:** `{
-    "error": "internal server error" }`
+  * **Content:** 
+  ```javascript
+  {
+    "error": "internal server error" 
+  }
+  ```
 
 
 ## **Show All List Todo**
+
 Show all todo list
 
 * **URL**
@@ -60,6 +77,11 @@ Show all todo list
 * **Method**
 
   `GET`
+
+* **Headers**
+  **Required:**
+
+  `token`
 
 * **URL Params**
   **Required:**
@@ -72,7 +94,9 @@ Show all todo list
 
 * **Success Response:**
   * **Code:** 200 <br/>
-  * **Content:** `{
+  * **Content:** 
+  ```javascript
+  {
     "Todo": [
         {
             "id": 2,
@@ -93,15 +117,20 @@ Show all todo list
             "updatedAt": "2020-03-02T08:26:21.385Z"
         },
     ]
-  }`
+  }
+  ```
 
 * **Error Response:**
   * **Code:** 500 <br/>
-  * **Content:** `{
-    "error": "internal server error" }`
+  * **Content:** 
+  ```javascript
+  {
+    "error": "internal server error" 
+  }
+  ```
 
 
-## **Find one todo list by id
+## **Find One Todo List by Id**
 
 find one row from todo list by id 
 
@@ -112,6 +141,11 @@ find one row from todo list by id
 * **Method**
 
   `GET`
+
+* **Headers**
+  **Required:**
+
+  `token`
 
 * **URL Params**
   **Required:**
@@ -124,7 +158,9 @@ find one row from todo list by id
 
 * **Success Response:**
   * **Code:** 200 <br/>
-  * **Content:** `{
+  * **Content:** 
+  ```javascript
+  {
     "Todo": {
         "id": 21,
         "title": "go home",
@@ -134,14 +170,19 @@ find one row from todo list by id
         "updatedAt": "2020-03-02T10:44:13.051Z",
         "createdAt": "2020-03-02T10:44:13.051Z"
     }
-  }`
+  }
+  ```
 
 * **Error Response:**
   * **Code:** 404 <br/>
-  * **Content:** `{
-    "error": "data not found" }`
+  * **Content:** 
+  ```javascript
+  {
+    "error": "data not found" 
+  }
+  ```
 
-## UPDATE todo list by id
+## **Update Todo List by Id**
 
 update one row from todo list by id
 
@@ -152,6 +193,11 @@ update one row from todo list by id
 * **Method**
 
   `PUT`
+
+* **Headers**
+  **Required:**
+
+  `token`
 
 * **URL Params**
   **Required:**
@@ -167,7 +213,9 @@ update one row from todo list by id
 
 * **Success Response:**
   * **Code:** 200 <br/>
-  * **Content:** `{
+  * **Content:** 
+  ```javascript
+  {
     "Todo": {
         "id": 21,
         "title": "go home",
@@ -177,31 +225,44 @@ update one row from todo list by id
         "updatedAt": "2020-03-02T10:44:13.051Z",
         "createdAt": "2020-03-02T10:44:13.051Z"
     }
-  }`
+  }
+  ```
 
 * **Error Response:**
   * **Code:** 400 <br/>
-  * **Content:** `{
-    "error": "validation error" }`
+  * **Content:** 
+  ```javascript
+  {
+    "error": "validation error" 
+  }
+  ```
 
     OR
 
 * **Error Response:**
   * **Code:** 500 <br/>
-  * **Content:** `{
-    "error": "internal server error" }`
+  * **Content:** 
+  ```javascript
+  {
+    "error": "internal server error"
+  }
+  ```
 
     OR
 
 * **Error Response:**
   * **Code:** 404 <br/>
-  * **Content:** `{
-    "error": "data not found" }`
+  * **Content:** 
+  ```javascript
+  {
+    "error": "data not found" 
+  }
+  ```
 
 
-## **DELETE todo list by id
+## **Delete Todo List by Id**
 
-delete one row from todo list by id 
+Delete one row from todo list by id 
 
 * **URL**
 
@@ -210,6 +271,11 @@ delete one row from todo list by id
 * **Method**
 
   `DELETE`
+
+* **Headers**
+  **Required:**
+
+  `token`
 
 * **URL Params**
   **Required:**
@@ -222,7 +288,9 @@ delete one row from todo list by id
 
 * **Success Response:**
   * **Code:** 200 <br/>
-  * **Content:** `{
+  * **Content:** 
+  ```javascript
+  {
     "Todo": {
         "id": 21,
         "title": "go home",
@@ -232,23 +300,32 @@ delete one row from todo list by id
         "updatedAt": "2020-03-02T10:44:13.051Z",
         "createdAt": "2020-03-02T10:44:13.051Z"
     }
-  }`
+  }
+  ```
 
 * **Error Response:**
   * **Code:** 404 <br/>
-  * **Content:** `{
-    "error": "data not found" }`
+  * **Content:** 
+  ```javascript
+  {
+    "error": "data not found" 
+  }
+  ```
 
     OR
 
 * **Error Response:**
   * **Code:** 500 <br/>
-  * **Content:** `{
-    "error": "internal server error" }`
+  * **Content:** 
+  ```javascript
+  {
+    "error": "internal server error" 
+  }
+  ```
 
-## **Create countdown
+## **Create Countdown**
 
-create countdown
+Create a countdown of todo's due date 
 
 * **URL**
 
@@ -257,6 +334,11 @@ create countdown
 * **Method**
 
   `POST`
+
+* **Headers**
+  **Required:**
+
+  `Authorization=[string]`
 
 * **URL Params**
   **Required:**
@@ -269,17 +351,23 @@ create countdown
 
 * **Success Response:**
   * **Code:** 200 <br/>
-  * **Content:** `{
+  * **Content:** 
+  ```javascript
+  {
     "status": "success",
     "message": {
         "code": "1j",
         "src": "http://i.countdownmail.com/td.gif"
     }
-  }`
+  }
+  ```
 
 * **Error Response:**
   * **Code:** 401 <br/>
-  * **Content:** `{
+  * **Content:** 
+  ```javascript
+  {
     "status": "error",
     "message": "Unauthorized"
-  }`
+  }
+  ```
