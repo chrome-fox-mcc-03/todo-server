@@ -29,7 +29,7 @@ Add a new todo list
   due_date
 
 * **Success Response:**
-  * **Code:** 201 <br/>
+  * **Code:** 201
   * **Content:** 
   ```javascript
   {
@@ -46,7 +46,7 @@ Add a new todo list
   ```
 
 * **Error Response:**
-  * **Code:** 400 <br/>
+  * **Code:** 400
   * **Content:** 
   ```javascript
   {
@@ -57,7 +57,7 @@ Add a new todo list
     OR
 
 * **Error Response:**
-  * **Code:** 500 <br/>
+  * **Code:** 500
   * **Content:** 
   ```javascript
   {
@@ -93,7 +93,7 @@ Show all todo list
   None
 
 * **Success Response:**
-  * **Code:** 200 <br/>
+  * **Code:** 200
   * **Content:** 
   ```javascript
   {
@@ -121,7 +121,7 @@ Show all todo list
   ```
 
 * **Error Response:**
-  * **Code:** 500 <br/>
+  * **Code:** 500
   * **Content:** 
   ```javascript
   {
@@ -157,7 +157,7 @@ find one row from todo list by id
    None
 
 * **Success Response:**
-  * **Code:** 200 <br/>
+  * **Code:** 200
   * **Content:** 
   ```javascript
   {
@@ -174,7 +174,7 @@ find one row from todo list by id
   ```
 
 * **Error Response:**
-  * **Code:** 404 <br/>
+  * **Code:** 404
   * **Content:** 
   ```javascript
   {
@@ -212,7 +212,7 @@ update one row from todo list by id
   due_date
 
 * **Success Response:**
-  * **Code:** 200 <br/>
+  * **Code:** 200
   * **Content:** 
   ```javascript
   {
@@ -229,7 +229,7 @@ update one row from todo list by id
   ```
 
 * **Error Response:**
-  * **Code:** 400 <br/>
+  * **Code:** 400
   * **Content:** 
   ```javascript
   {
@@ -240,7 +240,7 @@ update one row from todo list by id
     OR
 
 * **Error Response:**
-  * **Code:** 500 <br/>
+  * **Code:** 500
   * **Content:** 
   ```javascript
   {
@@ -251,7 +251,7 @@ update one row from todo list by id
     OR
 
 * **Error Response:**
-  * **Code:** 404 <br/>
+  * **Code:** 404
   * **Content:** 
   ```javascript
   {
@@ -287,7 +287,7 @@ Delete one row from todo list by id
    None
 
 * **Success Response:**
-  * **Code:** 200 <br/>
+  * **Code:** 200
   * **Content:** 
   ```javascript
   {
@@ -304,7 +304,7 @@ Delete one row from todo list by id
   ```
 
 * **Error Response:**
-  * **Code:** 404 <br/>
+  * **Code:** 404
   * **Content:** 
   ```javascript
   {
@@ -315,7 +315,7 @@ Delete one row from todo list by id
     OR
 
 * **Error Response:**
-  * **Code:** 500 <br/>
+  * **Code:** 500
   * **Content:** 
   ```javascript
   {
@@ -350,7 +350,7 @@ Create a countdown of todo's due date
   None
 
 * **Success Response:**
-  * **Code:** 200 <br/>
+  * **Code:** 200
   * **Content:** 
   ```javascript
   {
@@ -363,7 +363,7 @@ Create a countdown of todo's due date
   ```
 
 * **Error Response:**
-  * **Code:** 401 <br/>
+  * **Code:** 401
   * **Content:** 
   ```javascript
   {
