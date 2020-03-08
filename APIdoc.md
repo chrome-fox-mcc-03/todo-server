@@ -1,5 +1,3 @@
-# todo-server
-
 **GROUP's TODO**
 ---
 
