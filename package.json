@@ -19,6 +19,9 @@
     "url": "https://github.com/felixwinangun/todo-server/issues"
   },
   "homepage": "https://github.com/felixwinangun/todo-server#readme",
+  "engines": {
+    "node": "v12.14.1"
+  },
   "dependencies": {
     "axios": "^0.19.2",
     "bcryptjs": "^2.4.3",
