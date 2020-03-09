@@ -30,9 +30,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     UserId: {
       type: DataTypes.INTEGER
-    },
-    countdown: {
-      type: DataTypes.STRING
     }
   }, {
     sequelize,
