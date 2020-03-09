@@ -26,7 +26,6 @@ class Controller {
         })
         .then(newTodo => {
             res.status(201).json(newTodo)
-            calendarInsert()
         })
         .catch(err => next(err))
     }
