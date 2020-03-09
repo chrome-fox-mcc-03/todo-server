@@ -30,7 +30,7 @@ class GoogleCalenderController {
         },
         "description": payload.description,
         "summary": payload.title,
-        "colorId": 10
+        "colorId": 5
         }
     })
       .then(response => {
