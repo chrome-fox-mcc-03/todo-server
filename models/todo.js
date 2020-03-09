@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
         isAfter: {
           args: new Date().toString(),
           msg: "We're already past that date."
+        }
       }
     },
     UserId: DataTypes.INTEGER
