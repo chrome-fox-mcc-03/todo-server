@@ -18,7 +18,7 @@ class Authentication {
             message: 'Not Found'
           });
         }
-      });
+      }); 
     } catch (err) {
       next(err);
     }
