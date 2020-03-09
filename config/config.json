@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "mcc-6",
-    "password": null,
-    "database": "todo_adam_db",
+    "username": "postgres",
+    "password": "Adam1997",
+    "database": "db_fancytodo",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
