@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Todos', [{
+    let dataTodos = [{
       title:'Swim',
       description:'Happy swim',
       due_date: 04/28/2020,
@@ -23,7 +23,8 @@ module.exports = {
       description:'Listen music in sunday morning',
       due_date: 04/28/2020,
       UserId:3
-    }], {});
+    }]
+    return queryInterface.bulkInsert('Todos', dataTodos, {});
   },
 
   down: (queryInterface, Sequelize) => {
