@@ -10,14 +10,14 @@ class Controller {
             due_date
         } = req.body
         Todo.create({
-                title: title,
-                description: description,
-                status: status,
-                due_date: due_date,
-                UserId: req.decoded.id,
-                createdAt: new Date(),
-                updatedAt: new Date()
-            })
+            title: title,
+            description: description,
+            status: status,
+            due_date: due_date,
+            UserId: req.decoded.id,
+            createdAt: new Date(),
+            updatedAt: new Date()
+        })
             .then((result) => {
                 res.status(201).json(result)
             })
@@ -31,10 +31,10 @@ class Controller {
             })
     }
 
-    static get(req, res) {
+    static get(req, res, next) {
         let UserId = req.decoded.id
         Todo.findAll({
-            where:{
+            where: {
                 UserId: UserId
             }
         })
@@ -51,13 +51,13 @@ class Controller {
             })
     }
 
-    static getId(req, res) {
+    static getId(req, res, next) {
         let id = req.params.id
         Todo.findAll({
-                where: {
-                    id
-                }
-            })
+            where: {
+                id
+            }
+        })
             .then((result) => {
                 res.status(200).json(result[0])
             })
@@ -71,7 +71,7 @@ class Controller {
             })
     }
 
-    static put(req, res) {
+    static put(req, res, next) {
         let id = req.params.id
         let {
             title,
@@ -80,17 +80,17 @@ class Controller {
             due_date
         } = req.body
         Todo.update({
-                title: title,
-                description: description,
-                status: status,
-                due_date: due_date
-            }, {
-                where: {
-                    id: id
-                },
-                returning: true,
-                plain: true
-            })
+            title: title,
+            description: description,
+            status: status,
+            due_date: due_date
+        }, {
+            where: {
+                id: id
+            },
+            returning: true,
+            plain: true
+        })
             .then((result) => {
                 res.status(200).json(result[1])
             })
@@ -113,7 +113,7 @@ class Controller {
             })
     }
 
-    static delete(req, res) {
+    static delete(req, res, next) {
         let id = req.params.id
         let data;
         Todo.findByPk(id)

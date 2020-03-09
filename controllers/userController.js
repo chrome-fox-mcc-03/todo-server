@@ -1,7 +1,6 @@
 const {
     OAuth2Client
 } = require('google-auth-library');
-const sendEmail = require('../helper/sendEmail')
 const {
     User
 } = require('../models/index')
@@ -20,25 +19,23 @@ class Controller {
             password
         } = req.body
         User.findOne({
-                where: {
-                    email: email
-                }
-            })
+            where: {
+                email: email
+            }
+        })
             .then(result => {
                 if (!result) {
                     User.create({
-                            email: email,
-                            password: password,
-                            createdAt: new Date(),
-                            updatedAt: new Date()
-                        })
+                        email: email,
+                        password: password,
+                        createdAt: new Date(),
+                        updatedAt: new Date()
+                    })
                         .then(result => {
                             let payload = {
                                 id: result.id,
                                 email: result.email
                             }
-                            sendEmail(email)
-
                             res.status(200).json(payload)
                         })
                         .catch(err => {
@@ -63,10 +60,10 @@ class Controller {
     static signIn(req, res) {
         let email = req.body.email
         User.findOne({
-                where: {
-                    email: email
-                }
-            })
+            where: {
+                email: email
+            }
+        })
             .then(result => {
                 let checkPass = comparePass(req.body.password, result.password)
                 if (checkPass) {
@@ -85,12 +82,12 @@ class Controller {
         const client = new OAuth2Client(process.env.CLIENT_ID);
         const token = req.headers.token
         client.verifyIdToken({
-                idToken: token,
-                audience: process.env.CLIENT_ID
-                // Specify the CLIENT_ID of the app that accesses the backend
-                // Or, if multiple clients access the backend:
-                //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
-            })
+            idToken: token,
+            audience: process.env.CLIENT_ID
+            // Specify the CLIENT_ID of the app that accesses the backend
+            // Or, if multiple clients access the backend:
+            //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+        })
             .then(ticket => {
                 let payLoad = ticket.getPayload()
                 emailCheck.email = payLoad.email
@@ -104,10 +101,10 @@ class Controller {
             .then(user => {
                 if (user) {
                     User.findOne({
-                            where: {
-                                email: emailCheck.email
-                            }
-                        })
+                        where: {
+                            email: emailCheck.email
+                        }
+                    })
                         .then(result => {
                             let checkPass = comparePass(process.env.password, result.password)
                             if (checkPass) {
@@ -124,19 +121,17 @@ class Controller {
 
                 } else {
                     User.create({
-                            email: emailCheck.email,
-                            password: process.env.password,
-                            createdAt: new Date(),
-                            updatedAt: new Date()
-                        })
+                        email: emailCheck.email,
+                        password: process.env.password,
+                        createdAt: new Date(),
+                        updatedAt: new Date()
+                    })
                         .then(result => {
                             let payload = {
                                 id: result.id,
                                 email: result.email
                             }
                             let token = tokenGenerate(payload)
-                            /// send email di comment karena terkadang kena limit dr restdb
-                            // sendEmail(email)
                             res.status(200).json(token)
                         })
                         .catch(err => {

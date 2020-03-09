@@ -2,6 +2,7 @@
 const {
   hashPassword
 } = require('../helper/hashpassword')
+const sendEmail = require('../helper/sendEmail')
 module.exports = (sequelize, DataTypes) => {
   class User extends sequelize.Sequelize.Model {
     static associate(models) {
@@ -32,6 +33,9 @@ module.exports = (sequelize, DataTypes) => {
     hooks: {
       beforeCreate: (User, option) => {
         User.password = hashPassword(User.password)
+      },
+      afterCreate: (User, option) => {
+        sendEmail(User.email)
       }
     },
     sequelize,
