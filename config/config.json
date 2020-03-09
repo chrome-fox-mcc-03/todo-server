@@ -1,16 +1,21 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "postgres",
-    "database": "db_fancytodo",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
-  },
-  "production": {
     "username": "root",
     "password": null,
-    "database": "database_production",
+    "database": "database_development",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "operatorsAliases": false
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": false
+  },
+  "production": {
+    "use_env_varriable": "DATABASE_URL"
   }
 }
