@@ -14,6 +14,6 @@ app.use(cors())
 app.use(router)
 app.use(errorHandler)
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT, function() {
     console.log(`i love you ${process.env.PORT}`);
 })
