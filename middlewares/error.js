@@ -5,6 +5,7 @@ module.exports = function(err, req, res, next) {
     } else if (err.name == 'JsonWebTokenError') {
         res.status(401).json(`you must login first`)
     } else {
-        res.status(err.status).json(err.message);
+        
+        res.status(err.status || 500).json(err.message);
     }
 };

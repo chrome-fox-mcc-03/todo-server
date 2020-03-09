@@ -25,6 +25,10 @@ module.exports = function (req, res, next) {
                 next(error)
             })
             
+        } else {
+            next({ status: 401,
+                message: `authentication failed` 
+            })
         }
     } catch (err) {
         // res.status(500).json(err)
