@@ -6,7 +6,7 @@ const errorHandling = (err, req, res, next) => {
     } else if (err.name == "JsonWebTokenError") { //auth error
         res.status(401).json("Please login first!");
     } else {
-        res.status(err.status || 500).json(err.message || "Internal Server Error");
+        res.status(err.status || 500).json({ error: err.message } || { error: "Internal Server Error" } );
     }
 }
 
