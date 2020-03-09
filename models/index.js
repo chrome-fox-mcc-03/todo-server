@@ -10,7 +10,7 @@ const db = {};
 
 let sequelize;
 if (process.env.Database_URL) {
-  sequelize = new Sequelize(process.env[process.env.Database_URL], config);
+  sequelize = new Sequelize(process.env[config.use_env_variable], config);
   dialect = "postgres"
   protocol = "postgres"
 } else {
