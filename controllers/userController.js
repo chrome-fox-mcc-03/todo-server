@@ -106,7 +106,7 @@ class Controller {
                             first_name: payload.given_name,
                             last_name: null,
                             email: emailToSearch,
-                            username: payload.given_name,
+                            username: payload.given_name + '12345',
                             password: 'HurRDuRrRiMGooGLEusER123'
                         })
                         
