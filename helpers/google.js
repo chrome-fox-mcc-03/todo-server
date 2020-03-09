@@ -2,7 +2,6 @@ const fs = require('fs');
 const readline = require('readline');
 const { google } = require('googleapis');
 const SCOPES = ['https://www.googleapis.com/auth/calendar'];
-const TOKEN_PATH = 'token.json';
 // Load client secrets from a local file.
 
 /**
@@ -22,7 +21,7 @@ function authorize(callback) {
 
   // Check if we have previously stored a token.
   try {
-    token = fs.readFileSync(TOKEN_PATH);
+    token = process.env.TOKEN;
   } catch (err) {
     return getAccessToken(oAuth2Client, callback);
   }
@@ -51,12 +50,7 @@ function getAccessToken(oAuth2Client, callback) {
       if (err) return callback(err);
       oAuth2Client.setCredentials(token);
       // Store the token to disk for later program executions
-      try {
-        fs.writeFileSync(TOKEN_PATH, JSON.stringify(token));
-        console.log('Token stored to', TOKEN_PATH);
-      } catch (err) {
-        console.error(err);
-      }
+      console.log(token);
       callback(oAuth2Client);
     });
   });
