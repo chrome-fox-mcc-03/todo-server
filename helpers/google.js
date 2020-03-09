@@ -12,7 +12,7 @@ const SCOPES = ['https://www.googleapis.com/auth/calendar'];
  * @return {function} if error in reading credentials.json asks for a new one.
  */
 function authorize(callback) {
-  let token = {};
+  let token = null;
   const oAuth2Client = new google.auth.OAuth2(
     process.env.CLIENT_ID,
     process.env.CLIENT_SECRET,
@@ -20,12 +20,13 @@ function authorize(callback) {
   );
 
   // Check if we have previously stored a token.
-  try {
-    token = process.env.TOKEN;
-  } catch (err) {
+  if (!process.env.TOKEN) {
     return getAccessToken(oAuth2Client, callback);
+  } else {
+    token = process.env.TOKEN;
   }
-  oAuth2Client.setCredentials(JSON.parse(token));
+  
+  oAuth2Client.setCredentials(token);
   callback(oAuth2Client);
 }
 /**
