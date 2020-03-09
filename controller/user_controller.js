@@ -7,15 +7,15 @@ const sendGrid = require('../helper/sendgrid.js')
 class UserController {
     static signUp(req, res, next) {
         // console.log(`masuk`);
-        
+
         let { email, password } = req.body;
         User.findOne({
             where: {
                 email
             }
         })
-        .then(result => {
-            if (!result) {
+            .then(result => {
+                if (!result) {
                     User.create({
                         email,
                         password
@@ -27,16 +27,16 @@ class UserController {
                             }
                             sendGrid(data.email);
                             let token = generateToken(data)
-                            res.status(201).json({token});
+                            res.status(201).json({ token });
                         })
                         .catch(error => {
                             next({ error })
                         })
-                    } else {
-                        // console.log(`masuk error`);
-                        next({
-                            status: 400,
-                            message: `someone has signed up using this email`
+                } else {
+                    // console.log(`masuk error`);
+                    next({
+                        status: 400,
+                        message: `someone has signed up using this email`
                     })
                 }
             })
@@ -61,7 +61,7 @@ class UserController {
                             id: result.id
                         }
                         let token = generateToken(data)
-                        res.status(201).json({token});
+                        res.status(201).json({ token });
                     } else {
                         next({
                             status: 400,
@@ -90,39 +90,39 @@ class UserController {
             idToken: id_token,
             audience: process.env.CLIENT_ID
         })
-        .then(result => {
-            googleAccount = result.payload.email
-            // console.log(googleAccount);
-            
-            return User.findOne({
-                where: {
-                    email: googleAccount
-                }
-            });
-        })
-        .then(result => {
-            // console.log(result);
+            .then(result => {
+                googleAccount = result.payload.email
+                // console.log(googleAccount);
 
-            if(result) {
-                let data = {
-                    id: result.id,
-                    email: result.email
+                return User.findOne({
+                    where: {
+                        email: googleAccount
+                    }
+                });
+            })
+            .then(result => {
+                // console.log(result);
+
+                if (result) {
+                    let data = {
+                        id: result.id,
+                        email: result.email
+                    }
+                    let token = generateToken(data)
+                    res.status(201).json({ token });
+                } else {
+                    return User.create({
+                        email: googleAccount,
+                        password: 'admin',
+                    })
                 }
-                let token = generateToken(data)
-                res.status(201).json({ token });
-            } else {                
-                return User.create({
-                    email: googleAccount,
-                    password: 'admin',
-                })
-            }
-        })
-        .then(result => {
-            res.status(200).json(result);
-        })
-        .catch(error => {
-            next({ error });
-        })
+            })
+            .then(result => {
+                res.status(200).json(result);
+            })
+            .catch(error => {
+                next({ error });
+            })
     }
 }
 

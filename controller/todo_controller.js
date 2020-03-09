@@ -29,7 +29,6 @@ class TodoController {
                 res.status(201).json(result);
             })
             .catch(error => {
-
                 next({ error });
             })
     }
