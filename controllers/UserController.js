@@ -12,16 +12,16 @@ class UserController {
         }
         User.create(input)
             .then(result => {
-                const payload = {
+                const user = {
                     id: result.id,
                     email: result.email
                 }
 
-                let token = generateToken(payload)
+                let token = generateToken(user)
 
                 let data = {
                     token,
-                    user: payload
+                    user
                 }
                 res.status(201).json(data)
             })
