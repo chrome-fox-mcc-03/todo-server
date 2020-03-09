@@ -11,8 +11,8 @@ const db = {};
 let sequelize;
 if (process.env.Database_URL) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
-  dialect = "postgres"
-  protocol = "postgres"
+  dialect = "postgres";
+  protocol = "postgres";
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
