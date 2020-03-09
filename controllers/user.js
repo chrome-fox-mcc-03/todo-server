@@ -43,13 +43,17 @@ class UserController {
                     next({
                         name: "not found",
                         status: 404,
-                        message: "email or password is wrong"
+                        message: "Email or password is wrong"
                     })
                 }
             })
 
             .catch(err => {
-                next(err)
+                next({
+                    name: "not found",
+                    status: 404,
+                    message: "Your email address is not registered"
+                })
             })
     }
 
