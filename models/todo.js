@@ -19,8 +19,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       allowNull: false,
       validate: {
-        isDate: true,
-        isAfter: new Date().toString()
+        isDate: {
+          args: true,
+          msg: "Must enter date"
+        },
+        isAfter: {
+          args: new Date().toString(),
+          msg: "We're already past that date."
       }
     },
     UserId: DataTypes.INTEGER
