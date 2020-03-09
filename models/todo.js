@@ -21,8 +21,8 @@ module.exports = (sequelize, DataTypes) => {
     due_date: {
       type: DataTypes.DATE,
       validate: {
-        isBeforeNow(date) {
-          if (date.toLocaleDateString() <= new Date().toLocaleDateString()) {
+        isBeforeNow(date) {                              
+          if (date.toDateString() <= new Date().toDateString()) {
             throw new Error('due date at least is tomorrow.');
           }
         }
@@ -30,6 +30,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     UserId: {
       type: DataTypes.INTEGER
+    },
+    countdown: {
+      type: DataTypes.STRING
     }
   }, {
     sequelize,

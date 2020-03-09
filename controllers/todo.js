@@ -10,7 +10,7 @@ const countdownmail = axios.create({
 class TodoController {
     static create(req, res, next) {
         let id;  
-        let todo
+        let todo        
         Todo.create({
             title: req.body.title,
             description: req.body.description,
@@ -29,7 +29,7 @@ class TodoController {
                     todo.due_date.getHours().toString().padStart(2, '0')}:${
                     todo.due_date.getMinutes().toString().padStart(2, '0')}:${
                     todo.due_date.getSeconds().toString().padStart(2, '0')}`
-                
+
                 return countdownmail({
                     method: 'post',
                     url: '/create',
@@ -48,7 +48,6 @@ class TodoController {
             .then(response => {
                 let dataCountdown = response.data.message.src
                 todo.countdown = dataCountdown
-
                 return Todo.update({
                     title: todo.title,
                     description: todo.description,
@@ -67,9 +66,7 @@ class TodoController {
                     data: result
                 })
             })
-            .catch(err => {
-                console.log(err, "ini catch");
-                
+            .catch(err => {                
                 next(err)
             })
     }
