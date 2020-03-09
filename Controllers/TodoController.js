@@ -1,4 +1,5 @@
 const { Todo } = require('../models/index.js')
+const quotes = require('../helpers/randomquotes')
 
 class TodoController {
 
@@ -6,7 +7,8 @@ class TodoController {
         Todo.findAll({
             where: {
                 UserId: req.decoded.id
-            }
+            },
+            order: ["due_date"]
         })
             .then(todos => {
                 res.status(200).json({todos})
@@ -37,8 +39,6 @@ class TodoController {
     }
 
     static create(req, res, next) {
-        console.log(req.body);
-        console.log(req.decoded);
         let input = {
             title: req.body.title,
             description: req.body.description,
@@ -106,6 +106,12 @@ class TodoController {
             .catch(err => {
                 next(err)
             })
+    }
+
+    static getQuotes(req, res, next) {
+        let QOTD = quotes()
+        console.log("quotes is arrived");
+        return QOTD
     }
 
 }

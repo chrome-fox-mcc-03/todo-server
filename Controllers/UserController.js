@@ -60,6 +60,7 @@ class UserController {
     static googleLogIn(req, res, next) {
         let token = req.headers.token
         let email = "";
+        console.log(process.env.CLIENT_ID);
         client.verifyIdToken({
             idToken: token,
             audience: process.env.CLIENT_ID
