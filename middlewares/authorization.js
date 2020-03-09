@@ -22,7 +22,4 @@ module.exports = {
             next({status:401,message:'Not Authorized'})
         })
     }
-    .catch((err) => {
-        next({status:401,message:'Not Authorized'})
-    })
 }
