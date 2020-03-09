@@ -1,4 +1,4 @@
-const {Todo} = require('../models/index')
+const { Todo } = require('../models/index')
 
 class ControllerTodo {
     static create (req, res, next) {
