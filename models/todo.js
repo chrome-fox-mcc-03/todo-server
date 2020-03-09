@@ -10,16 +10,36 @@ module.exports = (sequelize, DataTypes) => {
     {
       title: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+          notNull: {
+            args: true,
+            msg: `Title cannot be empty`
+          }
+        }
       },
       description: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            args: true,
+            msg: `Title cannot be empty`
+          }
+        }
       },
       status: {
-        type: DataTypes.BOOLEAN
+        type: DataTypes.BOOLEAN,
+        defaultValues: false
       },
       due_date: {
-        type: DataTypes.DATE
+        type: DataTypes.DATE,
+        validate: {
+          isAfter: {
+            args: `${new Date().toLocaleString()}`,
+            msg: `The due date should be after the current date`
+          }
+        }
       },
       UserId: {
         type: DataTypes.INTEGER
