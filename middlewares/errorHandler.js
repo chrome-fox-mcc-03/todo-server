@@ -1,6 +1,7 @@
 "use strict"
 
 module.exports = function(err, req, res, next){
+    console.log(err)
     switch(err.name){
         case "Error":
             if (err.message === 'Not found') res.status(404).json({error:'ERROR 404', msg:'Data not found'})

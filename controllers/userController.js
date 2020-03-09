@@ -104,9 +104,9 @@ class Controller {
                     else {
                         return User.create({
                             first_name: payload.given_name,
-                            last_name: family_name,
+                            last_name: null,
                             email: emailToSearch,
-                            username: emailToSearch,
+                            username: payload.given_name,
                             password: 'HurRDuRrRiMGooGLEusER123'
                         })
                         
@@ -118,6 +118,7 @@ class Controller {
                         id: newUser.id,
                         password: newUser.password
                     })
+                    sendEmail(newUser)
                     res.status(200).json({
                         token: userToken,
                         name: newUser.name

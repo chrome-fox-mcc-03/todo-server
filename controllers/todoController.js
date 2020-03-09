@@ -8,7 +8,10 @@ class Controller {
             attributes:{
                 exclude: ['createdAt', 'updatedAt']
             },
-            order: ['id']
+            order: ['id'],
+            where: {
+                user_id: req.decoded.id
+            }
         })
         .then(todos => res.status(200).json(todos))
         .catch(err => next(err))
