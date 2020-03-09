@@ -14,5 +14,5 @@ module.exports =
       errors.push(err.message)
     }
 
-    res.status(status).json({ errors })
+    res.status(err.status || status).json({ errors })
   }
