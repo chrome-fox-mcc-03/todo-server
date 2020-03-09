@@ -12,7 +12,7 @@ router.post('/login', UserController.login)
 router.post('/googleSignIn', UserController.googleSignIn)
 router.get('/quotes', QuotesApiController)
 router.get('/images', ImageApiController)
-router.use('/googleCalender',googleCalenderAPI)
+// router.use('/googleCalender',googleCalenderAPI)
 router.use('/todos', TodoRoutes )
 
 
