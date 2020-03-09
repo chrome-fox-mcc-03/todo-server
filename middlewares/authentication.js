@@ -5,7 +5,6 @@ function auth(req, res, next) {
     try {
         const token = req.headers.token
         req.decoded = verifyToken(token)
-        console.log(req.decoded)
             User.findOne({
                 where: {
                     email: req.decoded.email
