@@ -5,19 +5,22 @@ const { Todo } = require('../models');
 class Authorization {
   static isAuthorized(req, res, next) {
     let id = +req.params.id;
-    Todo.findOne({
-      where: {
-        id,
-        UserId: req.loginId
-      }
-    }).then(todo => {
+
+    Todo.findByPk(id).then(todo => {
       if (todo) {
-        next()
+        if (todo.UserId === req.loginId) {
+          next()
+        } else {
+          next({
+            status: 401,
+            message: `You are not authorized`
+          })
+        }
       } else {
         next({
-          status: 401,
-          message: 'Not Authorized'
-        });
+          status: 404,
+          message: `Todo not found`
+        })
       }
     }).catch(next);
   }

@@ -7,10 +7,11 @@ class Authentication {
   static isAuthentic(req, res, next) {
     const token = req.headers.token;
     const decoded = verifyToken(token);
-    req.loginId = decoded.id;
+    const { id } = decoded
     try {
-      User.findByPk(req.loginId).then(user => {
+      User.findByPk(id).then(user => {
         if (user) {
+          req.loginId = user.id;
           next();
         } else {
           next({
@@ -18,7 +19,7 @@ class Authentication {
             message: 'Not Found'
           });
         }
-      }); 
+      });
     } catch (err) {
       next(err);
     }
