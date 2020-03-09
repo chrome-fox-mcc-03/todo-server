@@ -6,7 +6,7 @@ function hashPassword(password) {
 }
 
 function comparePassword(password1, password2) {
-    return bcrypt.compare(password1, password2)
+    return bcrypt.compareSync(password1, password2)
 }
 module.exports = {
     hashPassword,

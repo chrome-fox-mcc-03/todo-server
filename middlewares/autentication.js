@@ -4,11 +4,11 @@ const { User } = require('../models')
 module.exports = function(req, res, next) {
     try {
         token = req.headers.token
-        req.decode = verifyToken(token)
+        req.decoded = verifyToken(token)
         
         User.findOne({
             where: {
-                email: req.decode.email
+                email: req.decoded.email
             }
         })
             .then(result => {

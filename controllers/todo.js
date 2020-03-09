@@ -4,7 +4,7 @@ class TodoController {
     static findAll(req,res, next) {
         Todo.findAll({
             where: {
-                UserId: req.decode.id
+                UserId: req.decoded.id
             },
             order: ['due_date']
         })
@@ -20,7 +20,7 @@ class TodoController {
             description: req.body.description,
             status: req.body.status,
             due_date: req.body.due_date,
-            UserId: req.decode.id
+            UserId: req.decoded.id
         })
             .then(data => {
                 res.status(201).json(data)                

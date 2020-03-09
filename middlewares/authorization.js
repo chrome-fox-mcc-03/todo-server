@@ -6,7 +6,7 @@ module.exports = function(req, res, next) {
     })
         .then(response => {
             if(response) {
-                if(response.UserId === req.decode.id) {
+                if(response.UserId === req.decoded.id) {
                     next();
                 } else {
                     next({
