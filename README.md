@@ -4,6 +4,10 @@
 ---
     Return all data in json from database
 
+* **Headers**
+
+  Authorization: `<token>`
+
 * **URL**
     /todos
 
@@ -46,6 +50,10 @@
 **Create Todo**
 ----
   Inserts a data into database and returns the corresponding data.
+  
+* **Headers**
+
+  Authorization: `<token>`
 
 * **URL**
 
@@ -91,6 +99,10 @@
 **Show One Todo**
 ----
   Return one todo in json based on id from database.
+    
+* **Headers**
+
+  Authorization: `<token>`
 
 * **URL**
 
@@ -138,6 +150,10 @@
 **Update One Todo**
 ----
   Update one todo based on id.
+    
+* **Headers**
+
+  Authorization: `<token>`
 
 * **URL**
 
@@ -190,6 +206,10 @@
 **Delete One Todo**
 ----
   Delete one todo based on id.
+    
+* **Headers**
+
+  Authorization: `<token>`
 
 * **URL**
 
@@ -342,7 +362,7 @@
     **Content:** 
     ```json
     {
-      "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNTgwODI2MTk1fQ.h56et9F8Iby0BNgLIG6e5wvGtRC6oRDvpxHf8WO4rWs" 
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNTgwODI2MTk1fQ.h56et9F8Iby0BNgLIG6e5wvGtRC6oRDvpxHf8WO4rWs" 
     }
     ```
  
