@@ -10,4 +10,8 @@ router.post('/register', UserController.register);
 // login
 router.post('/login', UserController.login);
 
+// Google Sign
+
+router.get('/googleSign', UserController.googleSign)
+
 module.exports = { userRouter: router };

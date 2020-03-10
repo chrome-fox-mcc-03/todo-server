@@ -3,6 +3,8 @@
 const { User } = require('../models');
 const { generateToken } = require('../helpers/generateToken');
 const { comparePassword } = require('../helpers/hashPassword');
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client(process.env.CLIENT_ID);
 
 class UserController {
   static register(req, res, next) {
@@ -55,6 +57,42 @@ class UserController {
 
   // Google Oauth
 
+  static googleSign(req, res, next) {
+
+    const gToken = req.headers.id_token;
+    let userPayload;
+
+    client.verifyIdToken({
+      idToken: gToken,
+      audience: process.env.CLIENT_ID
+    }).then(ticket => {
+      userPayload = ticket.getPayload();
+      return User.findOne({
+        where: {
+          email: userPayload.email
+        }
+      })
+    }).then(user => {
+      if (user) {
+        return user
+      } else {
+        let email = userPayload.email
+        return User.create({
+          email,
+          password: process.env.DEFAULT_PASSWORD
+        })
+      }
+
+    }).then(user => {
+      const payload = {
+        id: user.id,
+        email: user.email
+      }
+      const token = generateToken(payload);
+      console.log(token)
+      res.status(200).json({ token })
+    }).catch(next)
+  }
 }
 
 module.exports = { UserController };

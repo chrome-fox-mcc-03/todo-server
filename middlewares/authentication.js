@@ -24,6 +24,8 @@ class Authentication {
       next(err);
     }
   }
+
+
 }
 
 module.exports = { Authentication };
