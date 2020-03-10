@@ -6,6 +6,8 @@ const app = express();
 const routers = require("./routes");
 const cors = require("cors");
 const { errorHandler } = require("./middlewares/errorHandler");
+var morgan = require("morgan");
+morgan("tiny");
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
