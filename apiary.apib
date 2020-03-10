@@ -9,7 +9,7 @@ Todo is a simple API allowing consumers to view his/her todo list and edit in th
 
 ### Create New Todo [POST]
 
-+ Request (application/x-www-form-urlencoded)
++ Request (application/json)
 
     + Headers
 
@@ -24,7 +24,7 @@ Todo is a simple API allowing consumers to view his/her todo list and edit in th
                 "due_date": "2020-03-03"
             }
 
-+ Response 201 (application/x-www-form-urlencoded)
++ Response 201
 
     + Headers
 
@@ -43,7 +43,7 @@ Todo is a simple API allowing consumers to view his/her todo list and edit in th
                 "createdAt": "2020-03-03T11:51:23.504Z"
             }
 
-+ Response 400 (application/x-www-form-urlencoded)
++ Response 400 
 
     + Headers
 
@@ -57,7 +57,7 @@ Todo is a simple API allowing consumers to view his/her todo list and edit in th
                 "description must be filled",
                 "input must be date type"
             ]
-+ Response 401 (application/x-www-form-urlencoded)
++ Response 401 
 
     + Headers
 
@@ -69,7 +69,7 @@ Todo is a simple API allowing consumers to view his/her todo list and edit in th
                 "You need to login first!"
             ]
          
-+ Response 500 (application/x-www-form-urlencoded)
++ Response 500 
 
     + Headers
 
@@ -201,7 +201,7 @@ Todo is a simple API allowing consumers to view his/her todo list and edit in th
     
 ### Update Todo By Id [PATCH]
 
-+ Request  (application/x-www-form-urlencoded)
++ Request  (application/json)
 
     + Headers
 
@@ -287,7 +287,7 @@ Todo is a simple API allowing consumers to view his/her todo list and edit in th
 
 ### Delete Todo By Id [DELETE]
 
-+ Request  (application/x-www-form-urlencoded)
++ Request  (application/json)
 
     + Headers
 
@@ -353,7 +353,7 @@ Todo is a simple API allowing consumers to view his/her todo list and edit in th
 
 ### Add New User [POST]
 
-+ Request (application/x-www-form-urlencoded)
++ Request (application/json)
 
     + Body
 
@@ -363,7 +363,7 @@ Todo is a simple API allowing consumers to view his/her todo list and edit in th
                 "password": "12345"
             }
 
-+ Response 201 (application/x-www-form-urlencoded)
++ Response 201 
 
     + Body
     
@@ -372,7 +372,7 @@ Todo is a simple API allowing consumers to view his/her todo list and edit in th
                 "email": "JohnDoe@gmail.com"
             }
 
-+ Response 400 (application/x-www-form-urlencoded)
++ Response 400 
 
     + Body
 
@@ -385,7 +385,7 @@ Todo is a simple API allowing consumers to view his/her todo list and edit in th
 
 ### Login [POST]
 
-+ Request (application/x-www-form-urlencoded)
++ Request (application/json)
 
     + Body
 
@@ -395,13 +395,13 @@ Todo is a simple API allowing consumers to view his/her todo list and edit in th
                 "password": "12345"
             }
 
-+ Response 200 (application/x-www-form-urlencoded)
++ Response 200 
 
     + Body
     
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImVtYWlsIjoibmF1ZmFseXVuYW40NUBnbWFpbC5jb20iLCJpYXQiOjE1ODMyMzQyMTh9.Qth9Oh2cP66JVcrvkU3qq2Xqab8Enhr5bk18WbofroY"
 
-+ Response 400 (application/x-www-form-urlencoded)
++ Response 400 
 
     + Body
 
