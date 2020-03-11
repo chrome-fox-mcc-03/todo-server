@@ -5,25 +5,43 @@ module.exports = (sequelize, DataTypes) => {
     title: {
       type: DataTypes.STRING,
       validate: {
-        notEmpty: true
+        notEmpty: {
+          args: true,
+          msg: "Title must be filled"
+        }
       }
     },
     description: {
       type: DataTypes.STRING,
       validate: {
-        notEmpty: true
+        notEmpty: {
+          args: true,
+          msg: "Description must be filled"
+        }
       }
     },
     status: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "Status must be filled"
+        }
+      }
     },
     due_date: {
       type: DataTypes.DATE,
       validate: {
-        isBeforeNow(date) {                              
-          if (date.toDateString() <= new Date().toDateString()) {
-            throw new Error('due date at least is tomorrow.');
+        notEmpty: {
+          args: true,
+          msg: "Date must be filled"
+        },
+        isBeforeNow(date) { 
+          if(date) {
+            if (date.toLocaleDateString() <= new Date().toLocaleDateString()) {
+              throw new Error('due date at least is tomorrow.');
+            }
           }
         }
       }

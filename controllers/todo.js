@@ -121,17 +121,13 @@ class TodoController {
             },
             returning: true
         })
-            .then(result => {                
+            .then(result => {                                
                 res.status(200).json({
                     data: result
                 })
             })
-            .catch(err => {
-                next({
-                    name: "not found",
-                    status: 404,
-                    message: "data not found"
-                })
+            .catch(err => {                
+                next(err)
             })
     }
 
@@ -160,7 +156,7 @@ class TodoController {
                     next({
                         name: "not found",
                         status: 404,
-                        message: "data not found"
+                        message: "Failed to delete Todo"
                     })
                 })
     }

@@ -3,10 +3,15 @@ module.exports = function (err, req, res, next) {
     switch(err.name) {
         case "SequelizeValidationError":
         const error = err.errors.map(el => {
-            el.message
+            return el.message
         })
         res.status(400).json({
             error
+        });
+        break;
+        case "SequelizeUniqueConstraintError":
+        res.status(400).json({
+            error: "Email has been registered"
         });
         break;
         case "not found":
@@ -26,7 +31,7 @@ module.exports = function (err, req, res, next) {
         break;
         default:
         res.status(err.status || 500).json({
-            error: err.message || "internal server error"
+            error: err.message || "Internal Server Error"
         })
         break;
     }   

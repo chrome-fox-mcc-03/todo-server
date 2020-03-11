@@ -19,7 +19,7 @@ function authentication(req, res, next) {
                     next({
                         name: "not found",
                         status: 404,
-                        message: "data not found"
+                        message: "unauthenticated"
                     })
                 }
             })
@@ -27,7 +27,7 @@ function authentication(req, res, next) {
                 next({
                     name: "not found",
                     status: 404,
-                    message: "data not found"
+                    message: "unauthenticated"
                 })
             })
         } 
@@ -36,7 +36,7 @@ function authentication(req, res, next) {
         next({
             name: "bad request",
             status: 400,
-            message: "invalid request"
+            message: "unauthenticated"
         })
     }
      

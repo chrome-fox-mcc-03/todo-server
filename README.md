@@ -1,5 +1,118 @@
 # todo-server
 
+## **Register**
+Add a new user to sign up
+
+* **URL**
+
+  _/register/_
+
+* **Method**
+
+  `POST`
+
+* **Headers**
+  **Required:**
+
+  None
+
+* **URL Params**
+  **Required:**
+
+  None
+
+* **Data Body**
+
+  `email=[string]`<br>
+  `password=[string]` <br>
+
+* **Success Response:**
+  * **Code:** 201
+  * **Content:** 
+  ```javascript
+  {
+    "User": {
+        "id": 4,
+        "email": "ulfa@yahoo.com"
+    }
+  }
+  ```
+
+* **Error Response:**
+  * **Code:** 400
+  * **Content:** 
+  ```javascript
+  {
+    "error": "Password has at least 6 characters" 
+  }
+  ```
+
+    OR
+
+* **Error Response:**
+  * **Code:** 500
+  * **Content:** 
+  ```javascript
+  {
+    "error": "Internal Server Error" 
+  }
+  ```
+
+## **Login**
+Login to Fancy Todo
+
+* **URL**
+
+  _/login/_
+
+* **Method**
+
+  `POST`
+
+* **Headers**
+  **Required:**
+
+  None
+
+* **URL Params**
+  **Required:**
+
+  None
+
+* **Data Body**
+
+  `email=[string]`<br>
+  `password=[string]`
+
+* **Success Response:**
+  * **Code:** 201
+  * **Content:** 
+  ```javascript
+  {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJ1bGZhQHlhaG9vLmNvbSIsImlhdCI6MTU4MzkxMzM5OH0.ERrvacMZ47lUpIBfQINk8J5RHkP0kFcXi_sXPLh2DlI"
+  }
+  ```
+
+* **Error Response:**
+  * **Code:** 400
+  * **Content:** 
+  ```javascript
+  {
+    "error": "Email or password is wrong" 
+  }
+  ```
+
+    OR
+
+* **Error Response:**
+  * **Code:** 500
+  * **Content:** 
+  ```javascript
+  {
+    "error": "Internal Server Error" 
+  }
+  ```
+
 ## **Create New Todo**
 Add a new todo list
 
@@ -21,19 +134,19 @@ Add a new todo list
 
   None
 
-* **Data Params**
+* **Data Body**
 
-  title,
-  description,
-  status,
-  due_date
+  `title=[string]`<br>
+  `description=[string]` <br>
+  `status=[string]` <br>
+  `due_date=[date]`
 
 * **Success Response:**
   * **Code:** 201
   * **Content:** 
   ```javascript
   {
-    "Todo": {
+    "data": {
         "id": 21,
         "title": "go home",
         "description": "go home at 6pm",
@@ -50,7 +163,7 @@ Add a new todo list
   * **Content:** 
   ```javascript
   {
-    "error": "validation error" 
+    "error": "Title must be filled" 
   }
   ```
 
@@ -61,7 +174,7 @@ Add a new todo list
   * **Content:** 
   ```javascript
   {
-    "error": "internal server error" 
+    "error": "Internal Server Error" 
   }
   ```
 
@@ -88,7 +201,7 @@ Show all todo list
   
   None
 
-* **Data Params**
+* **Data Body**
 
   None
 
@@ -97,7 +210,7 @@ Show all todo list
   * **Content:** 
   ```javascript
   {
-    "Todo": [
+    "data": [
         {
             "id": 2,
             "title": "learning REST API",
@@ -125,7 +238,7 @@ Show all todo list
   * **Content:** 
   ```javascript
   {
-    "error": "internal server error" 
+    "error": "Internal Server Error" 
   }
   ```
 
@@ -152,7 +265,7 @@ find one row from todo list by id
   
   `id=[integer]`
 
-* **Data Params**
+* **Data Body**
 
    None
 
@@ -161,7 +274,7 @@ find one row from todo list by id
   * **Content:** 
   ```javascript
   {
-    "Todo": {
+    "data": {
         "id": 21,
         "title": "go home",
         "description": "go home at 6pm",
@@ -178,7 +291,7 @@ find one row from todo list by id
   * **Content:** 
   ```javascript
   {
-    "error": "data not found" 
+    "error": "Todo not found" 
   }
   ```
 
@@ -204,7 +317,7 @@ update one row from todo list by id
 
   `id:[integer]`
 
-* **Data Params**
+* **Data Body**
 
   title,
   description,
@@ -216,7 +329,7 @@ update one row from todo list by id
   * **Content:** 
   ```javascript
   {
-    "Todo": {
+    "data": {
         "id": 21,
         "title": "go home",
         "description": "go home at 6pm",
@@ -233,7 +346,7 @@ update one row from todo list by id
   * **Content:** 
   ```javascript
   {
-    "error": "validation error" 
+    "error": "Description must be filled" 
   }
   ```
 
@@ -244,18 +357,7 @@ update one row from todo list by id
   * **Content:** 
   ```javascript
   {
-    "error": "internal server error"
-  }
-  ```
-
-    OR
-
-* **Error Response:**
-  * **Code:** 404
-  * **Content:** 
-  ```javascript
-  {
-    "error": "data not found" 
+    "error": "Internal Server Error"
   }
   ```
 
@@ -282,7 +384,7 @@ Delete one row from todo list by id
   
   `id=[integer]`
 
-* **Data Params**
+* **Data Body**
 
    None
 
@@ -291,7 +393,7 @@ Delete one row from todo list by id
   * **Content:** 
   ```javascript
   {
-    "Todo": {
+    "data": {
         "id": 21,
         "title": "go home",
         "description": "go home at 6pm",
@@ -308,7 +410,7 @@ Delete one row from todo list by id
   * **Content:** 
   ```javascript
   {
-    "error": "data not found" 
+    "error": "Failed to delete Todo" 
   }
   ```
 
@@ -319,7 +421,7 @@ Delete one row from todo list by id
   * **Content:** 
   ```javascript
   {
-    "error": "internal server error" 
+    "error": "Internal Server Error" 
   }
   ```
 
@@ -345,7 +447,7 @@ Create a countdown of todo's due date
   
   None
 
-* **Data Params**
+* **Data Body**
 
   None
 

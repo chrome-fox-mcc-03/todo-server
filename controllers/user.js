@@ -1,6 +1,8 @@
 const { User } = require('../models')
 const checkPass = require('../helper/hashPassword');
 const Jwt = require('../helper/jwt');
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client(process.env.CLIENT_ID)
 
 class UserController {
     static register(req, res, next) {
@@ -13,11 +15,13 @@ class UserController {
                     id: result.id,
                     email: result.email
                 }
+                let token = Jwt.generateToken(dataUser)
                 res.status(201).json({
-                    User: dataUser
+                    User: dataUser,
+                    token
                 })
             })
-            .catch(err => {
+            .catch(err => {                                
                 next(err)
             })
     }
@@ -55,6 +59,44 @@ class UserController {
                     message: "Your email address is not registered"
                 })
             })
+    }
+
+    static signInGoogle(req, res, next) {
+        let payload;
+        client.verifyIdToken({
+            idToken: req.headers.token,
+            audience: process.env.CLIENT_ID
+        })
+                .then(result => {
+                    payload = result.payload
+                    return User.findOne({
+                        where: {
+                            email: payload.email
+                        }
+                    })
+                })
+                .then(result => {
+                    if(!result) {
+                        return User.create({
+                            email: payload.email,
+                            password: "google"
+                        })
+                    } else {
+                        return result
+                    }
+                })
+                .then(result => {
+                    let token = Jwt.generateToken({
+                        id: result.id,
+                        email: result.email
+                    })
+                    res.status(200).json({
+                        token
+                    })
+                })
+                .catch(err => {
+                    next(err)
+                })
     }
 
 
