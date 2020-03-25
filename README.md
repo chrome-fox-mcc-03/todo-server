@@ -1,5 +1,11 @@
 # todo-server
 
+### Deployment
+
+- Heroku (server) : https://fancier-todos.herokuapp.com/
+
+- Firebase (client) : https://fancier-todos.firebaseapp.com/
+
 ## **Register a New User**
 
 Create a new user and save it in the database.
