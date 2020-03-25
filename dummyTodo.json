@@ -1,0 +1,26 @@
+[
+    {
+        "title": "Learn RESTFUL API",
+        "description": "Sharpened concept deeper knowledge on how to use it",
+        "status": false,
+        "due_date": "2020-05-05"
+    },
+    {
+        "title": "Learn VUE Framework",
+        "description": "Detailing concept",
+        "status": false,
+        "due_date": "2020-05-03"
+    },
+    {
+        "title": "Learn POSTMAN",
+        "description": "Step by step postman",
+        "status": false,
+        "due_date": "2020-05-06"
+    },
+    {
+        "title": "Install dotenv",
+        "description": "install dotenv during the process",
+        "status": false,
+        "due_date": "2020-05-07"
+    }
+]
