@@ -67,7 +67,7 @@ class UserController {
     const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
     client
       .verifyIdToken({
-        idToken: req.body.token,
+        idToken: req.headers.id_token,
         audience: process.env.GOOGLE_CLIENT_ID
       })
       .then(ticket => {

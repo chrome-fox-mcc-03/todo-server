@@ -26,6 +26,10 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notNull: {
             msg: "Description cannot be empty"
+          },
+          notEmpty : {
+            args : true,
+            msg : "Description must be filled"
           }
         }
       },
@@ -62,6 +66,9 @@ module.exports = (sequelize, DataTypes) => {
         beforeValidate: (todo, options) => {
           if (todo.due_date === "") {
             todo.due_date = addOneDay();
+          }
+          if (todo.status === "" || todo.status === null) {
+            todo.status = false;
           }
         }
       },

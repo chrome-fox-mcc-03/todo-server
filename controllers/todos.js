@@ -4,7 +4,11 @@ const { sendEmail } = require("../helpers/sendEmail");
 
 class TodoController {
   static findAll(req, res, next) {
-    Todo.findAll()
+    Todo.findAll({
+      where: {
+        UserId: req.decoded.id
+      }
+    })
       .then(response => {
         res.status(200).json({
           data: response
@@ -28,20 +32,22 @@ class TodoController {
   }
 
   static createNewTodo(req, res, next) {
+    let imageFound = false;
     let { title, description, status, due_date } = req.body;
     let titleQuery = title.split(" ").join("+");
     axios
       .get(
-        `http://api.giphy.com/v1/gifs/search?q=${titleQuery}&api_key=${process.env.GIPHY_KEY}`
+        `http://api.giphy.com/v1/gifs/search?q=${titleQuery}&api_key=${process.env.GIPHY_KEY}&limit=1`
       )
-      .then(response => {
-        // console.log(response.data.data[0].images.downsized_large.url);
+      .then(({ data }) => {
+        let giphy_url = data.data[0].images.downsized_large.url;
+        imageFound = true;
         return Todo.create({
           title,
           description,
           status,
           due_date,
-          photo: response.data.data[0].images.downsized_large.url,
+          photo: giphy_url,
           UserId: req.decoded.id
         });
       })
@@ -51,24 +57,36 @@ class TodoController {
           data: resCreated
         });
       })
-      .catch(next);
+      .catch(err => {
+        if (imageFound) {
+          next(err);
+        } else {
+          next({
+            status: 404,
+            msg: "Image not found, please use a different title"
+          });
+        }
+      });
   }
 
   static update(req, res, next) {
+    let imageFound = false;
     let { title, description, due_date, status } = req.body;
     let titleQuery = title.split(" ").join("+");
     axios
       .get(
-        `http://api.giphy.com/v1/gifs/search?q=${titleQuery}&api_key=${process.env.GIPHY_KEY}`
+        `http://api.giphy.com/v1/gifs/search?q=${titleQuery}&api_key=${process.env.GIPHY_KEY}&limit=1`
       )
-      .then(response => {
+      .then(({ data }) => {
+        let giphy_url = data.data[0].images.downsized_large.url;
+        imageFound = true;
         return Todo.update(
           {
             title,
             description,
             status,
             due_date,
-            photo: response.data.data[0].images.downsized_large.url,
+            photo: giphy_url,
             UserId: req.decoded.id
           },
           {
@@ -84,7 +102,16 @@ class TodoController {
           data: resUpdated
         });
       })
-      .catch(next);
+      .catch(err => {
+        if (imageFound) {
+          next(err);
+        } else {
+          next({
+            status: 400,
+            msg: "Image not found, please use a different title"
+          });
+        }
+      });
   }
 
   static deleteTodo(req, res, next) {
