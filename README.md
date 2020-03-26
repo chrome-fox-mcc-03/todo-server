@@ -28,7 +28,7 @@ Register new user on server.
     password length must be 6 characters or more
 * **Success Response:**
 
-  * **Code:** 200 <br />
+  * **Code:** 201 <br />
     **Content:**  
     `{
         "id": 29,
