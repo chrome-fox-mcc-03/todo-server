@@ -1,0 +1,410 @@
+FORMAT: 1A
+HOST: https://morning-thicket-49183.herokuapp.com
+
+# todos app
+
+Todo is a simple API allowing consumers to view his/her todo list and edit in them.
+
+## Todos Collection [/todos]
+
+### Create New Todo [POST]
+
++ Request (application/json)
+
+    + Headers
+
+            Token: token value
+
+    + Body
+
+            {
+                "title": "belajar api",
+                "description": "belajar bikin doc api",
+                "status": false,
+                "due_date": "2020-03-03"
+            }
+
++ Response 201
+
+    + Headers
+
+            Token: token value
+
+    + Body
+    
+            {
+                "id": 39,
+                "title": "tanpa token",
+                "description": "tanpa token",
+                "status": false,
+                "due_date": "2020-03-15T00:00:00.000Z",
+                "userId": 12,
+                "updatedAt": "2020-03-03T11:51:23.504Z",
+                "createdAt": "2020-03-03T11:51:23.504Z"
+            }
+
++ Response 400 
+
+    + Headers
+
+            Token: token value
+
+    + Body
+
+            [
+                "title must be filled",
+                "description must be filled",
+                "description must be filled",
+                "input must be date type"
+            ]
++ Response 401 
+
+    + Headers
+
+            Token: token value
+
+    + Body
+
+            [
+                "You need to login first!"
+            ]
+         
++ Response 500 
+
+    + Headers
+
+            Token: token value
+
+    + Body
+
+            [
+                "Database Error!"
+            ]
+
+### Find All Todos [GET]
+
++ Request 
+
+    + Headers
+
+            Token: token value
+            
++ Response 200 
+
+    + Headers
+
+            Token: token value
+
+    + Body
+    
+            [
+                {
+                    "id": 18,
+                    "title": "Bikin third party api",
+                    "description": "latihan",
+                    "status": false,
+                    "due_date": "2020-03-04T00:00:00.000Z",
+                    "userId": 12,
+                    "createdAt": "2020-03-03T11:17:36.250Z",
+                    "updatedAt": "2020-03-03T11:17:36.250Z"
+                },
+                {
+                    "id": 19,
+                    "title": "Bikin third party api coba tanpa token",
+                    "description": "latihan",
+                    "status": false,
+                    "due_date": "2020-03-04T00:00:00.000Z",
+                    "userId": 12,
+                    "createdAt": "2020-03-03T11:20:05.389Z",
+                    "updatedAt": "2020-03-03T11:20:05.389Z"
+                }
+            ]
+
++ Response 500
+
+    + Headers
+
+            Token: token value
+
+    + Body
+    
+            [
+                "Database Error!"
+            ]
+
+## Todo Collection [/todos/{id}]
++ Parameters
+    + id (number) - ID of the data in the form of an integer
+
+### Find Todo By Id [GET]
+
++ Request 
+
+    + Headers
+
+            Token: token value
+
++ Response 200 
+
+    + Headers
+
+            Token: token value
+
+    + Body
+    
+            {
+                "id": 38,
+                "title": "drinking vodka",
+                "description": "hehe",
+                "status": false,
+                "due_date": "2020-03-04T00:00:00.000Z",
+                "userId": 12,
+                "createdAt": "2020-03-03T11:49:31.130Z",
+                "updatedAt": "2020-03-03T12:03:07.408Z"
+            }
+
++ Response 401 
+
+    + Headers
+
+            Token: token value
+
+    + Body
+
+            [
+            "You are not authorized"
+            ]
+            
++ Response 404
+
+    + Headers
+
+            Token: token value
+
+    + Body
+    
+            [
+                "Id not found"
+            ]
+
++ Response 500
+
+    + Headers
+
+            Token: token value
+
+    + Body
+    
+            [
+                "Database Error!"
+            ]   
+    
+### Update Todo By Id [PATCH]
+
++ Request  (application/json)
+
+    + Headers
+
+            Token: token value
+            
+    + Body
+
+            {
+                "title": "belajar api",
+                "description": "belajar bikin doc api",
+                "status": false
+            }
+            
++ Response 200 
+
+    + Headers
+
+            Token: token value
+
+    + Body
+    
+            [
+                {
+                    "id": 38,
+                    "title": "drinking vodka",
+                    "description": "hehe",
+                    "status": false,
+                    "due_date": "2020-03-04T00:00:00.000Z",
+                    "createdAt": "2020-03-03T11:49:31.130Z",
+                    "updatedAt": "2020-03-03T12:03:07.408Z",
+                    "userId": 12
+                }
+            ]
+
++ Response 400
+
+    + Headers
+
+            Token: token value
+
+    + Body
+    
+            [
+                "title must be filled",
+                "description must be filled"
+            ]
+
++ Response 401 
+
+    + Headers
+
+            Token: token value
+
+    + Body
+
+            [
+            "You are not authorized"
+            ]
+            
++ Response 500
+
+    + Headers
+
+            Token: token value
+
+    + Body
+    
+            [
+                "Database Error!"
+            ] 
+            
++ Response 404
+
+    + Headers
+
+            Token: token value
+
+    + Body
+    
+            [
+                "Id not found"
+            ]
+
+### Delete Todo By Id [DELETE]
+
++ Request  (application/json)
+
+    + Headers
+
+            Token: token value
+
++ Response 200 
+
+    + Headers
+
+            Token: token value
+
+    + Body
+    
+            {
+                "id": 36,
+                "title": "testing update",
+                "description": "hehe",
+                "status": false,
+                "due_date": "2020-03-04T00:00:00.000Z",
+                "userId": 12,
+                "createdAt": "2020-03-03T11:46:01.055Z",
+                "updatedAt": "2020-03-03T11:57:04.911Z"
+            }
+    
++ Response 404
+
+    + Headers
+
+            Token: token value
+
+    + Body
+    
+            [
+                "Id not found"
+            ]
+
++ Response 401 
+
+    + Headers
+
+            Token: token value
+
+    + Body
+
+            [
+            "You are not authorized"
+            ]
+       
++ Response 500
+
+    + Headers
+
+            Token: token value
+
+    + Body
+    
+            [
+                "Database Error!"
+            ] 
+            
+            
+## Register [/register]
+
+### Add New User [POST]
+
++ Request (application/json)
+
+    + Body
+
+        
+            {
+                "email": "JohnDoe@gmail.com",
+                "password": "12345"
+            }
+
++ Response 201 
+
+    + Body
+    
+            {
+                "id": 12,
+                "email": "JohnDoe@gmail.com"
+            }
+
++ Response 400 
+
+    + Body
+
+            [
+                "Input must be email",
+                "password must be greater than 2 characters"
+            ]
+ 
+## Login [/login]
+
+### Login [POST]
+
++ Request (application/json)
+
+    + Body
+
+        
+            {
+                "email": "JohnDoe@gmail.com",
+                "password": "12345"
+            }
+
++ Response 200 
+
+    + Body
+    
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImVtYWlsIjoibmF1ZmFseXVuYW40NUBnbWFpbC5jb20iLCJpYXQiOjE1ODMyMzQyMTh9.Qth9Oh2cP66JVcrvkU3qq2Xqab8Enhr5bk18WbofroY"
+
++ Response 400 
+
+    + Body
+
+            [
+                "Email / Password invalid"
+            ]
