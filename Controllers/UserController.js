@@ -15,8 +15,8 @@ class UserController {
                     id: response.id,
                     email: response.email
                 }
-
-                res.status(201).json(payload)
+                const token = generateToken(payload)
+                res.status(201).json({ token, email: payload.email })
             })
 
             .catch(err => {

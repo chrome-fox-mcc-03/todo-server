@@ -17,8 +17,8 @@ Return array of all Todos
 *  **URL Params**
 
    **Required:**
- 
-   `None`
+
+   `headers: TOKEN`
 
 * **Data Params**
 
@@ -28,15 +28,16 @@ Return array of all Todos
 
   * **Code:** 200 <br />
     **Content:** 
-    ```
+    
+    ```json
     [ 
       { 
       id: 1, title: "Selesaikan release 1",
       description: "Selesaikan routes and endpoint di macmini",
       status: "true",
       due_date:"2020-03-03T00:00:00.000Z"
-      }, 
-  
+    }, 
+    
       {
       id: 2, title: "Selesaikan challenge day 1",  
       description: "Selesaikan rest api day 1",
@@ -45,12 +46,12 @@ Return array of all Todos
       } 
     ]
     ```
- 
+
 * **Error Response:**
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** `{ error : "Internal server error" }`
-<br /><br />
+
 
 ----
 
@@ -69,7 +70,7 @@ Return object of one todo
 *  **URL Params**
 
    **Required:**
- 
+
    `id=[integer]`
 
 * **Data Params**
@@ -89,8 +90,7 @@ Return object of one todo
       due_date:"2020-03-03T00:00:00.000Z"
     }
   ```
-      
- 
+  
 * **Error Response:**
 
   * **Code:** 404 NOT FOUND <br />
@@ -119,7 +119,7 @@ Create new object of Todo
 *  **URL Params**
 
    **Required:**
- 
+
    `None`
 
 * **Data Params**
@@ -140,7 +140,7 @@ Create new object of Todo
 
 * **Success Response:**
 
-  * **Code:** 200 <br />
+  * **Code:** 201<br />
     **Content:** 
     ```
     {
@@ -151,7 +151,8 @@ Create new object of Todo
       due_date:"2020-03-03T00:00:00.000Z"
     }
       
- 
+    ```
+
 * **Error Response:**
   * **Code:** 400 BAD REQUEST <br />
     **Content:** `{ error : "Title cannot be empty!" }`
@@ -184,7 +185,7 @@ Update existing Todo
 *  **URL Params**
 
    **Required:**
- 
+
    `id=[integer]`
 
 * **Data Params**
@@ -216,8 +217,8 @@ Update existing Todo
       due_date:"2020-03-03T00:00:00.000Z"
     }
     ```
-      
- 
+    
+
 * **Error Response:**
   * **Code:** 400 BAD REQUEST <br />
     **Content:** `{ error : "Title cannot be empty!" }`
@@ -255,7 +256,7 @@ Delete existing Todo on database
 *  **URL Params**
 
    **Required:**
- 
+
    `id=[integer]`
 
 * **Data Params**
@@ -264,8 +265,8 @@ Delete existing Todo on database
 
   * **Code:** 200 <br />
     **Content:** `{message : "Successfully delete todo *id*" }`
-      
- 
+    
+
 * **Error Response:**
   * **Code:** 404 NOT FOUND <br />
     **Content:** `{ error : "Todo not found, check your Id!" }`
@@ -274,3 +275,19 @@ Delete existing Todo on database
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** `{ error : "Internal server error" }`
+
+<br /><br />
+
+----
+
+## **Login**
+
+Login into website
+
+* **URL**
+
+  `/login`
+
+* **Method**
+  
+  `POST
