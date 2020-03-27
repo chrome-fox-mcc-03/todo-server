@@ -44,14 +44,14 @@ class UserController {
                 }
                 else {
                     next({
-                        status: 401,
+                        status: 400,
                         message: "email / password invalid"
                     })
                 }
             })
             .catch(err => {
                 next({
-                    status: 401,
+                    status: 400,
                     message: "email / password invalid"
                 })
             })

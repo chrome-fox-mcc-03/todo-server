@@ -290,4 +290,94 @@ Login into website
 
 * **Method**
   
+  `POST`
+
+* **Data Params**
+
+  **Required:**
+
+  ```
+  email: mail@mail.com
+  password: <yourpasswordhere>
+  ```
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{ token : <token>, email: <youremail> }`
+    
+
+* **Error Response:**
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ error : "email / password invalid" }`
+
+  OR
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** `{ error : "Internal server error" }`
+
+<br /><br />
+
+----
+
+## Register
+
+Register into website
+
+* **URL**
+
+  `/register`
+
+* **Method**
+  
   `POST
+
+* **Data Params**
+
+  **Required:**
+
+  ```
+  email: <your-email>
+  password: <your-password>
+  ```
+
+* **Success Response:**
+
+  * **Code:** 201 <br />
+    **Content:** `{ token : <token>, email: <your-email> }`
+    
+
+* **Error Response:**
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ message : "Email has been registered" }`
+
+  OR
+
+* **Error Response:**
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ message : "Email cannot be empty!" }`
+
+  OR
+
+* **Error Response:**
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ message : "Please input with valid email" }`
+
+  OR
+
+* **Error Response:**
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ message : "Password cannot be empty!" }`
+
+  OR
+
+* **Error Response:**
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ message : "Password at lease 5 characters" }`
+
+  OR
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** `{ message : "Internal server error" }`
+
+<br /><br />
