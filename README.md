@@ -13,8 +13,6 @@
   `POST`
   
 *  **URL Params**
-
-   **Required:**
  
    `none`
 
@@ -30,9 +28,11 @@
   * **Code:** 201 <br />
     **Content:** 
     ```javascript
-    { id : 1, 
-    name: tamara,
-    email: tama@mail.com }
+    {
+      name: [STRING],
+      email: [STRING],
+      password: [STRING]
+    }
     ```
  
 * **Error Response:**
@@ -41,7 +41,7 @@
     **Content:** 
     ```javascript
     { 
-        errors : ["Email shouldn't be empty!", "Must fill with email format", "Password shouldn't be empty!", "Password length should between 6 and 12 character" ] 
+        errors : [arary of errors] 
     }
     ```
 
@@ -67,32 +67,35 @@
   `POST`
   
 *  **URL Params**
-
-   **Required:**
  
    `none`
 
 * **Data Params**
 
-    `email=[STRING],
-    password=[STRING]`
-    
+    ```
+    {
+      email: [STRING],
+      password: [STRING]
+    }
+    ```
 
 * **Success Response:**
 
   * **Code:** 200<br />
     **Content:** 
-    ```javascript
-    { access_token : sadfuiasgdibqwekjqw0e9hwqenwq}
+    ```
+    { 
+      access_token : [STRING]
+    }
     ```
  
 * **Error Response:**
 
   * **Code:** 400 Validation Error <br />
     **Content:** 
-    ```javascript
+    ```
     { 
-        errors : ["email/password wrong!" ] 
+        errors : [array of errors] 
     }
     ```
 
@@ -118,29 +121,43 @@
   
 *  **URL Params**
 
-   **Required:**
- 
    `none`
+
+  
+*  **Headers**
+
+   ```
+   {
+     access_token : [string]
+   }
+   ```
+
 
 * **Data Params**
 
-    `title=[STRING],
-    description=[STRING],
-    status=[BOOLEAN],
-    due_date=[DATE]`
+    ```
+    {
+      title: [string],
+      description: [string],
+      status: [string],
+      due_date: [string],
+      UserId: [integer]
+    }
+    ```
     
 
 * **Success Response:**
 
   * **Code:** 201 <br />
     **Content:** 
-    ```javascript
+    ```
     {
-        title: 'makan makan,
-        description: 'bersama teman',
-        status: false,
-        due_date: 20/01/2019,
-        UserId: 1
+      id: [integer]
+      title: [string],
+      description: [string],
+      status: [string],
+      due_date: [string],
+      UserId: [integer]
     }
     ```
  
@@ -150,7 +167,7 @@
     **Content:** 
     ```
     { 
-        errors : ["Title shouldn't be empty!", "This date is invalid"] 
+        errors : [array of errors] 
     }
     ```
 
@@ -177,43 +194,53 @@
   `GET`
   
 *  **URL Params**
-
-   **Required:**
  
    `none`
 
 * **Data Params**
 
     `none`
-    
+
+  
+*  **Headers**
+
+   ```
+   {
+     access_token : [string]
+   }
+   ```
+
 
 * **Success Response:**
 
   * **Code:** 200 <br />
     **Content:** 
-    ```javascript
+    ```
     [
-        {
-            title: 'makan makan,
-            description: 'bersama teman',
-            status: false,
-            due_date: 20/01/2019,
-            UserId: 1
-        },
-        {
-            title: 'makan siang,
-            description: 'bersama teman',
-            status: false,
-            due_date: 20/01/2019,
-            UserId: 1
-        },
-        {
-            title: 'makan malam,
-            description: 'bersama teman',
-            status: false,
-            due_date: 20/01/2019,
-            UserId: 1
-        }
+      {
+        id: [integer]
+        title: [string],
+        description: [string],
+        status: [string],
+        due_date: [string],
+        UserId: [integer]
+      },
+      {
+        id: [integer]
+        title: [string],
+        description: [string],
+        status: [string],
+        due_date: [string],
+        UserId: [integer]
+      },
+      {
+        id: [integer]
+        title: [string],
+        description: [string],
+        status: [string],
+        due_date: [string],
+        UserId: [integer]
+      }
     ]
     ```
  
@@ -238,44 +265,39 @@
   `GET`
   
 *  **URL Params**
-
-   **Required:**
  
-   `id=[INTEGER]`
+   ```
+   {
+     id : [integer]
+   }
+   ```
 
 * **Data Params**
 
     `none`
-    
+
+  
+*  **Headers**
+
+   ```
+   {
+     access_token : [string]
+   }
+   ```
 
 * **Success Response:**
 
   * **Code:** 200 <br />
     **Content:** 
-    ```javascript
-    [
-        {
-            title: 'makan makan,
-            description: 'bersama teman',
-            status: false,
-            due_date: 20/01/2019,
-            UserId: 1
-        },
-        {
-            title: 'makan siang,
-            description: 'bersama teman',
-            status: false,
-            due_date: 20/01/2019,
-            UserId: 1
-        },
-        {
-            title: 'makan malam,
-            description: 'bersama teman',
-            status: false,
-            due_date: 20/01/2019,
-            UserId: 1
-        }
-    ]
+    ```
+    {
+      id: [integer]
+      title: [string],
+      description: [string],
+      status: [string],
+      due_date: [string],
+      UserId: [integer]
+    }
     ```
  
 * **Error Response:**
@@ -283,7 +305,8 @@
   * **Code:** 500 <br />
     **Content:** 
     ```
-    { error : "Internal Server Error" }`
+    { error : "Internal Server Error" }
+    ```
 
 
 
@@ -303,25 +326,38 @@
 
    **Required:**
  
-   `id=[INTEGER]`
+   ```
+   {
+     id : [integer]
+   }
+   ```
 
 * **Data Params**
 
     `none`
     
+  
+*  **Headers**
+
+   ```
+   {
+     access_token : [string]
+   }
+   ```
 
 * **Success Response:**
 
   * **Code:** 200 <br />
     **Content:** 
-    ```javascript
-        {
-            title: 'makan makan,
-            description: 'bersama teman',
-            status: false,
-            due_date: 20/01/2019,
-            UserId: 1
-        }
+    ```
+    {
+      id: [integer]
+      title: [string],
+      description: [string],
+      status: [string],
+      due_date: [string],
+      UserId: [integer]
+    }
     ```
  
 * **Error Response:**
@@ -330,14 +366,14 @@
     **Content:** 
     ```javascript
     { 
-        errors : ["Title shouldn't be empty!"] 
+        errors : [array of errors] 
     }
     ```
   * **Code:** 404 Data Not Found <br />
     **Content:** 
-    ```javascript
+    ```
     { 
-        error : "Data Not Found"
+        error : [string]
     }
     ```
 
@@ -363,25 +399,38 @@
 
    **Required:**
  
-   `id=[INTEGER]`
+   ```
+   {
+    id : [INTEGER]
+   }
+   ```
 
 * **Data Params**
 
     `none`
     
+  
+*  **Headers**
+
+   ```
+   {
+     access_token : [string]
+   }
+   ```
 
 * **Success Response:**
 
   * **Code:** 200 <br />
     **Content:** 
-    ```javascript
-        {
-            title: 'makan makan,
-            description: 'bersama teman',
-            status: false,
-            due_date: 20/01/2019,
-            UserId: 1
-        }
+    ```
+    {
+      id: [integer]
+      title: [string],
+      description: [string],
+      status: [string],
+      due_date: [string],
+      UserId: [integer]
+    }
     ```
  
 * **Error Response:**
@@ -390,7 +439,7 @@
     **Content:** 
     ```javascript
     { 
-        error : "Data Not Found"
+        error : [string]
     }
     ```
 

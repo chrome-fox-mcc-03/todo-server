@@ -8,7 +8,6 @@ module.exports = (req, res, next) => {
             key: '15515207-c65520f3e7922d78b69cada53',
             // q: 'nature',
             image_type: 'photo'
-            // editors_choice: true
         }
     })
         .then(({data}) => {

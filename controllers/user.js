@@ -93,11 +93,12 @@ class UserController {
                     // })
                 } else {
                     console.log('ga ketemu usernyaaaa')
-                    console.log(email)
+                    // console.log(email)
+                    console.log(process.env.PWD)
                      return User.create({
                             name: payload.name,
                             email: payload.email,
-                            password: process.env.PWD
+                            password: 'kitten'
                     })
                 }
             })
