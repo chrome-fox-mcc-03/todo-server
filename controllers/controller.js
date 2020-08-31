@@ -89,7 +89,7 @@ class Controller{
             title: req.body.title,
             description: req.body.description,
             status: req.body.status,
-            // due_date: req.body.due_date,
+            due_date: req.body.due_date,
             userId: req.decoded.id
         },{
             where: {
