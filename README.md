@@ -292,7 +292,7 @@
 
 ---
 
-**Google Sign In**
+**Log In**
 ----
   Login a user.
 
